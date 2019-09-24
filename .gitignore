@@ -6,6 +6,8 @@
 build/
 DerivedData/
 
+.DS_STORE
+
 ## Various settings
 *.pbxuser
 !default.pbxuser
