@@ -14,7 +14,7 @@ class ModalTransitionDismissing: NSObject, UIViewControllerAnimatedTransitioning
     
     func transitionDuration(
         using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return animator.duration
+        return 0.375
     }
     
     func animateTransition(
