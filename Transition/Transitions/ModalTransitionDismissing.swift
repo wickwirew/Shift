@@ -22,14 +22,13 @@ class ModalTransitionDismissing: NSObject, UIViewControllerAnimatedTransitioning
         guard let fromViewController = transitionContext.viewController(forKey: .from),
             let toViewController = transitionContext.viewController(forKey: .to) else { return }
         
-        animator.onSnapshotsAdded = {
-            fromViewController.view.isHidden = true
-        }
+        fromViewController.view.removeFromSuperview()
         
         animator.animate(
             fromView: fromViewController.view,
             toView: toViewController.view,
             container: transitionContext.containerView,
+            isAppearing: false,
             completion: { complete in
                 transitionContext.completeTransition(complete)
             }

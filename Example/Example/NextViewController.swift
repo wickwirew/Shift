@@ -18,4 +18,8 @@ class NextViewController: UIViewController {
         albumCover.layer.masksToBounds = true
         albumCover.layer.cornerRadius = 10
     }
+    
+    @IBAction func cancelPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
 }

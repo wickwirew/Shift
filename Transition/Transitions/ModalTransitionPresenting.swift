@@ -31,7 +31,7 @@ class ModalTransitionPresenting: NSObject, UIViewControllerAnimatedTransitioning
         toViewController.view.frame = frame
         toViewController.view.setNeedsLayout()
         toViewController.view.layoutIfNeeded()
-
+        
         animator.animate(
             fromView: fromViewController.view,
             toView: toViewController.view,

@@ -21,6 +21,7 @@ final class TransitionAnimator {
     func animate(fromView: UIView,
                  toView: UIView,
                  container: UIView,
+                 isAppearing: Bool = true,
                  completion: @escaping (Bool) -> Void,
                  extraAnimations: (() -> Void)? = nil) {
         
@@ -37,13 +38,20 @@ final class TransitionAnimator {
         let duration = views.map{ $0.duration }.max() ?? 0
         
         /// Animate the root view in at the longest duration
-        animateRootView(root: toView, container: container, duration: duration)
+        let rootSnapshot = animateRootView(
+            fromView: fromView,
+            toView: toView,
+            container: container,
+            duration: duration,
+            isAppearing: isAppearing
+        )
         
         DispatchQueue.main.asyncAfter(
             deadline: .now() + duration,
             execute: {
                 completion(true)
                 self.views.forEach{ $0.finish() }
+                rootSnapshot?.removeFromSuperview()
             }
         )
     }
@@ -94,22 +102,27 @@ final class TransitionAnimator {
     
     /// Handles animating the root target view in.
     /// If it does not have any id then it should be faded in.
-    private func animateRootView(root: UIView,
+    private func animateRootView(fromView: UIView,
+                                 toView: UIView,
                                  container: UIView,
-                                 duration: TimeInterval) {
+                                 duration: TimeInterval,
+                                 isAppearing: Bool) -> UIView? {
+        let root = isAppearing ? toView : fromView
+        let initialAlpha: CGFloat = isAppearing ? 0 : 1
+        let targetAlpha: CGFloat = isAppearing ? 1 : 0
+        
         let oldAlpha = root.alpha
         root.alpha = 1
         
         guard !views.contains(where: { $0.fromView == root }),
-            let snapshot = root.snapshotView(afterScreenUpdates: true) else { return }
-        
-        let state = TransitionViewState(view: root, container: container)
-        state.apply(to: snapshot)
+            let snapshot = root.snapshotView(afterScreenUpdates: true) else { return nil }
+
+        snapshot.frame = root.frame
         
         root.alpha = oldAlpha
         
         container.insertSubview(snapshot, at: 0)
-        snapshot.alpha = 0
+        snapshot.alpha = initialAlpha
         
         CATransaction.begin()
         CATransaction.setAnimationDuration(duration)
@@ -117,9 +130,11 @@ final class TransitionAnimator {
         
         UIView.animate(
             withDuration: duration,
-            animations: { snapshot.alpha = 1 }
+            animations: { snapshot.alpha = targetAlpha }
         )
         
         CATransaction.commit()
+        
+        return snapshot
     }
 }
