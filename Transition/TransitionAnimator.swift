@@ -21,66 +21,56 @@ final class TransitionAnimator {
                  completion: @escaping (Bool) -> Void,
                  extraAnimations: (() -> Void)? = nil) {
         
-        let views = findMatches(fromView: fromView, toView: toView, container: container)
+        var views = flatten(view: toView, container: container)
         
-        takeSnapshots(views: views, container: container)
+        findMatches(in: fromView, container: container, result: &views)
         
+        views.forEach { $0.takeSnapshot(container: container) }
+
         onSnapshotsAdded?()
         
         views.forEach{ $0.performNonAnimatedChanges() }
         views.forEach{ $0.performCaAnimations() }
         views.forEach{ $0.performUiViewAnimations() }
         
-        /// Get the longest duration
-        let duration = views.map{ $0.duration }.max() ?? 0
-        
-        /// Animate the root view in at the longest duration
-        let rootSnapshot = animateRootView(
-            views: views,
-            fromView: fromView,
-            toView: toView,
-            container: container,
-            duration: duration,
-            isAppearing: isAppearing
-        )
-        
         DispatchQueue.main.asyncAfter(
-            deadline: .now() + duration,
+            deadline: .now() + views.maxDuration,
             execute: {
                 completion(true)
                 views.forEach{ $0.finish() }
-                rootSnapshot?.removeFromSuperview()
             }
         )
     }
     
-    private func findMatches(fromView: UIView, toView: UIView, container: UIView) -> [TransitionView] {
-        var views = [TransitionView]()
+    private func findMatches(in view: UIView,
+                             container: UIView,
+                             result: inout [TransitionView]) {
+        let views = findViews(in: view)
         
-        let fromViews = findViews(in: fromView)
-        let toViews = findViews(in: toView)
+        for transitionView in result {
+            guard let id = transitionView.id,
+                let match = views[id] else { continue }
 
-        for (id, view) in fromViews {
-            guard let match = toViews[id] else { continue }
-            
-            let value = TransitionView(
-                fromView: view.0,
-                toView: match.0,
-                location: view.1,
-                container: container
-            )
-            
-            views.append(value)
+            transitionView.setMatch(view: match.0, container: container)
         }
-        
-        return views
     }
     
-    private func takeSnapshots(views: [TransitionView], container: UIView) {
-        // sort views by their depth in the view tree so the
-        // subviews are not included in the snapshot
-        views.sorted(by: { $0.location > $1.location })
-            .forEach{ $0.takeSnapshot(container: container) }
+    private func flatten(view: UIView,
+                         container: UIView) -> [TransitionView] {
+        var result = [TransitionView]()
+        flatten(view: view, container: container, result: &result)
+        return result
+    }
+    
+    private func flatten(view: UIView,
+                         container: UIView, result: inout [TransitionView]) {
+        for subview in view.subviews.reversed() {
+            flatten(view: subview, container: container, result: &result)
+        }
+        
+        guard !view.isHidden else { return }
+        
+        result.append(TransitionView(toView: view, container: container))
     }
     
     private func findViews(in view: UIView) -> [String: (UIView, ViewLocation)] {
@@ -100,46 +90,5 @@ final class TransitionAnimator {
         for (i, subview) in view.subviews.enumerated() {
             findViews(in: subview, depth: depth + 1, index: i, views: &views)
         }
-    }
-    
-    /// Handles animating the root target view in.
-    /// If it does not have any id then it should be faded in.
-    private func animateRootView(views: [TransitionView],
-                                 fromView: UIView,
-                                 toView: UIView,
-                                 container: UIView,
-                                 duration: TimeInterval,
-                                 isAppearing: Bool) -> UIView? {
-        // if its apearing we want to fade in the toView
-        // if its dismissing we want to fade out the fromView
-        let root = isAppearing ? toView : fromView
-        let initialAlpha: CGFloat = isAppearing ? 0 : 1
-        let targetAlpha: CGFloat = isAppearing ? 1 : 0
-        
-        let oldAlpha = root.alpha
-        root.alpha = 1
-        
-        guard !views.contains(where: { $0.fromView == root }),
-            let snapshot = root.snapshotView(afterScreenUpdates: true) else { return nil }
-
-        snapshot.frame = root.frame
-        
-        root.alpha = oldAlpha
-        
-        container.insertSubview(snapshot, at: 0)
-        snapshot.alpha = initialAlpha
-        
-        CATransaction.begin()
-        CATransaction.setAnimationDuration(duration)
-        CATransaction.setAnimationTimingFunction(.normal)
-        
-        UIView.animate(
-            withDuration: duration,
-            animations: { snapshot.alpha = targetAlpha }
-        )
-        
-        CATransaction.commit()
-        
-        return snapshot
     }
 }

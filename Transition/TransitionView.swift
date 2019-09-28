@@ -10,51 +10,41 @@ import UIKit
 
 final class TransitionView {
     
+    let id: String?
+    
     weak var fromView: UIView?
     weak var toView: UIView?
     var snapshot: UIView?
-    let initialState: TransitionViewState
     let finalState: TransitionViewState
-    let location: ViewLocation
     
+    private var fromViewState: TransitionViewState?
+
     lazy var duration: TimeInterval = calculateDuration()
     
-    init(fromView: UIView,
-         toView: UIView,
-         location: ViewLocation,
+    init(toView: UIView,
          container: UIView) {
-        self.fromView = fromView
+        self.id = toView.transition.id
         self.toView = toView
-        self.initialState = TransitionViewState(view: fromView, container: container)
         self.finalState = TransitionViewState(view: toView, container: container)
-        self.location = location
+    }
+    
+    /// The views initial state for the transition
+    var initialState: TransitionViewState  {
+        // if the view has a match from the `fromView`, then we should
+        // use the `fromViewState` so it is animated from its old state
+        // to its new state. Else just use its final state
+        return fromViewState ?? finalState
+    }
+    
+    func setMatch(view: UIView, container: UIView) {
+        fromView = view
+        fromViewState = TransitionViewState(view: view, container: container)
     }
     
     func takeSnapshot(container: UIView) {
-        guard let view = fromView else { return }
-        
-        let oldCornerRadius = view.layer.cornerRadius
-        let oldAlpha = view.alpha
-        let oldShadowRadius = view.layer.shadowRadius
-        let oldShadowOffset = view.layer.shadowOffset
-        let oldShadowPath = view.layer.shadowPath
-        let oldShadowOpacity = view.layer.shadowOpacity
-        
-        view.layer.cornerRadius = 0
-        view.alpha = 1
-        view.layer.shadowRadius = 0.0
-        view.layer.shadowOffset = .zero
-        view.layer.shadowPath = nil
-        view.layer.shadowOpacity = 0.0
+        guard let view = toView else { return }
         
         snapshot = view.snapshot()
-        
-        view.layer.cornerRadius = oldCornerRadius
-        view.alpha = oldAlpha
-        view.layer.shadowRadius = oldShadowRadius
-        view.layer.shadowOffset = oldShadowOffset
-        view.layer.shadowPath = oldShadowPath
-        view.layer.shadowOpacity = oldShadowOpacity
         
         guard let snapshot = snapshot else { return }
         initialState.apply(to: snapshot, finalState: finalState)
@@ -130,11 +120,16 @@ final class TransitionView {
         CATransaction.setAnimationDuration(duration)
         CATransaction.setAnimationTimingFunction(.normal)
         
+        let initialAlpha = fromViewState == nil ? 0 : initialState.alpha
+        let finalAlpha = fromViewState == nil ? 1 : finalState.alpha
+        
+        snapshot?.alpha = initialAlpha
+        
         UIView.animate(
             withDuration: duration,
             animations: {
                 self.snapshot?.layer.position = self.finalState.position
-                self.snapshot?.alpha = self.finalState.alpha
+                self.snapshot?.alpha = finalAlpha
                 self.snapshot?.layer.bounds = self.finalState.bounds
             }
         )
@@ -144,12 +139,16 @@ final class TransitionView {
     
     func finish() {
         snapshot?.removeFromSuperview()
-        fromView?.alpha = initialState.alpha
-        toView?.alpha = finalState.alpha
+//        fromView?.alpha = initialState.alpha
+//        toView?.alpha = finalState.alpha
+        fromView?.alpha = 1
+        toView?.alpha = 1
     }
     
     /// Calculates an appropiate duration for the animation.
-    func calculateDuration() -> TimeInterval {        // The max duration should be 0.375 seconds
+    func calculateDuration() -> TimeInterval {
+        return 4
+        // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
         // So there is an additional 0.175 seconds to add based off
         // how far the view is going to move or how much
@@ -161,5 +160,12 @@ final class TransitionView {
         let positionDuration = additionalDuration * TimeInterval(positionDistance.clamp(0, 500) / 500)
         
         return minDuration + positionDuration
+    }
+}
+
+extension Array where Element == TransitionView {
+    
+    var maxDuration: TimeInterval {
+        return self.map{ $0.duration }.max() ?? 0
     }
 }
