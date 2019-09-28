@@ -112,6 +112,7 @@ final class TransitionAnimator {
         snapshot.alpha = 0
         
         CATransaction.begin()
+        CATransaction.setAnimationDuration(duration)
         CATransaction.setAnimationTimingFunction(.normal)
         
         UIView.animate(

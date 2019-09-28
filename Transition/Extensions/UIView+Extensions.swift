@@ -14,4 +14,20 @@ extension UIView {
         get { return transition.id }
         set { transition.id = newValue }
     }
+    
+    func snapshot() -> UIView? {
+        if let imageView = self as? UIImageView {
+            let view = UIImageView(image: imageView.image)
+            view.frame = imageView.bounds
+            view.contentMode = imageView.contentMode
+            view.tintColor = imageView.tintColor
+            view.backgroundColor = imageView.backgroundColor
+            view.layer.magnificationFilter = imageView.layer.magnificationFilter
+            view.layer.minificationFilter = imageView.layer.minificationFilter
+            view.layer.minificationFilterBias = imageView.layer.minificationFilterBias
+            return view
+        } else {
+            return snapshotView(afterScreenUpdates: true)
+        }
+    }
 }

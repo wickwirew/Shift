@@ -47,7 +47,7 @@ final class TransitionView {
         view.layer.shadowPath = nil
         view.layer.shadowOpacity = 0.0
         
-        snapshot = view.snapshotView(afterScreenUpdates: true)
+        snapshot = view.snapshot()
         
         view.layer.cornerRadius = oldCornerRadius
         view.alpha = oldAlpha
@@ -149,9 +149,7 @@ final class TransitionView {
     }
     
     /// Calculates an appropiate duration for the animation.
-    func calculateDuration() -> TimeInterval {
-        return 4
-        // The max duration should be 0.375 seconds
+    func calculateDuration() -> TimeInterval {        // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
         // So there is an additional 0.175 seconds to add based off
         // how far the view is going to move or how much
