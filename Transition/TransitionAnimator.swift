@@ -24,7 +24,7 @@ final class TransitionAnimator {
                  completion: @escaping (Bool) -> Void,
                  extraAnimations: (() -> Void)? = nil) {
         
-        preprocess(fromView: fromView, toView: toView, container: container)
+        findMatches(fromView: fromView, toView: toView, container: container)
         takeSnapshots(container: container)
         
         onSnapshotsAdded?()
@@ -42,7 +42,7 @@ final class TransitionAnimator {
         )
     }
     
-    func preprocess(fromView: UIView, toView: UIView, container: UIView) {
+    func findMatches(fromView: UIView, toView: UIView, container: UIView) {
         let fromViews = findViews(in: fromView)
         let toViews = findViews(in: toView)
 

@@ -74,90 +74,34 @@ final class TransitionView {
     }
     
     func performCaAnimations() {
-        guard let snapshot = snapshot else { return }
-
-        let from = initialState
-        let to = finalState
+        addAnimation(key: .position, value: \.position, layer: \.position)
+        addAnimation(key: .bounds, value: \.bounds, layer: \.bounds)
+        addAnimation(key: .cornerRadius, value: \.cornerRadius, layer: \.cornerRadius)
+        addAnimation(key: .anchorPoint, value: \.anchorPoint, layer: \.anchorPoint)
+        addAnimation(key: .zPosition, value: \.zPosition, layer: \.zPosition)
+        addAnimation(key: .opacity, value: \.opacity, layer: \.opacity)
+        addAnimation(key: .isOpaque, value: \.isOpaque, layer: \.isOpaque)
+        addAnimation(key: .masksToBounds, value: \.masksToBounds, layer: \.masksToBounds)
+        addAnimation(key: .borderColor, value: \.borderColor, layer: \.borderColor)
+        addAnimation(key: .borderWidth, value: \.borderWidth, layer: \.borderWidth)
+        addAnimation(key: .contentsRect, value: \.contentsRect, layer: \.contentsRect)
+        addAnimation(key: .contentsScale, value: \.contentsScale, layer: \.contentsScale)
+        addAnimation(key: .shadowColor, value: \.shadowColor, layer: \.shadowColor)
+        addAnimation(key: .shadowOffset, value: \.shadowOffset, layer: \.shadowOffset)
+        addAnimation(key: .shadowRadius, value: \.shadowRadius, layer: \.shadowRadius)
+        addAnimation(key: .shadowOpacity, value: \.shadowOpacity, layer: \.shadowOpacity)
+        addAnimation(key: .transform, value: \.transform, layer: \.transform)
         
-        if from.cornerRadius != to.cornerRadius {
-            snapshot.layer.addAnimation(for: .cornerRadius, from: from.cornerRadius, to: to.cornerRadius, duration: duration)
-            snapshot.layer.cornerRadius = to.cornerRadius
-        }
-        
-        if from.anchorPoint != to.anchorPoint {
-            snapshot.layer.addAnimation(for: .anchorPoint, from: from.anchorPoint, to: to.anchorPoint, duration: duration)
-            snapshot.layer.anchorPoint = to.anchorPoint
-        }
-        
-        if from.zPosition != to.zPosition {
-            snapshot.layer.addAnimation(for: .zPosition, from: from.zPosition, to: to.zPosition, duration: duration)
-            snapshot.layer.zPosition = to.zPosition
-        }
-        
-        if from.opacity != to.opacity {
-            snapshot.layer.addAnimation(for: .opacity, from: from.opacity, to: to.opacity, duration: duration)
-            snapshot.layer.opacity = to.opacity
-        }
-        
-        if from.isOpaque != to.isOpaque {
-            snapshot.layer.addAnimation(for: .isOpaque, from: from.isOpaque, to: to.isOpaque, duration: duration)
-            snapshot.layer.isOpaque = to.isOpaque
-        }
-        
-        if from.borderColor != to.borderColor {
-            snapshot.layer.addAnimation(for: .borderColor, from: from.borderColor, to: to.borderColor, duration: duration)
-            snapshot.layer.borderColor = to.borderColor
-        }
-        
-        if from.borderWidth != to.borderWidth {
-            snapshot.layer.addAnimation(for: .borderWidth, from: from.borderWidth, to: to.borderWidth, duration: duration)
-            snapshot.layer.borderWidth = to.borderWidth
-        }
-        
-        if from.contentsRect != to.contentsRect {
-            snapshot.layer.addAnimation(for: .contentsRect, from: from.contentsRect, to: to.contentsRect, duration: duration)
-            snapshot.layer.contentsRect = to.contentsRect
-        }
-        
-        if from.contentsScale != to.contentsScale {
-            snapshot.layer.addAnimation(for: .contentsScale, from: from.contentsScale, to: to.contentsScale, duration: duration)
-            snapshot.layer.contentsScale = to.contentsScale
-        }
-        
-        if from.shadowColor != to.shadowColor {
-            snapshot.layer.addAnimation(for: .shadowColor, from: from.shadowColor, to: to.shadowColor, duration: duration)
-            snapshot.layer.shadowColor = to.shadowColor
-        }
-
-        if from.shadowOffset != to.shadowOffset {
-            snapshot.layer.addAnimation(for: .shadowOffset, from: from.shadowOffset, to: to.shadowOffset, duration: duration)
-            snapshot.layer.shadowOffset = to.shadowOffset
-        }
-
-        if from.shadowRadius != to.shadowRadius {
-            snapshot.layer.addAnimation(for: .shadowRadius, from: from.shadowRadius, to: to.shadowRadius, duration: duration)
-            snapshot.layer.shadowRadius = to.shadowRadius
-        }
-        
-        if from.shadowOpacity != to.shadowOpacity {
-            snapshot.layer.addAnimation(for: .shadowOpacity, from: from.shadowOpacity, to: to.shadowOpacity, duration: duration)
-            snapshot.layer.shadowOpacity = to.shadowOpacity
-        }
-        
-        if from.shadowPath != to.shadowPath {
-            let fromPath = from.shadowPath ?? UIBezierPath(rect: from.bounds).cgPath
-            let toPath = to.shadowPath ?? UIBezierPath(rect: to.bounds).cgPath
-            snapshot.layer.addAnimation(for: .shadowPath, from: fromPath, to: toPath, duration: duration)
-            snapshot.layer.shadowPath = to.shadowPath
-        }
-        
-        if from.transform != to.transform {
-            snapshot.layer.addAnimation(for: .transform, from: from.transform, to: to.transform, duration: duration)
-            snapshot.layer.transform = to.transform
+        // A specialized addAnimation for shadowPath to default it if need be.
+        if initialState.shadowPath != finalState.shadowPath {
+            let fromPath = initialState.shadowPath ?? UIBezierPath(rect: initialState.bounds).cgPath
+            let toPath = finalState.shadowPath ?? UIBezierPath(rect: finalState.bounds).cgPath
+            snapshot?.layer.addAnimation(for: .shadowPath, from: fromPath, to: toPath, duration: duration)
+            snapshot?.layer.shadowPath = toPath
         }
     }
     
-    /// Adds a animation for the given keyPath if the value has changed.
+    /// Adds an animation for the given keyPath if the value has changed.
     func addAnimation<T: Equatable>(key: AnimationKeyPath,
                                     value: KeyPath<TransitionViewState, T>,
                                     layer: ReferenceWritableKeyPath<CALayer, T>) {

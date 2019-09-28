@@ -88,12 +88,12 @@
 			isa = PBXGroup;
 			children = (
 				DE2572F1233ACDF200B19BE0 /* CALayer+Extensions.swift */,
-				DE2572FE233AD2DD00B19BE0 /* CGPoint+Extensions.swift */,
-				DE257300233AD30200B19BE0 /* CATransform3D+Extensions.swift */,
-				DE257330233AD72800B19BE0 /* UIViewController+Extensions.swift */,
-				DE257334233ADA1B00B19BE0 /* UIView+Extensions.swift */,
-				DEED0029233EBFA2006511F2 /* CGFloat+Extensions.swift */,
 				DEED002D233EC498006511F2 /* CAMediaTimingFunction+Extensions.swift */,
+				DE257300233AD30200B19BE0 /* CATransform3D+Extensions.swift */,
+				DEED0029233EBFA2006511F2 /* CGFloat+Extensions.swift */,
+				DE2572FE233AD2DD00B19BE0 /* CGPoint+Extensions.swift */,
+				DE257334233ADA1B00B19BE0 /* UIView+Extensions.swift */,
+				DE257330233AD72800B19BE0 /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -130,14 +130,14 @@
 		DEAEC80323398134003F5977 /* Transition */ = {
 			isa = PBXGroup;
 			children = (
-				DE257327233AD4BC00B19BE0 /* Transitions */,
 				DE2572FD233ACEDA00B19BE0 /* Extensions */,
+				DE257327233AD4BC00B19BE0 /* Transitions */,
+				DE2572F2233ACDF200B19BE0 /* AnimationKeyPath.swift */,
 				DE2572F0233ACDF200B19BE0 /* TransitionAnimator.swift */,
+				DE2572EF233ACDF200B19BE0 /* TransitionExtendable.swift */,
 				DE2572F7233ACE0B00B19BE0 /* TransitionView.swift */,
 				DE2572F9233ACE3400B19BE0 /* TransitionViewState.swift */,
 				DE2572FB233ACEB300B19BE0 /* ViewLocation.swift */,
-				DE2572F2233ACDF200B19BE0 /* AnimationKeyPath.swift */,
-				DE2572EF233ACDF200B19BE0 /* TransitionExtendable.swift */,
 				DEAEC80423398134003F5977 /* Transition.h */,
 				DEAEC80523398134003F5977 /* Info.plist */,
 			);
