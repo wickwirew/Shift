@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NextViewController: UIViewController {
+class SongPlayerViewController: UIViewController {
     
     @IBOutlet weak var albumCover: UIImageView!
     

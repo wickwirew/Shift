@@ -9,7 +9,7 @@
 import UIKit
 import Transition
 
-class ViewController: UIViewController {
+class ArtistViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var playerSongTitle: UILabel!
@@ -41,13 +41,13 @@ class ViewController: UIViewController {
     
     @objc func titlePressed() {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(identifier: "NextViewController")
+            .instantiateViewController(identifier: "SongPlayerViewController")
         viewController.view.backgroundColor = .black
         present(viewController, animated: true, completion: nil)
     }
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension ArtistViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SongCell
