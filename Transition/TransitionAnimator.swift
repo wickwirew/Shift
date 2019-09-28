@@ -1,5 +1,5 @@
 //
-//  AnimationContext.swift
+//  TransitionAnimator.swift
 //  ExpandoCell
 //
 //  Created by Wes Wickwire on 9/17/19.
@@ -8,13 +8,15 @@
 
 import UIKit
 
-final class Transition {
+final class TransitionAnimator {
     
     typealias Hook = () -> Void
     
     var views = [TransitionView]()
     
     var onSnapshotsAdded: Hook?
+    
+    let duration = 0.2
     
     func animate(fromView: UIView,
                  toView: UIView,
@@ -27,27 +29,17 @@ final class Transition {
         
         onSnapshotsAdded?()
         
-        let duration = 0.2
+        views.forEach{ $0.performNonAnimatedChanges() }
+        views.forEach{ $0.performCaAnimations() }
+        views.forEach{ $0.performUiViewAnimations() }
         
-        CATransaction.begin()
-        CATransaction.setAnimationDuration(duration)
-        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: .easeInEaseOut))
-        CATransaction.setCompletionBlock({
-            completion(true)
-            self.views.forEach{ $0.finish() }
-        })
-        
-        views.forEach{ $0.caAnimations() }
-        
-        UIView.animate(
-            withDuration: duration,
-            animations: {
-                self.views.forEach{ $0.uiViewAnimations() }
-                extraAnimations?()
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + (views.map{ $0.duration }.max() ?? 0),
+            execute: {
+                completion(true)
+                self.views.forEach{ $0.finish() }
             }
         )
-
-        CATransaction.commit()
     }
     
     func preprocess(fromView: UIView, toView: UIView, container: UIView) {
@@ -81,7 +73,10 @@ final class Transition {
         return views
     }
     
-    private func findViews(in view: UIView, depth: Int, index: Int, views: inout [String: (UIView, ViewLocation)]) {
+    private func findViews(in view: UIView,
+                           depth: Int,
+                           index: Int,
+                           views: inout [String: (UIView, ViewLocation)]) {
         if let id = view.transition.id {
             views[id] = (view, ViewLocation(depth: depth, index: index))
         }

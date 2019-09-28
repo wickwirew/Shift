@@ -27,14 +27,62 @@ public class TransitionExtendable<Base> {
     }
 }
 
-public extension TransitionExtendable where Base: UIView {
+extension TransitionExtendable where Base: UIView {
     
-    var id: String? {
+    public var id: String? {
         get {
             return objc_getAssociatedObject(base, &UIView.TransitionKeys.id) as? String
         } set {
             let nonatomic = objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
             objc_setAssociatedObject(base, &UIView.TransitionKeys.id, newValue, nonatomic)
         }
+    }
+}
+
+extension TransitionExtendable where Base: UIViewController {
+    
+    public var isEnabled: Bool {
+        get {
+            return base.transitioningDelegate is ModalTransitioningDelegate
+        } set {
+            let nonatomic = objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
+            
+            guard newValue != false else {
+                return objc_setAssociatedObject(
+                    base,
+                    &UIViewController.TransitionKeys.isEnabled,
+                    newValue,
+                    nonatomic)
+            }
+            
+            let existing = objc_getAssociatedObject(
+                base,
+                &UIViewController.TransitionKeys.isEnabled) as? ModalTransitioningDelegate
+            
+            guard existing == nil else { return }
+            
+            let delegate = ModalTransitioningDelegate()
+            
+            base.modalPresentationStyle = .custom
+            base.transitioningDelegate = delegate
+            base.modalTransitionStyle = .crossDissolve
+            
+            objc_setAssociatedObject(
+                base,
+                &UIViewController.TransitionKeys.isEnabled,
+                delegate,
+                nonatomic)
+        }
+    }
+}
+
+extension UIViewController {
+    
+    struct TransitionKeys {
+        static var isEnabled = "transition.isEnabled"
+    }
+    
+    public var transition: TransitionExtendable<UIViewController> {
+        return TransitionExtendable(base: self)
     }
 }

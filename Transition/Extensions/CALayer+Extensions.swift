@@ -13,30 +13,12 @@ extension CALayer {
     func addAnimation(for keyPath: AnimationKeyPath,
                       from fromValue: Any?,
                       to toValue: Any?,
-                      finalState: TransitionViewState) {
+                      duration: TimeInterval) {
         let animation = CABasicAnimation(keyPath: keyPath.rawValue)
         animation.fromValue = fromValue
         animation.toValue = toValue
-//        animation.duration = optimizedDuration(finalState: finalState)
+        animation.duration = duration
+        animation.timingFunction = .normal
         add(animation, forKey: keyPath.rawValue)
     }
-//
-//    func optimizedDuration(finalState: AnimationContext.ViewState) -> TimeInterval {
-//        let fromPos = (self.presentation() ?? self).position
-//        let toPos = finalState.position
-//        let fromSize = (self.presentation() ?? self).bounds.size
-//        let toSize = finalState.bounds.size
-//        let fromTransform = (self.presentation() ?? self).transform
-//        let toTransform = finalState.transform
-//
-//        let realFromPos = CGPoint.zero.transform(fromTransform) + fromPos
-//        let realToPos = CGPoint.zero.transform(toTransform) + toPos
-//
-//        let realFromSize = fromSize.transform(fromTransform)
-//        let realToSize = toSize.transform(toTransform)
-//
-//        let movePoints = (realFromPos.distance(realToPos) + realFromSize.bottomRight.distance(realToSize.bottomRight))
-//
-//        return 0.208 + Double(movePoints.clamp(0, 500)) / 3000
-//    }
 }
