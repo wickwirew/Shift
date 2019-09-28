@@ -105,8 +105,8 @@ final class TransitionView {
     func addAnimation<T: Equatable>(key: AnimationKeyPath,
                                     value: KeyPath<TransitionViewState, T>,
                                     layer: ReferenceWritableKeyPath<CALayer, T>) {
-        let to = initialState[keyPath: value]
-        let from = finalState[keyPath: value]
+        let from = initialState[keyPath: value]
+        let to = finalState[keyPath: value]
         
         // make sure the value has changed
         guard to != from else { return }
@@ -150,6 +150,7 @@ final class TransitionView {
     
     /// Calculates an appropiate duration for the animation.
     func calculateDuration() -> TimeInterval {
+        return 4
         // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
         // So there is an additional 0.175 seconds to add based off
