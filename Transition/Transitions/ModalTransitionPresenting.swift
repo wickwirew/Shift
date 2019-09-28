@@ -23,7 +23,7 @@ class ModalTransitionPresenting: NSObject, UIViewControllerAnimatedTransitioning
             let fromViewController = transitionContext.viewController(forKey: .from) else { return }
         
         // hide to view controller before it is added
-        toViewController.view.isHidden = true
+        toViewController.view.alpha = 0
 
         transitionContext.containerView.insertSubview(toViewController.view, at: 0)
  
@@ -37,7 +37,7 @@ class ModalTransitionPresenting: NSObject, UIViewControllerAnimatedTransitioning
             toView: toViewController.view,
             container: transitionContext.containerView,
             completion: { complete in
-                toViewController.view.isHidden = false
+                toViewController.view.alpha = 1
                 transitionContext.completeTransition(complete)
             }
         )

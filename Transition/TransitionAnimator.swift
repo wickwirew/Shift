@@ -33,8 +33,14 @@ final class TransitionAnimator {
         views.forEach{ $0.performCaAnimations() }
         views.forEach{ $0.performUiViewAnimations() }
         
+        /// Get the longest duration
+        let duration = views.map{ $0.duration }.max() ?? 0
+        
+        /// Animate the root view in at the longest duration
+        animateRootView(root: toView, container: container, duration: duration)
+        
         DispatchQueue.main.asyncAfter(
-            deadline: .now() + (views.map{ $0.duration }.max() ?? 0),
+            deadline: .now() + duration,
             execute: {
                 completion(true)
                 self.views.forEach{ $0.finish() }
@@ -84,5 +90,35 @@ final class TransitionAnimator {
         for (i, subview) in view.subviews.enumerated() {
             findViews(in: subview, depth: depth + 1, index: i, views: &views)
         }
+    }
+    
+    /// Handles animating the root target view in.
+    /// If it does not have any id then it should be faded in.
+    private func animateRootView(root: UIView,
+                                 container: UIView,
+                                 duration: TimeInterval) {
+        let oldAlpha = root.alpha
+        root.alpha = 1
+        
+        guard !views.contains(where: { $0.fromView == root }),
+            let snapshot = root.snapshotView(afterScreenUpdates: true) else { return }
+        
+        let state = TransitionViewState(view: root, container: container)
+        state.apply(to: snapshot)
+        
+        root.alpha = oldAlpha
+        
+        container.insertSubview(snapshot, at: 0)
+        snapshot.alpha = 0
+        
+        CATransaction.begin()
+        CATransaction.setAnimationTimingFunction(.normal)
+        
+        UIView.animate(
+            withDuration: duration,
+            animations: { snapshot.alpha = 1 }
+        )
+        
+        CATransaction.commit()
     }
 }
