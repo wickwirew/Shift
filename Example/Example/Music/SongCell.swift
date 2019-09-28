@@ -11,4 +11,5 @@ import UIKit
 class SongCell: UITableViewCell {
     @IBOutlet weak var songTitle: UILabel!
     @IBOutlet weak var listens: UILabel!
+    @IBOutlet weak var trackNumber: UILabel!
 }

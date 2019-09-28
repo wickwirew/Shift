@@ -16,16 +16,18 @@ class ArtistViewController: UIViewController {
     
     let formatter: NumberFormatter = {
         let formatter = NumberFormatter()
-        formatter.numberStyle = .ordinal
+        formatter.numberStyle = .decimal
+        formatter.formatterBehavior = .behavior10_4
+        formatter.maximumFractionDigits = 0
         return formatter
     }()
     
     var songs: [Song] = [
-        Song(name: "Daft Pretty Boys", numberOfListens: 54215834),
-        Song(name: "Cardiac Arrest", numberOfListens: 35255653),
-        Song(name: "Off She Goes", numberOfListens: 54786542),
-        Song(name: "This Was a Home Once", numberOfListens: 12874755),
-        Song(name: "Violet", numberOfListens: 1954381),
+        Song(name: "Starboy", numberOfListens: 1_456_542_453),
+        Song(name: "Call Out My Name", numberOfListens: 436_645_343),
+        Song(name: "The Hills", numberOfListens: 843_345_733),
+        Song(name: "I Feel It Coming", numberOfListens: 345_878_476),
+        Song(name: "Can't Feel My Face", numberOfListens: 844_452_224),
     ]
     
     override func viewDidLoad() {
@@ -53,6 +55,7 @@ extension ArtistViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SongCell
         cell.songTitle.text = songs[indexPath.row].name
         cell.listens.text = formatter.string(from: songs[indexPath.row].numberOfListens as NSNumber)
+        cell.trackNumber.text = String(indexPath.row + 1)
         return cell
     }
     

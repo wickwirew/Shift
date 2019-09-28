@@ -92,8 +92,6 @@
 				DE257317233AD34900B19BE0 /* Assets.xcassets */,
 				DE257319233AD34900B19BE0 /* LaunchScreen.storyboard */,
 				DE25731C233AD34900B19BE0 /* Info.plist */,
-				DE257336233AFDFF00B19BE0 /* SongCell.swift */,
-				DE257338233AFE8500B19BE0 /* Song.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -109,6 +107,8 @@
 		DEED002F233FE859006511F2 /* Music */ = {
 			isa = PBXGroup;
 			children = (
+				DE257336233AFDFF00B19BE0 /* SongCell.swift */,
+				DE257338233AFE8500B19BE0 /* Song.swift */,
 				DE257312233AD34700B19BE0 /* ArtistViewController.swift */,
 				DE257332233AD90000B19BE0 /* SongPlayerViewController.swift */,
 			);
