@@ -22,9 +22,6 @@ class ModalTransitionPresenting: NSObject, UIViewControllerAnimatedTransitioning
         guard let toViewController = transitionContext.viewController(forKey: .to),
             let fromViewController = transitionContext.viewController(forKey: .from) else { return }
         
-        // hide to view controller before it is added
-        toViewController.view.alpha = 0
-
         transitionContext.containerView.insertSubview(toViewController.view, at: 0)
  
         let frame = transitionContext.finalFrame(for: toViewController)
