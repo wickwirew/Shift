@@ -66,11 +66,13 @@ final class TransitionAnimator {
     
     private func flatten(view: UIView,
                          container: UIView, result: inout [TransitionView]) {
+        guard !view.isHidden else { return }
+        
+        // Make sure to visit the subviews in reverse order since we want
+        // to visit the "Top Views" first.
         for subview in view.subviews.reversed() {
             flatten(view: subview, container: container, result: &result)
         }
-        
-        guard !view.isHidden else { return }
         
         result.append(TransitionView(toView: view, container: container))
     }
