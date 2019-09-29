@@ -17,20 +17,19 @@ final class TransitionAnimator {
     func animate(fromView: UIView,
                  toView: UIView,
                  container: UIView,
-                 isAppearing: Bool = true,
                  completion: @escaping (Bool) -> Void,
                  extraAnimations: (() -> Void)? = nil) {
         let transitionContainer = buildTransitionContainer(in: container)
         let fromViewShapshot = addFromViewSnapshot(fromView: fromView, container: container)
         
-        let views = flatten(view: toView, container: transitionContainer)
+        let views = deconstruct(view: toView, container: transitionContainer)
         findMatches(in: fromView, container: transitionContainer, result: views)
         views.forEach { $0.takeSnapshot(container: transitionContainer) }
         
         onSnapshotsAdded?()
         
         // All snapshots have been taken, so we can remove the `fromViewShapshot`
-        // since there be anymore flashing, and the transition can begin.
+        // since there wont be anymore flashing, and the transition can begin.
         fromViewShapshot.removeFromSuperview()
         
         views.forEach{ $0.performNonAnimatedChanges() }
@@ -57,24 +56,52 @@ final class TransitionAnimator {
         }
     }
     
-    private func flatten(view: UIView,
-                         container: UIView) -> [TransitionView] {
-        var result = [TransitionView]()
-        flatten(view: view, container: container, result: &result)
-        return result
+    /// Desconstructs the view tree into a new list of treess
+    private func deconstruct(view: UIView,
+                             container: UIView) -> [TransitionView] {
+        var roots = [TransitionView]()
+        if let originalRoot = deconstruct(view: view, container: container, roots: &roots) {
+            roots.append(originalRoot)
+        }
+        return roots
     }
     
-    private func flatten(view: UIView,
-                         container: UIView, result: inout [TransitionView]) {
-        guard !view.isHidden else { return }
+    /// Does a post-order traversal over the view tree, and builds up a list
+    /// of new sub trees (`roots`).
+    ///
+    /// Each root node must meet one of the following conditions:
+    ///     A. The root view in the original tree
+    ///     B. Has a `transition.id` set. This is important because these smaller
+    ///        trees need to be added to the transition container, not to its
+    ///        original parent's snapshot. So they can have their position animated
+    ///        to it's new position and not be affected by its parents frame.
+    private func deconstruct(view: UIView,
+                             container: UIView,
+                             roots: inout [TransitionView]) -> TransitionView? {
+        guard !view.isHidden else { return nil }
+        
+        var subviews = [TransitionView]()
         
         // Make sure to visit the subviews in reverse order since we want
         // to visit the "Top Views" first.
         for subview in view.subviews.reversed() {
-            flatten(view: subview, container: container, result: &result)
+            guard let sv = deconstruct(view: subview, container: container, roots: &roots) else { continue }
+            subviews.append(sv)
         }
         
-        result.append(TransitionView(toView: view, container: container))
+        let result = TransitionView(
+            toView: view,
+            subviews: subviews,
+            container: container
+        )
+        
+        // If the `transition.id` is set then it should be added to the list of roots.
+        guard view.transition.id == nil else {
+            roots.append(result)
+            return nil
+        }
+        
+        return result
     }
     
     private func findViews(in view: UIView) -> [String: (UIView, ViewLocation)] {

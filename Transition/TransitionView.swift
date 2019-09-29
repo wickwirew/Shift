@@ -10,22 +10,26 @@ import UIKit
 
 final class TransitionView {
     
-    let id: String?
-    
     weak var fromView: UIView?
     weak var toView: UIView?
+    
     var snapshot: UIView?
+    
+    let id: String?
     let finalState: TransitionViewState
+    let subviews: [TransitionView]
     
     private var fromViewState: TransitionViewState?
 
     lazy var duration: TimeInterval = calculateDuration()
     
     init(toView: UIView,
+         subviews: [TransitionView],
          container: UIView) {
         self.id = toView.transition.id
         self.toView = toView
         self.finalState = TransitionViewState(view: toView, container: container)
+        self.subviews = subviews
     }
     
     /// The views initial state for the transition
