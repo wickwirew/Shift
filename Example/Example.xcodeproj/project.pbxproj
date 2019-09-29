@@ -9,15 +9,17 @@
 /* Begin PBXBuildFile section */
 		DE25730F233AD34700B19BE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE25730E233AD34700B19BE0 /* AppDelegate.swift */; };
 		DE257311233AD34700B19BE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257310233AD34700B19BE0 /* SceneDelegate.swift */; };
-		DE257313233AD34700B19BE0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257312233AD34700B19BE0 /* ViewController.swift */; };
+		DE257313233AD34700B19BE0 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257312233AD34700B19BE0 /* ArtistViewController.swift */; };
 		DE257316233AD34700B19BE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE257314233AD34700B19BE0 /* Main.storyboard */; };
 		DE257318233AD34900B19BE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE257317233AD34900B19BE0 /* Assets.xcassets */; };
 		DE25731B233AD34900B19BE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE257319233AD34900B19BE0 /* LaunchScreen.storyboard */; };
 		DE257324233AD3B100B19BE0 /* Transition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE257323233AD3B100B19BE0 /* Transition.framework */; };
 		DE257325233AD3B100B19BE0 /* Transition.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE257323233AD3B100B19BE0 /* Transition.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DE257333233AD90000B19BE0 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257332233AD90000B19BE0 /* NextViewController.swift */; };
+		DE257333233AD90000B19BE0 /* SongPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257332233AD90000B19BE0 /* SongPlayerViewController.swift */; };
 		DE257337233AFDFF00B19BE0 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257336233AFDFF00B19BE0 /* SongCell.swift */; };
-		DE257339233AFE8500B19BE0 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257338233AFE8500B19BE0 /* Song.swift */; };
+		DE8A4A2523402F1C003ADD9B /* FirstPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8A4A2423402F1C003ADD9B /* FirstPlaygroundViewController.swift */; };
+		DE8A4A2723402F4E003ADD9B /* SecondPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8A4A2623402F4E003ADD9B /* SecondPlaygroundViewController.swift */; };
+		DEED0033233FE896006511F2 /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED0032233FE896006511F2 /* SelectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,15 +40,17 @@
 		DE25730B233AD34700B19BE0 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE25730E233AD34700B19BE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE257310233AD34700B19BE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DE257312233AD34700B19BE0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DE257312233AD34700B19BE0 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; };
 		DE257315233AD34700B19BE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DE257317233AD34900B19BE0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE25731A233AD34900B19BE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE25731C233AD34900B19BE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE257323233AD3B100B19BE0 /* Transition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Transition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE257332233AD90000B19BE0 /* NextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
+		DE257332233AD90000B19BE0 /* SongPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongPlayerViewController.swift; sourceTree = "<group>"; };
 		DE257336233AFDFF00B19BE0 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
-		DE257338233AFE8500B19BE0 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		DE8A4A2423402F1C003ADD9B /* FirstPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPlaygroundViewController.swift; sourceTree = "<group>"; };
+		DE8A4A2623402F4E003ADD9B /* SecondPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPlaygroundViewController.swift; sourceTree = "<group>"; };
+		DEED0032233FE896006511F2 /* SelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,16 +85,15 @@
 		DE25730D233AD34700B19BE0 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				DEED0031233FE876006511F2 /* Selection */,
+				DEED0030233FE869006511F2 /* Playground */,
+				DEED002F233FE859006511F2 /* Music */,
 				DE25730E233AD34700B19BE0 /* AppDelegate.swift */,
 				DE257310233AD34700B19BE0 /* SceneDelegate.swift */,
-				DE257312233AD34700B19BE0 /* ViewController.swift */,
-				DE257332233AD90000B19BE0 /* NextViewController.swift */,
 				DE257314233AD34700B19BE0 /* Main.storyboard */,
 				DE257317233AD34900B19BE0 /* Assets.xcassets */,
 				DE257319233AD34900B19BE0 /* LaunchScreen.storyboard */,
 				DE25731C233AD34900B19BE0 /* Info.plist */,
-				DE257336233AFDFF00B19BE0 /* SongCell.swift */,
-				DE257338233AFE8500B19BE0 /* Song.swift */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -101,6 +104,33 @@
 				DE257323233AD3B100B19BE0 /* Transition.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DEED002F233FE859006511F2 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				DE257336233AFDFF00B19BE0 /* SongCell.swift */,
+				DE257312233AD34700B19BE0 /* ArtistViewController.swift */,
+				DE257332233AD90000B19BE0 /* SongPlayerViewController.swift */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		DEED0030233FE869006511F2 /* Playground */ = {
+			isa = PBXGroup;
+			children = (
+				DE8A4A2423402F1C003ADD9B /* FirstPlaygroundViewController.swift */,
+				DE8A4A2623402F4E003ADD9B /* SecondPlaygroundViewController.swift */,
+			);
+			path = Playground;
+			sourceTree = "<group>";
+		};
+		DEED0031233FE876006511F2 /* Selection */ = {
+			isa = PBXGroup;
+			children = (
+				DEED0032233FE896006511F2 /* SelectionViewController.swift */,
+			);
+			path = Selection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,12 +205,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE257339233AFE8500B19BE0 /* Song.swift in Sources */,
-				DE257313233AD34700B19BE0 /* ViewController.swift in Sources */,
-				DE257333233AD90000B19BE0 /* NextViewController.swift in Sources */,
+				DE257313233AD34700B19BE0 /* ArtistViewController.swift in Sources */,
+				DE257333233AD90000B19BE0 /* SongPlayerViewController.swift in Sources */,
 				DE25730F233AD34700B19BE0 /* AppDelegate.swift in Sources */,
+				DE8A4A2523402F1C003ADD9B /* FirstPlaygroundViewController.swift in Sources */,
 				DE257337233AFDFF00B19BE0 /* SongCell.swift in Sources */,
 				DE257311233AD34700B19BE0 /* SceneDelegate.swift in Sources */,
+				DEED0033233FE896006511F2 /* SelectionViewController.swift in Sources */,
+				DE8A4A2723402F4E003ADD9B /* SecondPlaygroundViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

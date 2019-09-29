@@ -147,7 +147,7 @@ final class TransitionView {
     
     /// Calculates an appropiate duration for the animation.
     func calculateDuration() -> TimeInterval {
-        return 4
+//        return 4
         // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
         // So there is an additional 0.175 seconds to add based off
