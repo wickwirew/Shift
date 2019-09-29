@@ -30,6 +30,10 @@ class ArtistViewController: UIViewController {
         Song(name: "Can't Feel My Face", numberOfListens: 844_452_224),
     ]
     
+    @IBAction func exitButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -46,6 +50,11 @@ class ArtistViewController: UIViewController {
             .instantiateViewController(identifier: "SongPlayerViewController")
         viewController.view.backgroundColor = .black
         present(viewController, animated: true, completion: nil)
+    }
+    
+    struct Song {
+        let name: String
+        let numberOfListens: Int
     }
 }
 
