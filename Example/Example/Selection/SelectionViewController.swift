@@ -43,6 +43,8 @@ extension SelectionViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = examples[indexPath.row].name
+        cell.backgroundColor = .black
+        cell.textLabel?.textColor = .white
         return cell
     }
     
