@@ -20,31 +20,33 @@ final class TransitionAnimator {
                  isAppearing: Bool = true,
                  completion: @escaping (Bool) -> Void,
                  extraAnimations: (() -> Void)? = nil) {
+        let transitionContainer = buildTransitionContainer(in: container)
+        let fromViewShapshot = addFromViewSnapshot(fromView: fromView, container: container)
         
-        var views = flatten(view: toView, container: container)
+        let views = flatten(view: toView, container: transitionContainer)
+        findMatches(in: fromView, container: transitionContainer, result: views)
+        views.forEach { $0.takeSnapshot(container: transitionContainer) }
         
-        findMatches(in: fromView, container: container, result: &views)
-        
-        views.forEach { $0.takeSnapshot(container: container) }
-
         onSnapshotsAdded?()
+        
+        // All snapshots have been taken, so we can remove the `fromViewShapshot`
+        // since there be anymore flashing, and the transition can begin.
+        fromViewShapshot.removeFromSuperview()
         
         views.forEach{ $0.performNonAnimatedChanges() }
         views.forEach{ $0.performCaAnimations() }
         views.forEach{ $0.performUiViewAnimations() }
         
-        DispatchQueue.main.asyncAfter(
-            deadline: .now() + views.maxDuration,
-            execute: {
-                completion(true)
-                views.forEach{ $0.finish() }
-            }
-        )
+        delay(views.maxDuration) {
+            completion(true)
+            views.forEach{ $0.finish() }
+            transitionContainer.removeFromSuperview()
+        }
     }
     
     private func findMatches(in view: UIView,
                              container: UIView,
-                             result: inout [TransitionView]) {
+                             result: [TransitionView]) {
         let views = findViews(in: view)
         
         for transitionView in result {
@@ -90,5 +92,31 @@ final class TransitionAnimator {
         for (i, subview) in view.subviews.enumerated() {
             findViews(in: subview, depth: depth + 1, index: i, views: &views)
         }
+    }
+    
+    private func delay(_ duration: TimeInterval, action: @escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(
+            deadline: .now() + duration,
+            execute: action
+        )
+    }
+    
+    /// We want to build a new container for the transition, so all snapshots
+    /// can be added to this while not affect the original `container`'s subview heirarchy
+    private func buildTransitionContainer(in container: UIView) -> UIView {
+        let newContainer = UIView()
+        container.addSubview(newContainer)
+        newContainer.frame = container.bounds
+        return newContainer
+    }
+    
+    /// We snapshot the `fromView`'s subviews and add them to the container.
+    /// The alphas of the subviews are changed heavily which can result in some flashing.
+    /// Adding the snapshot on top hides all of that.
+    private func addFromViewSnapshot(fromView: UIView, container: UIView) -> UIView {
+        let fromViewShapshot = fromView.snapshotView(afterScreenUpdates: false) ?? UIView()
+        container.addSubview(fromViewShapshot)
+        fromViewShapshot.frame = fromView.frame
+        return fromViewShapshot
     }
 }
