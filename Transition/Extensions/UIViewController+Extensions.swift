@@ -11,7 +11,7 @@ import UIKit
 extension UIViewController {
     
     @IBInspectable public var isTransitionEnabled: Bool {
-        get { return transition.isEnabled }
-        set { transition.isEnabled = newValue }
+        get { return shift.isEnabled }
+        set { shift.isEnabled = newValue }
     }
 }

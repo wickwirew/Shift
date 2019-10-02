@@ -11,8 +11,8 @@ import UIKit
 extension UIView {
     
     @IBInspectable public var transitionId: String? {
-        get { return transition.id }
-        set { transition.id = newValue }
+        get { return shift.id }
+        set { shift.id = newValue }
     }
     
     func snapshot() -> UIView? {

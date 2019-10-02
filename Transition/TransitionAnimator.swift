@@ -95,8 +95,8 @@ final class TransitionAnimator {
             container: container
         )
         
-        // If the `transition.id` is set then it should be added to the list of roots.
-        guard view.transition.id == nil else {
+        // If the `shift.id` is set then it should be added to the list of roots.
+        guard view.shift.id == nil else {
             roots.append(result)
             return nil
         }
@@ -114,7 +114,7 @@ final class TransitionAnimator {
                            depth: Int,
                            index: Int,
                            views: inout [String: (UIView, ViewLocation)]) {
-        if let id = view.transition.id {
+        if let id = view.shift.id {
             views[id] = (view, ViewLocation(depth: depth, index: index))
         }
         

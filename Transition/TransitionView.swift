@@ -26,7 +26,7 @@ final class TransitionView {
     init(toView: UIView,
          subviews: [TransitionView],
          container: UIView) {
-        self.id = toView.transition.id
+        self.id = toView.shift.id
         self.toView = toView
         self.finalState = TransitionViewState(view: toView, container: container)
         self.subviews = subviews
