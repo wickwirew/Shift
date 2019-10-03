@@ -55,7 +55,6 @@ final class TransitionView {
         
         guard let snapshot = snapshot else { return }
         initialState.apply(to: snapshot, finalState: finalState)
-        snapshot.backgroundColor = fromView?.backgroundColor
         
         if self.options.contentAnimation == .ignore {
             self.snapshot?.wrapped.isHidden = true
@@ -149,6 +148,7 @@ final class TransitionView {
                 self.snapshot?.layer.bounds = self.finalState.bounds
                 self.snapshot?.setNeedsLayout()
                 self.snapshot?.layoutIfNeeded()
+                self.snapshot?.backgroundColor = self.finalState.backgroundColor
                 
                 if self.options.contentAnimation == .fade {
                     self.snapshot?.wrapped.alpha = 1

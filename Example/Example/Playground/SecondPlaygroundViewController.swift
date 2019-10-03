@@ -15,7 +15,7 @@ class SecondPlaygroundViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        square.shift.contentAnimation = .ignore
+        square.shift.contentAnimation = .fade
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
