@@ -260,7 +260,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G66-yb-tk3">
                                 <rect key="frame" x="0.0" y="706" width="128" height="128"/>
-                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="128" id="TPR-eD-HXg"/>
                                     <constraint firstAttribute="height" constant="128" id="r3x-AU-cYT"/>
@@ -329,7 +329,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="L7h-7Z-bU1" firstAttribute="leading" secondItem="uGZ-We-RWE" secondAttribute="leading" constant="30" id="Eai-Ql-GBO"/>
                                     <constraint firstItem="L7h-7Z-bU1" firstAttribute="top" secondItem="uGZ-We-RWE" secondAttribute="top" constant="50" id="FvX-n2-406"/>
@@ -351,6 +351,9 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isTransitionEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="square" destination="uGZ-We-RWE" id="tiy-2h-ZOI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tpL-M7-JE1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

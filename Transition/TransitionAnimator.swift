@@ -92,7 +92,8 @@ final class TransitionAnimator {
         let result = TransitionView(
             toView: view,
             subviews: subviews,
-            container: container
+            container: container,
+            options: view.shift
         )
         
         // If the `shift.id` is set then it should be added to the list of roots.

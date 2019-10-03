@@ -13,11 +13,12 @@ final class TransitionView {
     weak var fromView: UIView?
     weak var toView: UIView?
     
-    var snapshot: UIView?
+    var snapshot: SnapshotView?
     
     let id: String?
     let finalState: TransitionViewState
     let subviews: [TransitionView]
+    let options: ShiftViewOptions
     
     private var fromViewState: TransitionViewState?
 
@@ -25,11 +26,13 @@ final class TransitionView {
     
     init(toView: UIView,
          subviews: [TransitionView],
-         container: UIView) {
+         container: UIView,
+         options: ShiftViewOptions) {
         self.id = toView.shift.id
         self.toView = toView
         self.finalState = TransitionViewState(view: toView, container: container)
         self.subviews = subviews
+        self.options = options
     }
     
     /// The views initial state for the transition
@@ -52,6 +55,11 @@ final class TransitionView {
         
         guard let snapshot = snapshot else { return }
         initialState.apply(to: snapshot, finalState: finalState)
+        snapshot.backgroundColor = fromView?.backgroundColor
+        
+        if self.options.contentAnimation == .ignore {
+            self.snapshot?.wrapped.isHidden = true
+        }
         
         // snapshots are taken in reverse order of when they
         // should be added back to the container view.
@@ -127,6 +135,10 @@ final class TransitionView {
         let initialAlpha = fromViewState == nil ? 0 : initialState.alpha
         let finalAlpha = fromViewState == nil ? 1 : finalState.alpha
         
+        if options.contentAnimation == .fade {
+            snapshot?.wrapped.alpha = 0
+        }
+        
         snapshot?.alpha = initialAlpha
         
         UIView.animate(
@@ -135,6 +147,12 @@ final class TransitionView {
                 self.snapshot?.layer.position = self.finalState.position
                 self.snapshot?.alpha = finalAlpha
                 self.snapshot?.layer.bounds = self.finalState.bounds
+                self.snapshot?.setNeedsLayout()
+                self.snapshot?.layoutIfNeeded()
+                
+                if self.options.contentAnimation == .fade {
+                    self.snapshot?.wrapped.alpha = 1
+                }
             }
         )
 
@@ -149,6 +167,7 @@ final class TransitionView {
     
     /// Calculates an appropiate duration for the animation.
     func calculateDuration() -> TimeInterval {
+        return 4
         // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
         // So there is an additional 0.175 seconds to add based off
@@ -168,5 +187,26 @@ extension Array where Element == TransitionView {
     
     var maxDuration: TimeInterval {
         return self.map{ $0.duration }.max() ?? 0
+    }
+}
+
+final class SnapshotView: UIView {
+    
+    let wrapped: UIView
+    
+    init(wrapped: UIView) {
+        self.wrapped = wrapped
+        super.init(frame: wrapped.frame)
+        addSubview(wrapped)
+        backgroundColor = wrapped.backgroundColor
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        wrapped.frame = bounds
     }
 }

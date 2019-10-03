@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import Transition
 
 class SecondPlaygroundViewController: UIViewController {
 
+    @IBOutlet weak var square: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        square.shift.contentAnimation = .ignore
     }
+    
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

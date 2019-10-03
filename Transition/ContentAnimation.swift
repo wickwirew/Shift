@@ -18,5 +18,6 @@ public enum ContentAnimation {
     
     /// Content will not be shown during the animation
     /// and will reappear at the end.
+    /// Chage to hide
     case ignore
 }
