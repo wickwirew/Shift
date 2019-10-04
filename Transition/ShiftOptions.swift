@@ -14,7 +14,9 @@ private var shiftTransitionDelegateKey = "shift.transitionDelegate"
 
 public struct ShiftViewOptions: ShiftOptionsType {
     public var id: String?
-    public var contentAnimation: ContentAnimation = .stretch
+    public var contentSizing: ContentSizing = .stretch
+    public var contentAnimation: ContentAnimation = .none
+    public var animations = [Animation]()
     public init() {}
 }
 

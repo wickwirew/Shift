@@ -278,7 +278,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="G66-yb-tk3" firstAttribute="leading" secondItem="X6R-5t-evz" secondAttribute="leading" id="426-Xu-2jN"/>
                             <constraint firstItem="X6R-5t-evz" firstAttribute="bottom" secondItem="G66-yb-tk3" secondAttribute="bottom" constant="28" id="Z6q-Cp-NV6"/>
@@ -301,7 +301,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGZ-We-RWE">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGZ-We-RWE">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLa-pb-HhM">
@@ -338,13 +338,26 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="transitionId" value="background"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vo4-C9-qdM">
+                                <rect key="frame" x="0.0" y="593" width="414" height="303"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="303" id="P3X-n0-hUt"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="transitionId" value="whiteSquare"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="uGZ-We-RWE" firstAttribute="leading" secondItem="7EQ-mJ-nsZ" secondAttribute="leading" id="1CF-vS-arG"/>
                             <constraint firstItem="uGZ-We-RWE" firstAttribute="top" secondItem="x81-Ue-Qnw" secondAttribute="top" id="3NR-7h-MTy"/>
+                            <constraint firstAttribute="bottom" secondItem="vo4-C9-qdM" secondAttribute="bottom" id="4wB-Pt-ZXe"/>
                             <constraint firstAttribute="bottom" secondItem="uGZ-We-RWE" secondAttribute="bottom" id="c7x-TR-ymi"/>
                             <constraint firstItem="uGZ-We-RWE" firstAttribute="trailing" secondItem="7EQ-mJ-nsZ" secondAttribute="trailing" id="dsU-gn-J62"/>
+                            <constraint firstItem="vo4-C9-qdM" firstAttribute="leading" secondItem="7EQ-mJ-nsZ" secondAttribute="leading" id="s6P-VD-xaG"/>
+                            <constraint firstItem="vo4-C9-qdM" firstAttribute="trailing" secondItem="7EQ-mJ-nsZ" secondAttribute="trailing" id="vnz-MR-K98"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7EQ-mJ-nsZ"/>
                     </view>
@@ -353,6 +366,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="square" destination="uGZ-We-RWE" id="tiy-2h-ZOI"/>
+                        <outlet property="whiteSquare" destination="vo4-C9-qdM" id="YfT-HE-ecE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tpL-M7-JE1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

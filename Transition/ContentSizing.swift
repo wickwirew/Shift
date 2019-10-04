@@ -8,16 +8,18 @@
 
 /// How the the content, i.e. the subviews, shoud be handled
 /// during the animation.
-public enum ContentAnimation {
+public enum ContentSizing {
     
     /// Content will be stretched.
     case stretch
     
-    /// Content will fade in.
+    /// Content will be in its final state
+    case final
+}
+
+public enum ContentAnimation {
+    
     case fade
     
-    /// Content will not be shown during the animation
-    /// and will reappear at the end.
-    /// Chage to hide
-    case ignore
+    case none
 }

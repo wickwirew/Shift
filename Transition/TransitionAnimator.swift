@@ -32,6 +32,8 @@ final class TransitionAnimator {
         // since there wont be anymore flashing, and the transition can begin.
         fromViewShapshot.removeFromSuperview()
         
+        views.forEach{ $0.applyModifiers() }
+        
         views.forEach{ $0.performNonAnimatedChanges() }
         views.forEach{ $0.performCaAnimations() }
         views.forEach{ $0.performUiViewAnimations() }
@@ -49,7 +51,7 @@ final class TransitionAnimator {
         let views = findViews(in: view)
         
         for transitionView in result {
-            guard let id = transitionView.id,
+            guard let id = transitionView.options.id,
                 let match = views[id] else { continue }
 
             transitionView.setMatch(view: match.0, container: container)

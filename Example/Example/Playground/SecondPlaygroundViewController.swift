@@ -12,10 +12,15 @@ import Transition
 class SecondPlaygroundViewController: UIViewController {
 
     @IBOutlet weak var square: UIView!
+    @IBOutlet weak var whiteSquare: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        square.shift.contentAnimation = .fade
+        
+        view.shift.animations = [.fade]
+        whiteSquare.shift.animations = [.translate(y: 303)]
+        
+        square.shift.contentSizing = .final
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
