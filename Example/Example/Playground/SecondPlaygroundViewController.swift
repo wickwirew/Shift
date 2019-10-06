@@ -13,13 +13,14 @@ class SecondPlaygroundViewController: UIViewController {
 
     @IBOutlet weak var square: UIView!
     @IBOutlet weak var whiteSquare: UIView!
+    @IBOutlet weak var smallSquare: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.shift.animations = [.fade]
         whiteSquare.shift.animations = [.translate(y: 303)]
-        
+        smallSquare.shift.animations = [.translate(x: 414)]
         square.shift.contentSizing = .final
     }
     

@@ -93,7 +93,6 @@ final class TransitionAnimator {
         
         let result = TransitionView(
             toView: view,
-            subviews: subviews,
             container: container,
             options: view.shift
         )

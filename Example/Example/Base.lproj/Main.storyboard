@@ -328,11 +328,24 @@
                                             <action selector="exitButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VeX-78-GIk"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wgv-At-hOn">
+                                        <rect key="frame" x="353" y="200" width="61" height="61"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="61" id="MgQ-mA-wbj"/>
+                                            <constraint firstAttribute="width" constant="61" id="yzQ-mJ-Tei"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="transitionId" value="anotherone"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="L7h-7Z-bU1" firstAttribute="leading" secondItem="uGZ-We-RWE" secondAttribute="leading" constant="30" id="Eai-Ql-GBO"/>
                                     <constraint firstItem="L7h-7Z-bU1" firstAttribute="top" secondItem="uGZ-We-RWE" secondAttribute="top" constant="50" id="FvX-n2-406"/>
+                                    <constraint firstItem="Wgv-At-hOn" firstAttribute="top" secondItem="uGZ-We-RWE" secondAttribute="top" constant="200" id="WYz-fk-ljU"/>
+                                    <constraint firstAttribute="trailing" secondItem="Wgv-At-hOn" secondAttribute="trailing" id="ceV-ZF-97j"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="transitionId" value="background"/>
@@ -365,6 +378,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isTransitionEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="smallSquare" destination="Wgv-At-hOn" id="amj-uc-Dpg"/>
                         <outlet property="square" destination="uGZ-We-RWE" id="tiy-2h-ZOI"/>
                         <outlet property="whiteSquare" destination="vo4-C9-qdM" id="YfT-HE-ecE"/>
                     </connections>

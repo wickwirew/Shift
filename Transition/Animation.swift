@@ -11,13 +11,14 @@ import UIKit
 public enum Animation {
     
     case fade
-    case translate(y: CGFloat)
+    case translate(x: CGFloat = 0, y: CGFloat = 0)
     
     func apply(to state: inout TransitionViewState) {
         switch self {
         case .fade:
             state.alpha = 0
-        case let .translate(y):
+        case let .translate(x, y):
+            state.position.x -= x
             state.position.y += y
         }
     }

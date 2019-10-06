@@ -17,20 +17,17 @@ final class TransitionView {
     
     var initialState: TransitionViewState
     let finalState: TransitionViewState
-    let subviews: [TransitionView]
     let options: ShiftViewOptions
     
-    lazy var duration: TimeInterval = calculateDuration()
+    lazy var duration = calculateDuration()
     
     var fromViewOriginalAlpha: CGFloat = 1
     let toViewOriginalAlpha: CGFloat
     
     init(toView: UIView,
-         subviews: [TransitionView],
          container: UIView,
          options: ShiftViewOptions) {
         self.toView = toView
-        self.subviews = subviews
         self.options = options
         self.toViewOriginalAlpha = toView.alpha
         self.finalState = TransitionViewState(view: toView, container: container)
