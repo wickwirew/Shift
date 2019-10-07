@@ -22,20 +22,24 @@ final class TransitionAnimator {
         let transitionContainer = buildTransitionContainer(in: container)
         let fromViewShapshot = addFromViewSnapshot(fromView: fromView, container: container)
         
-        let views = deconstruct(view: toView, container: transitionContainer)
-        findMatches(in: fromView, container: transitionContainer, result: views)
-        views.forEach { $0.takeSnapshot() }
-        views.forEach { $0.insertSnapshot() }
+        let views = deconstruct(
+            view: toView,
+            container: transitionContainer,
+            potentialMatches: findPotentialMatches(in: fromView)
+        )
         
         applyDefaultTransition(views: views)
+        
+        views.forEach{ $0.applyModifers() }
+        
+        views.reversed().forEach { $0.takeSnapshot() }
+        views.forEach { $0.addSnapshot() }
         
         onSnapshotsAdded?()
         
         // All snapshots have been taken, so we can remove the `fromViewShapshot`
         // since there wont be anymore flashing, and the transition can begin.
         fromViewShapshot.removeFromSuperview()
-        
-        views.forEach{ $0.applyModifiers() }
         
         views.forEach{ $0.performNonAnimatedChanges() }
         views.forEach{ $0.performCaAnimations() }
@@ -48,33 +52,28 @@ final class TransitionAnimator {
         }
     }
     
-    private func findMatches(in view: UIView,
-                             container: UIView,
-                             result: [TransitionView]) {
-        let views = findViews(in: view)
-        
-        for transitionView in result {
-            guard let id = transitionView.options.id,
-                let match = views[id] else { continue }
-
-            transitionView.setMatch(view: match.0, container: container)
-        }
-    }
-    
     private func deconstruct(view: UIView,
-                             container: UIView) -> [TransitionView] {
+                             container: UIView,
+                             potentialMatches: [String: UIView]) -> [TransitionView] {
         var roots = [TransitionView]()
         
         let root = TransitionView(
             toView: view,
             container: container,
             coordinateSpace: .global(container),
-            options: view.shift
+            options: view.shift,
+            match: nil
         )
         
-        deconstruct(view: view, container: container, parent: root, roots: &roots)
-        
         roots.append(root)
+        
+        deconstruct(
+            view: view,
+            container: container,
+            parent: root,
+            roots: &roots,
+            potentialMatches: potentialMatches
+        )
         
         return roots
     }
@@ -82,50 +81,52 @@ final class TransitionAnimator {
     private func deconstruct(view: UIView,
                              container: UIView,
                              parent: TransitionView,
-                             roots: inout [TransitionView]) {
+                             roots: inout [TransitionView],
+                             potentialMatches: [String: UIView]) {
         guard !view.isHidden else { return }
         
         let options = view.shift
-        let hasMatch = options.id?.isEmpty == false
-        let viewNeedsAnimating = hasMatch || !options.animations.isEmpty
+        let match = potentialMatches[options.id ?? ""]
+        let hasMatch = match != nil
+        let viewNeedsAnimating = match != nil || !options.animations.isEmpty
         
         let result: TransitionView? = !viewNeedsAnimating ? nil : TransitionView(
             toView: view,
             container: container,
             coordinateSpace: hasMatch ? .global(container) : .parent(parent),
-            options: options
+            options: options,
+            match: match
         )
+        
+        result.map { roots.append($0) }
         
         // Make sure to visit the subviews in reverse order since we want
         // to visit the "Top Views" first.
-        for subview in view.subviews.reversed() {
+        for subview in view.subviews {
             deconstruct(
                 view: subview,
                 container: container,
                 parent: result != nil ? result! : parent,
-                roots: &roots
+                roots: &roots,
+                potentialMatches: potentialMatches
             )
         }
-        
-        result.map { roots.append($0) }
     }
     
-    private func findViews(in view: UIView) -> [String: (UIView, ViewLocation)] {
-        var views = [String: (UIView, ViewLocation)]()
-        findViews(in: view, depth: 0, index: 0, views: &views)
+    private func findPotentialMatches(in view: UIView) -> [String: UIView] {
+        var views = [String: UIView]()
+        findPotentialMatches(in: view, views: &views)
         return views
     }
     
-    private func findViews(in view: UIView,
-                           depth: Int,
-                           index: Int,
-                           views: inout [String: (UIView, ViewLocation)]) {
+    private func findPotentialMatches(in view: UIView,
+                                      views: inout [String: UIView]) {
         if let id = view.shift.id {
-            views[id] = (view, ViewLocation(depth: depth, index: index))
+            views[id] = view
         }
         
-        for (i, subview) in view.subviews.enumerated() {
-            findViews(in: subview, depth: depth + 1, index: i, views: &views)
+        for subview in view.subviews {
+            findPotentialMatches(in: subview, views: &views)
         }
     }
     

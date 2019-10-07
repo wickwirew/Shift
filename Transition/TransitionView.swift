@@ -10,8 +10,8 @@ import UIKit
 
 final class TransitionView {
     
-    weak var fromView: UIView?
-    weak var toView: UIView?
+    let match: UIView?
+    let view: UIView
     
     var snapshot: SnapshotView?
     
@@ -21,57 +21,57 @@ final class TransitionView {
     
     lazy var duration = calculateDuration()
     
-    var fromViewOriginalAlpha: CGFloat = 1
-    let toViewOriginalAlpha: CGFloat
-    
-    var parent: TransitionView?
+    var matchOriginalAlpha: CGFloat = 1
+    let viewOriginalAlpha: CGFloat
     
     let coordinateSpace: CoordinateSpace
     
     init(toView: UIView,
          container: UIView,
          coordinateSpace: CoordinateSpace,
-         options: ShiftViewOptions) {
-        self.toView = toView
+         options: ShiftViewOptions,
+         match: UIView?) {
+        self.view = toView
         self.options = options
-        self.toViewOriginalAlpha = toView.alpha
-        self.finalState = TransitionViewState(view: toView, container: container)
-        self.initialState = finalState
+        self.viewOriginalAlpha = toView.alpha
+        let finalState = TransitionViewState(view: toView, container: container)
+        self.initialState = match.map{ TransitionViewState(view: $0, container: container) } ?? finalState
+        self.finalState = finalState
         self.coordinateSpace = coordinateSpace
-    }
-    
-    func setMatch(view: UIView, container: UIView) {
-        fromView = view
-        fromViewOriginalAlpha = view.alpha
-        initialState = TransitionViewState(view: view, container: container)
+        self.match = match
+        self.matchOriginalAlpha = match?.alpha ?? 0
     }
     
     func takeSnapshot() {
-        guard let view = toView else { return }
-        
         snapshot = view.snapshot(sizing: options.contentSizing)
         
-        fromView?.alpha = 0
-        toView?.alpha = 0
+        guard let snapshot = snapshot else { return }
+        
+        initialState.apply(to: snapshot, finalState: finalState)
+        
+        // Applying the initial state can cause the size to change,
+        // so we need for relayout the snapshot
+        snapshot.setNeedsLayout()
+        snapshot.layoutIfNeeded()
+        
+        // Hide the view and its matching view
+        match?.alpha = 0
+        view.alpha = 0
     }
     
-    func insertSnapshot() {
+    func addSnapshot() {
         guard let snapshot = snapshot else { return }
         
         switch coordinateSpace {
         case .global(let container):
-            // snapshots are taken in reverse order of when they
-            // should be added back to the container view.
-            // so it should be inserted at the bottom.
-            container.insertSubview(snapshot, at: 0)
+            container.addSubview(snapshot)
         case .parent(let parent):
             parent.snapshot?.addSubview(snapshot)
         }
     }
     
-    func applyModifiers() {
+    func applyModifers() {
         options.animations.apply(to: &initialState)
-        initialState.apply(to: snapshot!, finalState: finalState)
     }
     
     func performCaAnimations() {
@@ -148,13 +148,15 @@ final class TransitionView {
     
     func finish() {
         snapshot?.removeFromSuperview()
-        fromView?.alpha = fromViewOriginalAlpha
-        toView?.alpha = toViewOriginalAlpha
+        
+        // Show the view and its matching view
+        match?.alpha = matchOriginalAlpha
+        view.alpha = viewOriginalAlpha
     }
     
     /// Calculates an appropiate duration for the animation.
     func calculateDuration() -> TimeInterval {
-        return 4
+        return 2
         // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
         // So there is an additional 0.175 seconds to add based off
@@ -177,7 +179,7 @@ extension Array where Element == TransitionView {
     }
     
     var rootView: TransitionView? {
-        return last
+        return first
     }
 }
 
