@@ -26,7 +26,6 @@ class ModalTransitionDismissing: NSObject, UIViewControllerAnimatedTransitioning
             fromView: fromViewController.view,
             toView: toViewController.view,
             container: transitionContext.containerView,
-            isAppearing: false,
             completion: { complete in
                 fromViewController.view.removeFromSuperview()
                 transitionContext.completeTransition(complete)

@@ -10,25 +10,26 @@ import UIKit
 
 struct TransitionViewState {
     
-    let position: CGPoint
-    let bounds: CGRect
-    let alpha: CGFloat
-    let cornerRadius: CGFloat
-    let anchorPoint: CGPoint
-    let zPosition: CGFloat
-    let opacity: Float
-    let isOpaque: Bool
-    let masksToBounds: Bool
-    let borderColor: CGColor?
-    let borderWidth: CGFloat
-    let contentsRect: CGRect
-    let contentsScale: CGFloat
-    let shadowColor: CGColor?
-    let shadowOffset: CGSize
-    let shadowRadius: CGFloat
-    let shadowOpacity: Float
-    let shadowPath: CGPath?
-    let transform: CATransform3D
+    var position: CGPoint
+    var bounds: CGRect
+    var alpha: CGFloat
+    var cornerRadius: CGFloat
+    var anchorPoint: CGPoint
+    var zPosition: CGFloat
+    var opacity: Float
+    var isOpaque: Bool
+    var masksToBounds: Bool
+    var borderColor: CGColor?
+    var borderWidth: CGFloat
+    var contentsRect: CGRect
+    var contentsScale: CGFloat
+    var shadowColor: CGColor?
+    var shadowOffset: CGSize
+    var shadowRadius: CGFloat
+    var shadowOpacity: Float
+    var shadowPath: CGPath?
+    var transform: CATransform3D
+    var backgroundColor: UIColor?
     
     init(view: UIView, container: UIView) {
         self.position = container.convert(view.layer.position, from: view.superview!)
@@ -50,6 +51,7 @@ struct TransitionViewState {
         self.shadowPath = view.layer.shadowPath
         self.transform = view.layer.transform
         self.alpha = view.alpha
+        self.backgroundColor = view.backgroundColor
     }
     
     func apply(to view: UIView, finalState: TransitionViewState? = nil) {
@@ -70,6 +72,7 @@ struct TransitionViewState {
         view.layer.shadowOpacity = shadowOpacity
         view.alpha = alpha
         view.layer.bounds = bounds
+        view.backgroundColor = backgroundColor
         
         // if it had a prior shadow path then make sure to default it
         // to the bounds if it is nil

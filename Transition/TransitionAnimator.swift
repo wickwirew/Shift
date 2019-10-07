@@ -17,21 +17,25 @@ final class TransitionAnimator {
     func animate(fromView: UIView,
                  toView: UIView,
                  container: UIView,
-                 isAppearing: Bool = true,
                  completion: @escaping (Bool) -> Void,
                  extraAnimations: (() -> Void)? = nil) {
         let transitionContainer = buildTransitionContainer(in: container)
         let fromViewShapshot = addFromViewSnapshot(fromView: fromView, container: container)
         
-        let views = flatten(view: toView, container: transitionContainer)
+        let views = deconstruct(view: toView, container: transitionContainer)
         findMatches(in: fromView, container: transitionContainer, result: views)
-        views.forEach { $0.takeSnapshot(container: transitionContainer) }
+        views.forEach { $0.takeSnapshot() }
+        views.forEach { $0.insertSnapshot() }
+        
+        applyDefaultTransition(views: views)
         
         onSnapshotsAdded?()
         
         // All snapshots have been taken, so we can remove the `fromViewShapshot`
-        // since there be anymore flashing, and the transition can begin.
+        // since there wont be anymore flashing, and the transition can begin.
         fromViewShapshot.removeFromSuperview()
+        
+        views.forEach{ $0.applyModifiers() }
         
         views.forEach{ $0.performNonAnimatedChanges() }
         views.forEach{ $0.performCaAnimations() }
@@ -50,31 +54,60 @@ final class TransitionAnimator {
         let views = findViews(in: view)
         
         for transitionView in result {
-            guard let id = transitionView.id,
+            guard let id = transitionView.options.id,
                 let match = views[id] else { continue }
 
             transitionView.setMatch(view: match.0, container: container)
         }
     }
     
-    private func flatten(view: UIView,
-                         container: UIView) -> [TransitionView] {
-        var result = [TransitionView]()
-        flatten(view: view, container: container, result: &result)
-        return result
+    private func deconstruct(view: UIView,
+                             container: UIView) -> [TransitionView] {
+        var roots = [TransitionView]()
+        
+        let root = TransitionView(
+            toView: view,
+            container: container,
+            coordinateSpace: .global(container),
+            options: view.shift
+        )
+        
+        deconstruct(view: view, container: container, parent: root, roots: &roots)
+        
+        roots.append(root)
+        
+        return roots
     }
     
-    private func flatten(view: UIView,
-                         container: UIView, result: inout [TransitionView]) {
+    private func deconstruct(view: UIView,
+                             container: UIView,
+                             parent: TransitionView,
+                             roots: inout [TransitionView]) {
         guard !view.isHidden else { return }
+        
+        let options = view.shift
+        let hasMatch = options.id?.isEmpty == false
+        let viewNeedsAnimating = hasMatch || !options.animations.isEmpty
+        
+        let result: TransitionView? = !viewNeedsAnimating ? nil : TransitionView(
+            toView: view,
+            container: container,
+            coordinateSpace: hasMatch ? .global(container) : .parent(parent),
+            options: options
+        )
         
         // Make sure to visit the subviews in reverse order since we want
         // to visit the "Top Views" first.
         for subview in view.subviews.reversed() {
-            flatten(view: subview, container: container, result: &result)
+            deconstruct(
+                view: subview,
+                container: container,
+                parent: result != nil ? result! : parent,
+                roots: &roots
+            )
         }
         
-        result.append(TransitionView(toView: view, container: container))
+        result.map { roots.append($0) }
     }
     
     private func findViews(in view: UIView) -> [String: (UIView, ViewLocation)] {
@@ -87,7 +120,7 @@ final class TransitionAnimator {
                            depth: Int,
                            index: Int,
                            views: inout [String: (UIView, ViewLocation)]) {
-        if let id = view.transition.id {
+        if let id = view.shift.id {
             views[id] = (view, ViewLocation(depth: depth, index: index))
         }
         
@@ -120,5 +153,10 @@ final class TransitionAnimator {
         container.addSubview(fromViewShapshot)
         fromViewShapshot.frame = fromView.frame
         return fromViewShapshot
+    }
+    
+    /// TODO: add ability to more default animations
+    private func applyDefaultTransition(views: [TransitionView]) {
+        views.rootView?.options.animations = [.fade]
     }
 }

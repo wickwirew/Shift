@@ -11,11 +11,11 @@ import UIKit
 extension UIView {
     
     @IBInspectable public var transitionId: String? {
-        get { return transition.id }
-        set { transition.id = newValue }
+        get { return shift.id }
+        set { shift.id = newValue }
     }
     
-    func snapshot() -> UIView? {
+    func snapshot(sizing: ContentSizing) -> SnapshotView? {
         if let imageView = self as? UIImageView {
             let view = UIImageView(image: imageView.image)
             view.frame = imageView.bounds
@@ -25,11 +25,11 @@ extension UIView {
             view.layer.magnificationFilter = imageView.layer.magnificationFilter
             view.layer.minificationFilter = imageView.layer.minificationFilter
             view.layer.minificationFilterBias = imageView.layer.minificationFilterBias
-            return view
+            return SnapshotView(content: view, sizing: sizing)
         } else if let effectView = self as? UIVisualEffectView {
             let view = UIVisualEffectView(effect: effectView.effect)
             view.frame = effectView.bounds
-            return view
+            return SnapshotView(content: view, sizing: sizing)
         } else {
             let oldCornerRadius = layer.cornerRadius
             let oldAlpha = alpha
@@ -54,7 +54,7 @@ extension UIView {
             layer.shadowPath = oldShadowPath
             layer.shadowOpacity = oldShadowOpacity
         
-            return snapshot
+            return snapshot.map { SnapshotView(content: $0, sizing: sizing) }
         }
     }
 }
