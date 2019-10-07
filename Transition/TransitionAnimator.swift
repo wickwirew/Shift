@@ -24,7 +24,10 @@ final class TransitionAnimator {
         
         let views = deconstruct(view: toView, container: transitionContainer)
         findMatches(in: fromView, container: transitionContainer, result: views)
-        views.forEach { $0.takeSnapshot(container: transitionContainer) }
+        views.forEach { $0.takeSnapshot() }
+        views.forEach { $0.insertSnapshot() }
+        
+        applyDefaultTransition(views: views)
         
         onSnapshotsAdded?()
         
@@ -58,52 +61,53 @@ final class TransitionAnimator {
         }
     }
     
-    /// Desconstructs the view tree into a new list of treess
     private func deconstruct(view: UIView,
                              container: UIView) -> [TransitionView] {
         var roots = [TransitionView]()
-        if let originalRoot = deconstruct(view: view, container: container, roots: &roots) {
-            roots.append(originalRoot)
-        }
+        
+        let root = TransitionView(
+            toView: view,
+            container: container,
+            coordinateSpace: .global(container),
+            options: view.shift
+        )
+        
+        deconstruct(view: view, container: container, parent: root, roots: &roots)
+        
+        roots.append(root)
+        
         return roots
     }
     
-    /// Does a post-order traversal over the view tree, and builds up a list
-    /// of new sub trees (`roots`).
-    ///
-    /// Each root node must meet one of the following conditions:
-    ///     A. The root view in the original tree
-    ///     B. Has a `transition.id` set. This is important because these smaller
-    ///        trees need to be added to the transition container, not to its
-    ///        original parent's snapshot. So they can have their position animated
-    ///        to it's new position and not be affected by its parents frame.
     private func deconstruct(view: UIView,
                              container: UIView,
-                             roots: inout [TransitionView]) -> TransitionView? {
-        guard !view.isHidden else { return nil }
+                             parent: TransitionView,
+                             roots: inout [TransitionView]) {
+        guard !view.isHidden else { return }
         
-        var subviews = [TransitionView]()
+        let options = view.shift
+        let hasMatch = options.id?.isEmpty == false
+        let viewNeedsAnimating = hasMatch || !options.animations.isEmpty
+        
+        let result: TransitionView? = !viewNeedsAnimating ? nil : TransitionView(
+            toView: view,
+            container: container,
+            coordinateSpace: hasMatch ? .global(container) : .parent(parent),
+            options: options
+        )
         
         // Make sure to visit the subviews in reverse order since we want
         // to visit the "Top Views" first.
         for subview in view.subviews.reversed() {
-            guard let sv = deconstruct(view: subview, container: container, roots: &roots) else { continue }
-            subviews.append(sv)
+            deconstruct(
+                view: subview,
+                container: container,
+                parent: result != nil ? result! : parent,
+                roots: &roots
+            )
         }
         
-        let result = TransitionView(
-            toView: view,
-            container: container,
-            options: view.shift
-        )
-        
-        // If the `shift.id` is set then it should be added to the list of roots.
-        guard view.shift.id == nil else {
-            roots.append(result)
-            return nil
-        }
-        
-        return result
+        result.map { roots.append($0) }
     }
     
     private func findViews(in view: UIView) -> [String: (UIView, ViewLocation)] {
@@ -149,5 +153,10 @@ final class TransitionAnimator {
         container.addSubview(fromViewShapshot)
         fromViewShapshot.frame = fromView.frame
         return fromViewShapshot
+    }
+    
+    /// TODO: add ability to more default animations
+    private func applyDefaultTransition(views: [TransitionView]) {
+        views.rootView?.options.animations = [.fade]
     }
 }

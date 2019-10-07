@@ -335,9 +335,6 @@
                                             <constraint firstAttribute="height" constant="61" id="MgQ-mA-wbj"/>
                                             <constraint firstAttribute="width" constant="61" id="yzQ-mJ-Tei"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="string" keyPath="transitionId" value="anotherone"/>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -17,21 +17,27 @@ final class TransitionView {
     
     var initialState: TransitionViewState
     let finalState: TransitionViewState
-    let options: ShiftViewOptions
+    var options: ShiftViewOptions
     
     lazy var duration = calculateDuration()
     
     var fromViewOriginalAlpha: CGFloat = 1
     let toViewOriginalAlpha: CGFloat
     
+    var parent: TransitionView?
+    
+    let coordinateSpace: CoordinateSpace
+    
     init(toView: UIView,
          container: UIView,
+         coordinateSpace: CoordinateSpace,
          options: ShiftViewOptions) {
         self.toView = toView
         self.options = options
         self.toViewOriginalAlpha = toView.alpha
         self.finalState = TransitionViewState(view: toView, container: container)
         self.initialState = finalState
+        self.coordinateSpace = coordinateSpace
     }
     
     func setMatch(view: UIView, container: UIView) {
@@ -40,20 +46,27 @@ final class TransitionView {
         initialState = TransitionViewState(view: view, container: container)
     }
     
-    func takeSnapshot(container: UIView) {
+    func takeSnapshot() {
         guard let view = toView else { return }
         
         snapshot = view.snapshot(sizing: options.contentSizing)
         
-        guard let snapshot = snapshot else { return }
-        
-        // snapshots are taken in reverse order of when they
-        // should be added back to the container view.
-        // so it should be inserted at the bottom.
-        container.insertSubview(snapshot, at: 0)
-        
         fromView?.alpha = 0
         toView?.alpha = 0
+    }
+    
+    func insertSnapshot() {
+        guard let snapshot = snapshot else { return }
+        
+        switch coordinateSpace {
+        case .global(let container):
+            // snapshots are taken in reverse order of when they
+            // should be added back to the container view.
+            // so it should be inserted at the bottom.
+            container.insertSubview(snapshot, at: 0)
+        case .parent(let parent):
+            parent.snapshot?.addSubview(snapshot)
+        }
     }
     
     func applyModifiers() {
@@ -162,6 +175,10 @@ extension Array where Element == TransitionView {
     var maxDuration: TimeInterval {
         return self.map{ $0.duration }.max() ?? 0
     }
+    
+    var rootView: TransitionView? {
+        return last
+    }
 }
 
 final class SnapshotView: UIView {
@@ -186,4 +203,9 @@ final class SnapshotView: UIView {
         guard sizing == .stretch else { return }
         content.frame = bounds
     }
+}
+
+enum CoordinateSpace {
+    case global(UIView)
+    case parent(TransitionView)
 }
