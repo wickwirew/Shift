@@ -8,36 +8,31 @@
 
 import UIKit
 
-final class TransitionView {
+final class ViewContext {
     
-    let match: UIView?
     let view: UIView
-    
+    let match: UIView?
     var snapshot: SnapshotView?
-    
-    var initialState: TransitionViewState
-    let finalState: TransitionViewState
+    var initialState: ViewState
+    let finalState: ViewState
     var options: ShiftViewOptions
-    
-    lazy var duration = calculateDuration()
-    
+    let superview: Superview
     var matchOriginalAlpha: CGFloat = 1
     let viewOriginalAlpha: CGFloat
-    
-    let coordinateSpace: CoordinateSpace
+    lazy var duration = calculateDuration()
     
     init(toView: UIView,
          container: UIView,
-         coordinateSpace: CoordinateSpace,
+         superview: Superview,
          options: ShiftViewOptions,
          match: UIView?) {
         self.view = toView
         self.options = options
         self.viewOriginalAlpha = toView.alpha
-        let finalState = TransitionViewState(view: toView, container: container)
-        self.initialState = match.map{ TransitionViewState(view: $0, container: container) } ?? finalState
+        let finalState = ViewState(view: toView, superview: superview)
+        self.initialState = match.map{ ViewState(view: $0, superview: superview) } ?? finalState
         self.finalState = finalState
-        self.coordinateSpace = coordinateSpace
+        self.superview = superview
         self.match = match
         self.matchOriginalAlpha = match?.alpha ?? 0
     }
@@ -62,7 +57,7 @@ final class TransitionView {
     func addSnapshot() {
         guard let snapshot = snapshot else { return }
         
-        switch coordinateSpace {
+        switch superview {
         case .global(let container):
             container.addSubview(snapshot)
         case .parent(let parent):
@@ -75,36 +70,35 @@ final class TransitionView {
     }
     
     func performCaAnimations() {
-        addAnimation(key: .position, value: \.position, layer: \.position)
-        addAnimation(key: .bounds, value: \.bounds, layer: \.bounds)
-        addAnimation(key: .cornerRadius, value: \.cornerRadius, layer: \.cornerRadius)
-        addAnimation(key: .anchorPoint, value: \.anchorPoint, layer: \.anchorPoint)
-        addAnimation(key: .zPosition, value: \.zPosition, layer: \.zPosition)
-        addAnimation(key: .opacity, value: \.opacity, layer: \.opacity)
-        addAnimation(key: .isOpaque, value: \.isOpaque, layer: \.isOpaque)
-        addAnimation(key: .masksToBounds, value: \.masksToBounds, layer: \.masksToBounds)
-        addAnimation(key: .borderColor, value: \.borderColor, layer: \.borderColor)
-        addAnimation(key: .borderWidth, value: \.borderWidth, layer: \.borderWidth)
-        addAnimation(key: .contentsRect, value: \.contentsRect, layer: \.contentsRect)
-        addAnimation(key: .contentsScale, value: \.contentsScale, layer: \.contentsScale)
-        addAnimation(key: .shadowColor, value: \.shadowColor, layer: \.shadowColor)
-        addAnimation(key: .shadowOffset, value: \.shadowOffset, layer: \.shadowOffset)
-        addAnimation(key: .shadowRadius, value: \.shadowRadius, layer: \.shadowRadius)
-        addAnimation(key: .shadowOpacity, value: \.shadowOpacity, layer: \.shadowOpacity)
-        addAnimation(key: .transform, value: \.transform, layer: \.transform)
+        addAnimation(value: \.position, layer: \.position)
+        addAnimation(value: \.bounds, layer: \.bounds)
+        addAnimation(value: \.cornerRadius, layer: \.cornerRadius)
+        addAnimation(value: \.anchorPoint, layer: \.anchorPoint)
+        addAnimation(value: \.zPosition, layer: \.zPosition)
+        addAnimation(value: \.opacity, layer: \.opacity)
+        addAnimation(value: \.isOpaque, layer: \.isOpaque)
+        addAnimation(value: \.masksToBounds, layer: \.masksToBounds)
+        addAnimation(value: \.borderColor, layer: \.borderColor)
+        addAnimation(value: \.borderWidth, layer: \.borderWidth)
+        addAnimation(value: \.contentsRect, layer: \.contentsRect)
+        addAnimation(value: \.contentsScale, layer: \.contentsScale)
+        addAnimation(value: \.shadowColor, layer: \.shadowColor)
+        addAnimation(value: \.shadowOffset, layer: \.shadowOffset)
+        addAnimation(value: \.shadowRadius, layer: \.shadowRadius)
+        addAnimation(value: \.shadowOpacity, layer: \.shadowOpacity)
+        addAnimation(value: \.transform, layer: \.transform)
         
         // A specialized addAnimation for shadowPath to default it if need be.
         if initialState.shadowPath != finalState.shadowPath {
             let fromPath = initialState.shadowPath ?? UIBezierPath(rect: initialState.bounds).cgPath
             let toPath = finalState.shadowPath ?? UIBezierPath(rect: finalState.bounds).cgPath
-            snapshot?.layer.addAnimation(for: .shadowPath, from: fromPath, to: toPath, duration: duration)
+            snapshot?.layer.addAnimation(for: "shadowPath", from: fromPath, to: toPath, duration: duration)
             snapshot?.layer.shadowPath = toPath
         }
     }
     
     /// Adds an animation for the given keyPath if the value has changed.
-    func addAnimation<T: Equatable>(key: AnimationKeyPath,
-                                    value: KeyPath<TransitionViewState, T>,
+    func addAnimation<T: Equatable>(value: KeyPath<ViewState, T>,
                                     layer: ReferenceWritableKeyPath<CALayer, T>) {
         let from = initialState[keyPath: value]
         let to = finalState[keyPath: value]
@@ -112,7 +106,7 @@ final class TransitionView {
         // make sure the value has changed
         guard to != from else { return }
         
-        snapshot?.layer.addAnimation(for: key, from: from, to: to, duration: duration)
+        snapshot?.layer.addAnimation(for: layer._kvcKeyPathString!, from: from, to: to, duration: duration)
         snapshot?.layer[keyPath: layer] = to
     }
     
@@ -172,13 +166,13 @@ final class TransitionView {
     }
 }
 
-extension Array where Element == TransitionView {
+extension Array where Element == ViewContext {
     
     var maxDuration: TimeInterval {
         return self.map{ $0.duration }.max() ?? 0
     }
     
-    var rootView: TransitionView? {
+    var rootView: ViewContext? {
         return first
     }
 }
@@ -207,7 +201,17 @@ final class SnapshotView: UIView {
     }
 }
 
-enum CoordinateSpace {
+enum Superview {
+    
     case global(UIView)
-    case parent(TransitionView)
+    case parent(ViewContext)
+    
+    var coordinateSpace: UICoordinateSpace {
+        switch self {
+        case .global(let container):
+            return container
+        case .parent(let view):
+            return view.view
+        }
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  TransitionViewState.swift
+//  ViewState.swift
 //  Transition
 //
 //  Created by Wes Wickwire on 9/24/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct TransitionViewState {
+struct ViewState {
     
     var position: CGPoint
     var bounds: CGRect
@@ -31,8 +31,8 @@ struct TransitionViewState {
     var transform: CATransform3D
     var backgroundColor: UIColor?
     
-    init(view: UIView, container: UIView) {
-        self.position = container.convert(view.layer.position, from: view.superview!)
+    init(view: UIView, superview: Superview) {
+        self.position = superview.coordinateSpace.convert(view.layer.position, from: view.superview!)
         self.bounds = view.bounds
         self.cornerRadius = view.layer.cornerRadius
         self.anchorPoint = view.layer.anchorPoint
@@ -54,7 +54,7 @@ struct TransitionViewState {
         self.backgroundColor = view.backgroundColor
     }
     
-    func apply(to view: UIView, finalState: TransitionViewState? = nil) {
+    func apply(to view: UIView, finalState: ViewState? = nil) {
         view.layer.position = position
         view.layer.cornerRadius = cornerRadius
         view.layer.anchorPoint = anchorPoint

@@ -13,7 +13,7 @@ public enum Animation {
     case fade
     case translate(x: CGFloat = 0, y: CGFloat = 0)
     
-    func apply(to state: inout TransitionViewState) {
+    func apply(to state: inout ViewState) {
         switch self {
         case .fade:
             state.alpha = 0
@@ -26,7 +26,7 @@ public enum Animation {
 
 extension Array where Element == Animation {
     
-    func apply(to state: inout TransitionViewState) {
+    func apply(to state: inout ViewState) {
         forEach { $0.apply(to: &state) }
     }
 }

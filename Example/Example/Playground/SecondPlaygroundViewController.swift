@@ -20,6 +20,7 @@ class SecondPlaygroundViewController: UIViewController {
         
         view.shift.animations = [.fade]
         whiteSquare.shift.animations = [.translate(y: 303)]
+        whiteSquare.shift.superview = .container
         smallSquare.shift.animations = [.translate(x: 414)]
         square.shift.contentSizing = .final
     }

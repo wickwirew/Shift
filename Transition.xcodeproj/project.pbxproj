@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DE2572F3233ACDF200B19BE0 /* ShiftOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572EF233ACDF200B19BE0 /* ShiftOptions.swift */; };
-		DE2572F4233ACDF200B19BE0 /* TransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F0233ACDF200B19BE0 /* TransitionAnimator.swift */; };
+		DE2572F3233ACDF200B19BE0 /* UIView+Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572EF233ACDF200B19BE0 /* UIView+Shift.swift */; };
+		DE2572F4233ACDF200B19BE0 /* Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F0233ACDF200B19BE0 /* Animate.swift */; };
 		DE2572F5233ACDF200B19BE0 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F1233ACDF200B19BE0 /* CALayer+Extensions.swift */; };
-		DE2572F6233ACDF200B19BE0 /* AnimationKeyPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F2233ACDF200B19BE0 /* AnimationKeyPath.swift */; };
-		DE2572F8233ACE0B00B19BE0 /* TransitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F7233ACE0B00B19BE0 /* TransitionView.swift */; };
-		DE2572FA233ACE3400B19BE0 /* TransitionViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F9233ACE3400B19BE0 /* TransitionViewState.swift */; };
-		DE2572FC233ACEB300B19BE0 /* ViewLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572FB233ACEB300B19BE0 /* ViewLocation.swift */; };
+		DE2572F8233ACE0B00B19BE0 /* ViewContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F7233ACE0B00B19BE0 /* ViewContext.swift */; };
+		DE2572FA233ACE3400B19BE0 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F9233ACE3400B19BE0 /* ViewState.swift */; };
 		DE2572FF233AD2DD00B19BE0 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572FE233AD2DD00B19BE0 /* CGPoint+Extensions.swift */; };
 		DE257301233AD30200B19BE0 /* CATransform3D+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257300233AD30200B19BE0 /* CATransform3D+Extensions.swift */; };
 		DE257329233AD4D200B19BE0 /* ModalTransitionModalTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257328233AD4D200B19BE0 /* ModalTransitionModalTransitioningDelegate.swift */; };
@@ -22,8 +20,9 @@
 		DE25732F233AD66300B19BE0 /* ModalTransitionDismissing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE25732E233AD66300B19BE0 /* ModalTransitionDismissing.swift */; };
 		DE257331233AD72800B19BE0 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257330233AD72800B19BE0 /* UIViewController+Extensions.swift */; };
 		DE257335233ADA1B00B19BE0 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257334233ADA1B00B19BE0 /* UIView+Extensions.swift */; };
-		DE6236BC23441AEA00F3B010 /* ContentSizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6236BB23441AEA00F3B010 /* ContentSizing.swift */; };
 		DE6236BE2346D59C00F3B010 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6236BD2346D59C00F3B010 /* Animation.swift */; };
+		DE6236C0234C233E00F3B010 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6236BF234C233E00F3B010 /* NSObject+Extensions.swift */; };
+		DE6236C2234C238100F3B010 /* UIViewController+Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6236C1234C238100F3B010 /* UIViewController+Shift.swift */; };
 		DEAEC80B23398134003F5977 /* Transition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEAEC80123398134003F5977 /* Transition.framework */; };
 		DEAEC81023398134003F5977 /* TransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAEC80F23398134003F5977 /* TransitionTests.swift */; };
 		DEAEC81223398134003F5977 /* Transition.h in Headers */ = {isa = PBXBuildFile; fileRef = DEAEC80423398134003F5977 /* Transition.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -42,13 +41,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DE2572EF233ACDF200B19BE0 /* ShiftOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShiftOptions.swift; sourceTree = "<group>"; };
-		DE2572F0233ACDF200B19BE0 /* TransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionAnimator.swift; sourceTree = "<group>"; };
+		DE2572EF233ACDF200B19BE0 /* UIView+Shift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shift.swift"; sourceTree = "<group>"; };
+		DE2572F0233ACDF200B19BE0 /* Animate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animate.swift; sourceTree = "<group>"; };
 		DE2572F1233ACDF200B19BE0 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
-		DE2572F2233ACDF200B19BE0 /* AnimationKeyPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationKeyPath.swift; sourceTree = "<group>"; };
-		DE2572F7233ACE0B00B19BE0 /* TransitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionView.swift; sourceTree = "<group>"; };
-		DE2572F9233ACE3400B19BE0 /* TransitionViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionViewState.swift; sourceTree = "<group>"; };
-		DE2572FB233ACEB300B19BE0 /* ViewLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewLocation.swift; sourceTree = "<group>"; };
+		DE2572F7233ACE0B00B19BE0 /* ViewContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContext.swift; sourceTree = "<group>"; };
+		DE2572F9233ACE3400B19BE0 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		DE2572FE233AD2DD00B19BE0 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
 		DE257300233AD30200B19BE0 /* CATransform3D+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CATransform3D+Extensions.swift"; sourceTree = "<group>"; };
 		DE257328233AD4D200B19BE0 /* ModalTransitionModalTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTransitionModalTransitioningDelegate.swift; sourceTree = "<group>"; };
@@ -57,8 +54,9 @@
 		DE25732E233AD66300B19BE0 /* ModalTransitionDismissing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTransitionDismissing.swift; sourceTree = "<group>"; };
 		DE257330233AD72800B19BE0 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		DE257334233ADA1B00B19BE0 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
-		DE6236BB23441AEA00F3B010 /* ContentSizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSizing.swift; sourceTree = "<group>"; };
 		DE6236BD2346D59C00F3B010 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		DE6236BF234C233E00F3B010 /* NSObject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extensions.swift"; sourceTree = "<group>"; };
+		DE6236C1234C238100F3B010 /* UIViewController+Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Shift.swift"; sourceTree = "<group>"; };
 		DEAEC80123398134003F5977 /* Transition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Transition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEAEC80423398134003F5977 /* Transition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transition.h; sourceTree = "<group>"; };
 		DEAEC80523398134003F5977 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,6 +96,7 @@
 				DE2572FE233AD2DD00B19BE0 /* CGPoint+Extensions.swift */,
 				DE257334233ADA1B00B19BE0 /* UIView+Extensions.swift */,
 				DE257330233AD72800B19BE0 /* UIViewController+Extensions.swift */,
+				DE6236BF234C233E00F3B010 /* NSObject+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -136,16 +135,14 @@
 			children = (
 				DE2572FD233ACEDA00B19BE0 /* Extensions */,
 				DE257327233AD4BC00B19BE0 /* Transitions */,
-				DE2572F2233ACDF200B19BE0 /* AnimationKeyPath.swift */,
 				DE6236BD2346D59C00F3B010 /* Animation.swift */,
-				DE2572F0233ACDF200B19BE0 /* TransitionAnimator.swift */,
-				DE2572EF233ACDF200B19BE0 /* ShiftOptions.swift */,
-				DE2572F7233ACE0B00B19BE0 /* TransitionView.swift */,
-				DE2572F9233ACE3400B19BE0 /* TransitionViewState.swift */,
-				DE2572FB233ACEB300B19BE0 /* ViewLocation.swift */,
+				DE2572F0233ACDF200B19BE0 /* Animate.swift */,
+				DE2572F7233ACE0B00B19BE0 /* ViewContext.swift */,
+				DE2572F9233ACE3400B19BE0 /* ViewState.swift */,
+				DE2572EF233ACDF200B19BE0 /* UIView+Shift.swift */,
+				DE6236C1234C238100F3B010 /* UIViewController+Shift.swift */,
 				DEAEC80423398134003F5977 /* Transition.h */,
 				DEAEC80523398134003F5977 /* Info.plist */,
-				DE6236BB23441AEA00F3B010 /* ContentSizing.swift */,
 			);
 			path = Transition;
 			sourceTree = "<group>";
@@ -270,23 +267,22 @@
 			files = (
 				DE25732F233AD66300B19BE0 /* ModalTransitionDismissing.swift in Sources */,
 				DE2572F5233ACDF200B19BE0 /* CALayer+Extensions.swift in Sources */,
-				DE6236BC23441AEA00F3B010 /* ContentSizing.swift in Sources */,
 				DE25732D233AD5DF00B19BE0 /* ModalTransitionPresenting.swift in Sources */,
-				DE2572FA233ACE3400B19BE0 /* TransitionViewState.swift in Sources */,
+				DE2572FA233ACE3400B19BE0 /* ViewState.swift in Sources */,
+				DE6236C2234C238100F3B010 /* UIViewController+Shift.swift in Sources */,
 				DE25732B233AD57900B19BE0 /* ModalTransitionPresentationController.swift in Sources */,
 				DE2572FF233AD2DD00B19BE0 /* CGPoint+Extensions.swift in Sources */,
-				DE2572F4233ACDF200B19BE0 /* TransitionAnimator.swift in Sources */,
-				DE2572FC233ACEB300B19BE0 /* ViewLocation.swift in Sources */,
-				DE2572F3233ACDF200B19BE0 /* ShiftOptions.swift in Sources */,
+				DE2572F4233ACDF200B19BE0 /* Animate.swift in Sources */,
+				DE2572F3233ACDF200B19BE0 /* UIView+Shift.swift in Sources */,
 				DE257301233AD30200B19BE0 /* CATransform3D+Extensions.swift in Sources */,
 				DE257331233AD72800B19BE0 /* UIViewController+Extensions.swift in Sources */,
-				DE2572F8233ACE0B00B19BE0 /* TransitionView.swift in Sources */,
+				DE2572F8233ACE0B00B19BE0 /* ViewContext.swift in Sources */,
 				DEED002E233EC498006511F2 /* CAMediaTimingFunction+Extensions.swift in Sources */,
 				DE6236BE2346D59C00F3B010 /* Animation.swift in Sources */,
 				DE257335233ADA1B00B19BE0 /* UIView+Extensions.swift in Sources */,
 				DE257329233AD4D200B19BE0 /* ModalTransitionModalTransitioningDelegate.swift in Sources */,
 				DEED002A233EBFA2006511F2 /* CGFloat+Extensions.swift in Sources */,
-				DE2572F6233ACDF200B19BE0 /* AnimationKeyPath.swift in Sources */,
+				DE6236C0234C233E00F3B010 /* NSObject+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

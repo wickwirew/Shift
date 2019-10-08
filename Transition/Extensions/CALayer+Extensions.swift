@@ -10,15 +10,15 @@ import UIKit
 
 extension CALayer {
     
-    func addAnimation(for keyPath: AnimationKeyPath,
+    func addAnimation(for keyPath: String,
                       from fromValue: Any?,
                       to toValue: Any?,
                       duration: TimeInterval) {
-        let animation = CABasicAnimation(keyPath: keyPath.rawValue)
+        let animation = CABasicAnimation(keyPath: keyPath)
         animation.fromValue = fromValue
         animation.toValue = toValue
         animation.duration = duration
         animation.timingFunction = .normal
-        add(animation, forKey: keyPath.rawValue)
+        add(animation, forKey: keyPath)
     }
 }
