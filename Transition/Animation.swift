@@ -11,16 +11,34 @@ import UIKit
 public enum Animation {
     
     case fade
-    case translate(x: CGFloat = 0, y: CGFloat = 0)
+    case move(Direction)
+    case color(UIColor)
     
     func apply(to state: inout ViewState) {
         switch self {
         case .fade:
             state.alpha = 0
-        case let .translate(x, y):
-            state.position.x -= x
-            state.position.y += y
+        case let .move(direction):
+            switch direction {
+            case .up(let value):
+                state.position.y += value
+            case .down(let value):
+                state.position.y -= value
+            case .left(let value):
+                state.position.x += value
+            case .right(let value):
+                state.position.x -= value
+            }
+        case .color(let color):
+            state.backgroundColor = color
         }
+    }
+    
+    public enum Direction {
+        case up(CGFloat)
+        case down(CGFloat)
+        case left(CGFloat)
+        case right(CGFloat)
     }
 }
 

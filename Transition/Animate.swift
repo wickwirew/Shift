@@ -8,9 +8,12 @@
 
 import UIKit
 
+public typealias Middleware = ([ViewContext]) -> Void
+
 public func animate(fromView: UIView,
                     toView: UIView,
                     container: UIView,
+                    middleware: [Middleware] = [],
                     completion: @escaping (Bool) -> Void,
                     extraAnimations: (() -> Void)? = nil) {
     let transitionContainer = buildTransitionContainer(in: container)
@@ -22,7 +25,7 @@ public func animate(fromView: UIView,
         potentialMatches: findPotentialMatches(in: fromView)
     )
     
-    applyDefaultTransition(views: views)
+    middleware.forEach{ $0(views) }
     
     views.forEach{ $0.applyModifers() }
     
@@ -46,65 +49,45 @@ public func animate(fromView: UIView,
 
 private func deconstruct(view: UIView,
                          container: UIView,
+                         parent: ViewContext? = nil,
                          potentialMatches: [String: UIView]) -> [ViewContext] {
+    guard !view.isHidden else { return [] }
+    
     var roots = [ViewContext]()
     
-    let root = ViewContext(
-        toView: view,
-        container: container,
-        superview: .global(container),
-        options: view.shift,
-        match: nil
-    )
-    
-    roots.append(root)
-    
-    deconstruct(
-        view: view,
-        container: container,
-        parent: root,
-        roots: &roots,
-        potentialMatches: potentialMatches
-    )
-    
-    return roots
-}
-
-private func deconstruct(view: UIView,
-                         container: UIView,
-                         parent: ViewContext,
-                         roots: inout [ViewContext],
-                         potentialMatches: [String: UIView]) {
-    guard !view.isHidden else { return }
-    
     let options = view.shift
-    let match = potentialMatches[options.id ?? ""]
+    let match = options.id != nil ? potentialMatches[options.id!] : nil
     let hasMatch = match != nil
-    let viewNeedsAnimating = match != nil || !options.animations.isEmpty
+    let viewNeedsAnimating = match != nil || !options.animations.isEmpty || parent == nil
+    
+    let superView: Superview
+    if let parent = parent {
+        superView = !hasMatch && options.superview != .container
+            ? .parent(parent)
+            : .global(container)
+    } else {
+        superView = .global(container)
+    }
     
     let result: ViewContext? = !viewNeedsAnimating ? nil : ViewContext(
         toView: view,
-        container: container,
-        superview: hasMatch || options.superview == .container
-            ? .global(container)
-            : .parent(parent),
+        superview: superView,
         options: options,
         match: match
     )
     
     result.map { roots.append($0) }
     
-    // Make sure to visit the subviews in reverse order since we want
-    // to visit the "Top Views" first.
     for subview in view.subviews {
-        deconstruct(
+        roots.append(contentsOf: deconstruct(
             view: subview,
             container: container,
-            parent: result != nil ? result! : parent,
-            roots: &roots,
+            parent: result != nil ? result : parent,
             potentialMatches: potentialMatches
-        )
+        ))
     }
+    
+    return roots
 }
 
 private func findPotentialMatches(in view: UIView) -> [String: UIView] {
@@ -149,9 +132,3 @@ private func addFromViewSnapshot(fromView: UIView, container: UIView) -> UIView 
     fromViewShapshot.frame = fromView.frame
     return fromViewShapshot
 }
-
-/// TODO: add ability to more default animations
-private func applyDefaultTransition(views: [ViewContext]) {
-    views.rootView?.options.animations = [.fade]
-}
-

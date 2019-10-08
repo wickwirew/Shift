@@ -18,10 +18,13 @@ class SecondPlaygroundViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        shift.modalTransition = .fade
+        
         view.shift.animations = [.fade]
-        whiteSquare.shift.animations = [.translate(y: 303)]
+        
+        whiteSquare.shift.animations = [.move(.up(303))]
         whiteSquare.shift.superview = .container
-        smallSquare.shift.animations = [.translate(x: 414)]
+        smallSquare.shift.animations = [.move(.right(414)), .color(.red)]
         square.shift.contentSizing = .final
     }
     

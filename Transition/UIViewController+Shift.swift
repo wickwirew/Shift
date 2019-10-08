@@ -9,7 +9,7 @@
 import UIKit
 
 public struct ShiftViewControllerOptions {
-    public var isEnabled = false
+    public var modalTransition: ModalTransition?
 }
 
 extension UIViewController {
@@ -31,7 +31,7 @@ extension UIViewController {
             
             let nonatomic = objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
             
-            guard newValue.isEnabled else {
+            guard newValue.modalTransition != nil else {
                 return objc_setAssociatedObject(
                     self,
                     &Keys.transitionDelegate,

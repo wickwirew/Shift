@@ -36,6 +36,8 @@ class ArtistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        shift.modalTransition = .fade
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableView.automaticDimension
@@ -49,6 +51,7 @@ class ArtistViewController: UIViewController {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "SongPlayerViewController")
         viewController.view.backgroundColor = .black
+        viewController.shift.modalTransition = .fade
         present(viewController, animated: true, completion: nil)
     }
     

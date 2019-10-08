@@ -58,6 +58,7 @@ extension SelectionViewController: UITableViewDataSource, UITableViewDelegate {
         let example = examples[indexPath.row]
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: example.viewController)
+        viewController.shift.modalTransition = .slide(.up)
         present(viewController, animated: true, completion: nil)
     }
 }

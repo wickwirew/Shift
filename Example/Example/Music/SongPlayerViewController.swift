@@ -18,6 +18,8 @@ class SongPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        shift.modalTransition = .fade
+        
         albumCover.layer.masksToBounds = false
         albumCover.layer.shadowColor = UIColor.black.cgColor
         albumCover.layer.shadowOffset = .zero

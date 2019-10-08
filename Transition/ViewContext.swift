@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ViewContext {
+public final class ViewContext {
     
     let view: UIView
     let match: UIView?
@@ -17,12 +17,11 @@ final class ViewContext {
     let finalState: ViewState
     var options: ShiftViewOptions
     let superview: Superview
-    var matchOriginalAlpha: CGFloat = 1
+    let matchOriginalAlpha: CGFloat
     let viewOriginalAlpha: CGFloat
     lazy var duration = calculateDuration()
     
     init(toView: UIView,
-         container: UIView,
          superview: Superview,
          options: ShiftViewOptions,
          match: UIView?) {
@@ -150,7 +149,6 @@ final class ViewContext {
     
     /// Calculates an appropiate duration for the animation.
     func calculateDuration() -> TimeInterval {
-        return 2
         // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
         // So there is an additional 0.175 seconds to add based off
