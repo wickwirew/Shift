@@ -25,7 +25,7 @@ class SecondPlaygroundViewController: UIViewController {
         whiteSquare.shift.animations = [.move(.up(303))]
         whiteSquare.shift.superview = .container
         smallSquare.shift.animations = [.move(.right(414)), .color(.red)]
-        square.shift.contentSizing = .final
+        square.shift.contentSizing = .stretch
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {

@@ -15,7 +15,7 @@ extension UIView {
         set { shift.id = newValue }
     }
     
-    func snapshot(sizing: ContentSizing) -> SnapshotView? {
+    func snapshot() -> UIView? {
         if let imageView = self as? UIImageView {
             let view = UIImageView(image: imageView.image)
             view.frame = imageView.bounds
@@ -25,11 +25,11 @@ extension UIView {
             view.layer.magnificationFilter = imageView.layer.magnificationFilter
             view.layer.minificationFilter = imageView.layer.minificationFilter
             view.layer.minificationFilterBias = imageView.layer.minificationFilterBias
-            return SnapshotView(content: view, sizing: sizing)
+            return view
         } else if let effectView = self as? UIVisualEffectView {
             let view = UIVisualEffectView(effect: effectView.effect)
             view.frame = effectView.bounds
-            return SnapshotView(content: view, sizing: sizing)
+            return view
         } else {
             let oldCornerRadius = layer.cornerRadius
             let oldAlpha = alpha
@@ -54,7 +54,7 @@ extension UIView {
             layer.shadowPath = oldShadowPath
             layer.shadowOpacity = oldShadowOpacity
         
-            return snapshot.map { SnapshotView(content: $0, sizing: sizing) }
+            return snapshot
         }
     }
 }

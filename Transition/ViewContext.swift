@@ -12,7 +12,7 @@ public final class ViewContext {
     
     let view: UIView
     let match: UIView?
-    var snapshot: SnapshotView?
+    var snapshot: Snapshot?
     var initialState: ViewState
     let finalState: ViewState
     var options: ShiftViewOptions
@@ -37,7 +37,12 @@ public final class ViewContext {
     }
     
     func takeSnapshot() {
-        snapshot = view.snapshot(sizing: options.contentSizing)
+        snapshot = Snapshot(
+            finalContent: view,
+            initialContent: match,
+            sizing: options.contentSizing,
+            animation: options.contentAnimation
+        )
         
         guard let snapshot = snapshot else { return }
         
@@ -124,6 +129,8 @@ public final class ViewContext {
         CATransaction.setAnimationDuration(duration)
         CATransaction.setAnimationTimingFunction(.normal)
         
+        snapshot?.setContentAnimationStart()
+        
         UIView.animate(
             withDuration: duration,
             animations: {
@@ -131,6 +138,7 @@ public final class ViewContext {
                 self.snapshot?.alpha = self.finalState.alpha
                 self.snapshot?.layer.bounds = self.finalState.bounds
                 self.snapshot?.backgroundColor = self.finalState.backgroundColor
+                self.snapshot?.setContentAnimationEnd()
                 self.snapshot?.setNeedsLayout()
                 self.snapshot?.layoutIfNeeded()
             }
@@ -172,30 +180,6 @@ extension Array where Element == ViewContext {
     
     var rootView: ViewContext? {
         return first
-    }
-}
-
-final class SnapshotView: UIView {
-    
-    let content: UIView
-    let sizing: ContentSizing
-    
-    init(content: UIView, sizing: ContentSizing) {
-        self.content = content
-        self.sizing = sizing
-        super.init(frame: content.frame)
-        addSubview(content)
-        backgroundColor = content.backgroundColor
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        guard sizing == .stretch else { return }
-        content.frame = bounds
     }
 }
 
