@@ -15,6 +15,7 @@ class SelectionViewController: UIViewController {
     var examples: [Example] = [
         Example(name: "Music Player", viewController: "ArtistViewController"),
         Example(name: "Playground", viewController: "FirstPlaygroundViewController"),
+        Example(name: "Space", viewController: "SpaceViewController")
     ]
     
     override func viewDidLoad() {
@@ -58,7 +59,7 @@ extension SelectionViewController: UITableViewDataSource, UITableViewDelegate {
         let example = examples[indexPath.row]
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: example.viewController)
-        viewController.shift.modalTransition = .slide(.up)
+        viewController.shift.modalTransition = .fade
         present(viewController, animated: true, completion: nil)
     }
 }

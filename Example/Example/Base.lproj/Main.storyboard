@@ -302,6 +302,160 @@
             </objects>
             <point key="canvasLocation" x="-304.34782608695656" y="803.57142857142856"/>
         </scene>
+        <!--Space View Controller-->
+        <scene sceneID="R01-fp-8PI">
+            <objects>
+                <viewController storyboardIdentifier="SpaceViewController" id="VjC-PR-N0T" customClass="SpaceViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cKu-9Z-CEa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Earth" translatesAutoresizingMaskIntoConstraints="NO" id="K6a-FI-kWG">
+                                <rect key="frame" x="73.5" y="268" width="267.00000000000023" height="254"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="254" id="uiM-0N-9an"/>
+                                    <constraint firstAttribute="width" constant="267" id="w7U-w8-Xcb"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="transitionId" value="earth"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SpaceMan" translatesAutoresizingMaskIntoConstraints="NO" id="VgZ-pk-htd">
+                                <rect key="frame" x="0.0" y="162" width="414" height="530"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="530" id="PdR-ih-26X"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUf-ef-2CR">
+                                <rect key="frame" x="0.0" y="616" width="414" height="280"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="280" id="mRr-ou-dE4"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SPACE TRAVEL" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yg-R9-BJh">
+                                <rect key="frame" x="22" y="362" width="318" height="172"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="60"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mEJ-rw-xHu">
+                                <rect key="frame" x="22" y="532" width="248" height="50"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="GoS-e9-Aco"/>
+                                    <constraint firstAttribute="width" constant="248" id="PTo-He-03J"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="17"/>
+                                <color key="tintColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="TICKETS AVAILABLE">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="ticketsAvailablePressed:" destination="VjC-PR-N0T" eventType="touchUpInside" id="1gB-Wg-HYL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oSk-g9-EhK">
+                                <rect key="frame" x="22" y="44" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="UhD-LU-9C4"/>
+                                    <constraint firstAttribute="width" constant="44" id="mWl-jN-ddg"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="exitPressed:" destination="VjC-PR-N0T" eventType="touchUpInside" id="4eS-3A-cEz"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="oUf-ef-2CR" secondAttribute="bottom" id="439-Up-a6e"/>
+                            <constraint firstItem="mEJ-rw-xHu" firstAttribute="leading" secondItem="AC7-Kh-VTh" secondAttribute="leading" constant="22" id="9Od-Xp-5Zn"/>
+                            <constraint firstItem="oUf-ef-2CR" firstAttribute="top" secondItem="mEJ-rw-xHu" secondAttribute="bottom" constant="34" id="Cdz-sy-jVS"/>
+                            <constraint firstItem="oSk-g9-EhK" firstAttribute="leading" secondItem="AC7-Kh-VTh" secondAttribute="leading" constant="22" id="HTo-ET-KHM"/>
+                            <constraint firstItem="oSk-g9-EhK" firstAttribute="top" secondItem="AC7-Kh-VTh" secondAttribute="top" id="LFZ-DZ-1MO"/>
+                            <constraint firstItem="AC7-Kh-VTh" firstAttribute="bottom" secondItem="VgZ-pk-htd" secondAttribute="bottom" constant="170" id="Q8q-iv-mhf"/>
+                            <constraint firstItem="VgZ-pk-htd" firstAttribute="trailing" secondItem="AC7-Kh-VTh" secondAttribute="trailing" id="ROR-la-Tjw"/>
+                            <constraint firstItem="K6a-FI-kWG" firstAttribute="centerX" secondItem="cKu-9Z-CEa" secondAttribute="centerX" id="SxK-3n-Wag"/>
+                            <constraint firstItem="oUf-ef-2CR" firstAttribute="trailing" secondItem="AC7-Kh-VTh" secondAttribute="trailing" id="Xh6-dH-5CE"/>
+                            <constraint firstItem="oUf-ef-2CR" firstAttribute="leading" secondItem="AC7-Kh-VTh" secondAttribute="leading" id="fe5-hF-y1E"/>
+                            <constraint firstItem="VgZ-pk-htd" firstAttribute="leading" secondItem="AC7-Kh-VTh" secondAttribute="leading" id="oeE-ZY-Zi5"/>
+                            <constraint firstItem="AC7-Kh-VTh" firstAttribute="bottom" secondItem="K6a-FI-kWG" secondAttribute="bottom" constant="340" id="xXh-2X-Nai"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AC7-Kh-VTh"/>
+                    </view>
+                    <connections>
+                        <outlet property="bottomSheet" destination="oUf-ef-2CR" id="g6c-DZ-fA5"/>
+                        <outlet property="earth" destination="K6a-FI-kWG" id="WIQ-lh-NN5"/>
+                        <outlet property="spaceMan" destination="VgZ-pk-htd" id="m0q-5O-XCb"/>
+                        <outlet property="spaceTravel" destination="0Yg-R9-BJh" id="QQ2-EG-vc1"/>
+                        <outlet property="ticketsAvailable" destination="mEJ-rw-xHu" id="fdJ-wY-IG9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mpd-Pr-QJy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-304.34782608695656" y="1579.6875"/>
+        </scene>
+        <!--Earth View Controller-->
+        <scene sceneID="XMd-Iu-BrU">
+            <objects>
+                <viewController storyboardIdentifier="EarthViewController" id="GLb-h7-xNP" customClass="EarthViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3qe-P4-eGi">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Earth" translatesAutoresizingMaskIntoConstraints="NO" id="cOr-E6-gAq">
+                                <rect key="frame" x="40" y="529" width="334.00000000000023" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="xHh-U5-BdQ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="transitionId" value="earth"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EARTH" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXN-T9-jjo">
+                                <rect key="frame" x="92" y="164" width="230" height="78"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="78" id="XZQ-CZ-mQG"/>
+                                    <constraint firstAttribute="width" constant="230" id="sGJ-8E-R4w"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="60"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="But-sD-n9u">
+                                <rect key="frame" x="22" y="44" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="VRm-Iy-kLo"/>
+                                    <constraint firstAttribute="width" constant="44" id="sTj-5b-e8N"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="exitPressed:" destination="VjC-PR-N0T" eventType="touchUpInside" id="gB4-t3-Xs2"/>
+                                    <action selector="exitPressed:" destination="GLb-h7-xNP" eventType="touchUpInside" id="hBh-83-Njr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="But-sD-n9u" firstAttribute="leading" secondItem="LOg-mP-aeV" secondAttribute="leading" constant="22" id="9gw-0X-6RR"/>
+                            <constraint firstItem="cOr-E6-gAq" firstAttribute="leading" secondItem="LOg-mP-aeV" secondAttribute="leading" constant="40" id="DbR-l9-q3p"/>
+                            <constraint firstItem="cOr-E6-gAq" firstAttribute="trailing" secondItem="LOg-mP-aeV" secondAttribute="trailing" constant="-40" id="S5k-M3-J1J"/>
+                            <constraint firstItem="But-sD-n9u" firstAttribute="top" secondItem="LOg-mP-aeV" secondAttribute="top" id="T8e-Uk-u47"/>
+                            <constraint firstItem="pXN-T9-jjo" firstAttribute="centerX" secondItem="3qe-P4-eGi" secondAttribute="centerX" id="XsP-Ms-EIq"/>
+                            <constraint firstItem="LOg-mP-aeV" firstAttribute="bottom" secondItem="cOr-E6-gAq" secondAttribute="bottom" constant="33" id="dO5-it-ojN"/>
+                            <constraint firstItem="pXN-T9-jjo" firstAttribute="top" secondItem="LOg-mP-aeV" secondAttribute="top" constant="120" id="tPe-Ud-5p0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="LOg-mP-aeV"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cYy-S4-3mS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="537.68115942028987" y="1579.6875"/>
+        </scene>
         <!--Second Playground View Controller-->
         <scene sceneID="HZK-Mm-cxW">
             <objects>
@@ -538,10 +692,12 @@
     </scenes>
     <resources>
         <image name="Album" width="355" height="355"/>
+        <image name="Earth" width="856" height="776"/>
         <image name="Fade" width="414" height="383"/>
         <image name="NextSong" width="22" height="22"/>
         <image name="PlayButton" width="79" height="79"/>
         <image name="PreviousSong" width="22" height="22"/>
+        <image name="SpaceMan" width="1001" height="888"/>
         <image name="Weeknd" width="1412" height="2060"/>
         <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>

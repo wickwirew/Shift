@@ -13,6 +13,7 @@ public enum Animation {
     case fade
     case move(Direction)
     case color(UIColor)
+    case scale(CGFloat)
     
     func apply(to state: inout ViewState) {
         switch self {
@@ -31,6 +32,8 @@ public enum Animation {
             }
         case .color(let color):
             state.backgroundColor = color
+        case .scale(let value):
+            state.transform = CATransform3DScale(state.transform, value, value, value)
         }
     }
     

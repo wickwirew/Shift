@@ -157,6 +157,7 @@ public final class ViewContext {
     
     /// Calculates an appropiate duration for the animation.
     func calculateDuration() -> TimeInterval {
+        return 1.7
         // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
         // So there is an additional 0.175 seconds to add based off

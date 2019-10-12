@@ -58,7 +58,10 @@ private func deconstruct(view: UIView,
     let options = view.shift
     let match = options.id != nil ? potentialMatches[options.id!] : nil
     let hasMatch = match != nil
-    let viewNeedsAnimating = match != nil || !options.animations.isEmpty || parent == nil
+    let viewNeedsAnimating = match != nil
+        || !options.animations.isEmpty
+        || parent == nil
+        || options.superview == .container
     
     let superView: Superview
     if let parent = parent {
