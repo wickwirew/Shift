@@ -19,6 +19,14 @@ class SpaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let maskLayer = CAShapeLayer()
+        maskLayer.path = UIBezierPath(
+            roundedRect: bottomSheet.bounds,
+            byRoundingCorners: [.topLeft, .topRight],
+            cornerRadii: CGSize(width: 20, height: 20)
+        ).cgPath
+        bottomSheet.layer.mask = maskLayer
+        
         bottomSheet.shift.animations = [.move(.up(280))]
         
         ticketsAvailable.layer.masksToBounds = true
@@ -28,11 +36,12 @@ class SpaceViewController: UIViewController {
         
         spaceTravel.shift.superview = .parent
         spaceTravel.shift.animations = [.fade]
+        spaceTravel.shift.contentAnimation = .none
         
         earth.shift.animations = [.move(.up(100))]
         
-        spaceMan.shift.animations = [.scale(3), .move(.up(400))]
-        
+        spaceMan.shift.animations = [.fade, .scale(3), .move(.up(400))]
+        spaceMan.shift.contentAnimation = .none
     }
     
     @IBAction func ticketsAvailablePressed(_ sender: Any) {

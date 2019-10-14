@@ -11,6 +11,11 @@ import Transition
 
 class FirstPlaygroundViewController: UIViewController {
     
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        view.shift.animations = [.fade]
+//    }
+//    
     @IBAction func buttonPressed(_ sender: Any) {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "SecondPlaygroundViewController")

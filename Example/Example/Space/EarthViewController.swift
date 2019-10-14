@@ -10,6 +10,10 @@ import UIKit
 
 class EarthViewController: UIViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     @IBAction func exitPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

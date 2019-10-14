@@ -11,29 +11,28 @@ import UIKit
 public final class ViewContext {
     
     let view: UIView
-    let match: UIView?
+    var match: UIView?
     var snapshot: Snapshot?
     var initialState: ViewState
-    let finalState: ViewState
+    var finalState: ViewState
     var options: ShiftViewOptions
-    let superview: Superview
-    let matchOriginalAlpha: CGFloat
+    var superview: Superview
+    var matchOriginalAlpha: CGFloat = 0
     let viewOriginalAlpha: CGFloat
+    let reverseAnimations: Bool
     lazy var duration = calculateDuration()
     
     init(toView: UIView,
          superview: Superview,
-         options: ShiftViewOptions,
-         match: UIView?) {
+         reverseAnimations: Bool) {
         self.view = toView
-        self.options = options
+        self.options = toView.shift
         self.viewOriginalAlpha = toView.alpha
         let finalState = ViewState(view: toView, superview: superview)
-        self.initialState = match.map{ ViewState(view: $0, superview: superview) } ?? finalState
+        self.initialState = finalState
         self.finalState = finalState
         self.superview = superview
-        self.match = match
-        self.matchOriginalAlpha = match?.alpha ?? 0
+        self.reverseAnimations = reverseAnimations
     }
     
     func takeSnapshot() {
@@ -58,6 +57,13 @@ public final class ViewContext {
         view.alpha = 0
     }
     
+    func setMatch(to match: ViewContext, container: UIView) {
+        self.match = match.view
+        self.matchOriginalAlpha = match.view.alpha
+        self.superview = .global(container)
+        self.initialState = ViewState(view: match.view, superview: superview)
+    }
+    
     func addSnapshot() {
         guard let snapshot = snapshot else { return }
         
@@ -70,7 +76,13 @@ public final class ViewContext {
     }
     
     func applyModifers() {
-        options.animations.apply(to: &initialState)
+        guard match == nil else { return }
+        
+        if reverseAnimations {
+            options.animations.apply(to: &finalState)
+        } else {
+            options.animations.apply(to: &initialState)
+        }
     }
     
     func performCaAnimations() {
@@ -157,7 +169,8 @@ public final class ViewContext {
     
     /// Calculates an appropiate duration for the animation.
     func calculateDuration() -> TimeInterval {
-        return 1.7
+//        return 1.7
+        return 3
         // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
         // So there is an additional 0.175 seconds to add based off
