@@ -26,8 +26,7 @@ public func animate(fromView: UIView,
     
     views.forEach{ $0.applyModifers() }
     
-    views.fromViews.reversed().forEach { $0.takeSnapshot() }
-    views.toViews.reversed().forEach { $0.takeSnapshot() }
+    views.reversed().forEach { $0.takeSnapshot() }
     views.forEach { $0.addSnapshot() }
     
     // All snapshots have been taken, so we can remove the `fromViewShapshot`
@@ -61,12 +60,18 @@ private func buildViews(fromView: UIView,
         reverseAnimations: false
     )
     
-//    findMatches(
-//        toViews: &toViews,
-//        fromViews: &fromViews,
-//        container: container,
-//        isPresenting: isAppearing
-//    )
+    findMatches(
+        toViews: &toViews,
+        fromViews: &fromViews,
+        container: container,
+        isPresenting: isPresenting
+    )
+    
+    /*
+     Matches should always be against source views
+        - Need to reverse the animation on dimissing.
+        -
+     */
 
     return Views(
         fromViews: fromViews,
@@ -75,39 +80,35 @@ private func buildViews(fromView: UIView,
     )
 }
 
-private func findMatches(toViews: inout [ViewContext],
-                         fromViews: inout [ViewContext],
-                         container: UIView,
-                         isPresenting: Bool) {
-    var fromIndexesToRemove = [Int]()
-    var toIndexesToRemove = [Int]()
-    
-    let viewsById: [String: (offset: Int, element: ViewContext)] = fromViews
-        .enumerated()
-        .filter{ $0.element.options.id != nil }
-        .reduce(into: [:], { $0[$1.element.options.id!] = $1 })
-    
-    for (i, view) in toViews.enumerated() {
+func findMatches(toViews: inout [ViewContext],
+                 fromViews: inout [ViewContext],
+                 container: UIView,
+                 isPresenting: Bool) {
+    // The view to find the matches in will always be the source view.
+    let sourceViews = isPresenting ? toViews : fromViews
+
+    // The view to search through for matches
+    let targetViews = isPresenting ? fromViews : toViews
+
+    let targetViewsByIds = targetViews
+        .filter{ $0.options.id != nil }
+        .reduce(into: [String: ViewContext](), { $0[$1.options.id!] = $1 })
+
+    for view in sourceViews {
         guard let id = view.options.id,
-            let match = viewsById[id] else { continue }
+            let match = targetViewsByIds[id] else { continue }
         
-        view.setMatch(to: match.element, container: container)
+        match.discard = true
         
-        if !isPresenting {
-            fromViews.append(view)
-            toIndexesToRemove.append(i)
-        } else {
-            fromIndexesToRemove.append(match.offset)
-        }
+        view.setMatch(to: match, container: container)
+        view.reverseAnimations = !isPresenting
     }
-    
-    fromIndexesToRemove
-        .sorted(by: { $0 > $1 })
-        .forEach{ fromViews.remove(at: $0) }
-    
-    toIndexesToRemove
-        .sorted(by: { $0 > $1 })
-        .forEach{ toViews.remove(at: $0) }
+
+    if isPresenting {
+        fromViews = targetViews.filter{ !$0.discard }
+    } else {
+        toViews = targetViews.filter{ !$0.discard }
+    }
 }
 
 private func findAndRemoveMatches(from views: inout [ViewContext],

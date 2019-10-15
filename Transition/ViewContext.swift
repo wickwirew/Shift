@@ -19,8 +19,9 @@ public final class ViewContext {
     var superview: Superview
     var matchOriginalAlpha: CGFloat = 0
     let viewOriginalAlpha: CGFloat
-    let reverseAnimations: Bool
+    var reverseAnimations: Bool
     lazy var duration = calculateDuration()
+    var discard = false
     
     init(toView: UIView,
          superview: Superview,
@@ -36,12 +37,21 @@ public final class ViewContext {
     }
     
     func takeSnapshot() {
-        snapshot = Snapshot(
-            finalContent: view,
-            initialContent: match,
-            sizing: options.contentSizing,
-            animation: options.contentAnimation
-        )
+        if let match = match {
+            snapshot = Snapshot(
+                finalContent: reverseAnimations ? match : view,
+                initialContent: reverseAnimations ? view : match,
+                sizing: options.contentSizing,
+                animation: options.contentAnimation
+            )
+        } else {
+            snapshot = Snapshot(
+                finalContent: view,
+                initialContent: nil,
+                sizing: options.contentSizing,
+                animation: options.contentAnimation
+            )
+        }
         
         guard let snapshot = snapshot else { return }
         
@@ -61,7 +71,12 @@ public final class ViewContext {
         self.match = match.view
         self.matchOriginalAlpha = match.view.alpha
         self.superview = .global(container)
-        self.initialState = ViewState(view: match.view, superview: superview)
+        
+        if reverseAnimations {
+            self.finalState = ViewState(view: match.view, superview: superview)
+        } else {
+            self.initialState = ViewState(view: match.view, superview: superview)
+        }
     }
     
     func addSnapshot() {
@@ -169,8 +184,8 @@ public final class ViewContext {
     
     /// Calculates an appropiate duration for the animation.
     func calculateDuration() -> TimeInterval {
-//        return 1.7
-        return 3
+        return 1.5
+//        return 2
         // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
         // So there is an additional 0.175 seconds to add based off
