@@ -15,6 +15,7 @@ public struct ShiftViewOptions {
     public var contentAnimation: ContentAnimation = .none
     public var animations = [Animation]()
     public var superview: ShiftSuperview = .parent
+    public var isHidden: Bool = false
 }
 
 public enum ShiftSuperview {

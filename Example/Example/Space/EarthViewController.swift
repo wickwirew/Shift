@@ -10,8 +10,15 @@ import UIKit
 
 class EarthViewController: UIViewController {
     
+    @IBOutlet weak var earth: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        view.shift.isHidden = true
+        
+        shift.viewOrder = .sourceOnBottom
+        
+        earth.shift.animations = [.fade]
     }
     
     @IBAction func exitPressed(_ sender: Any) {

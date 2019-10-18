@@ -10,23 +10,56 @@ import UIKit
 
 public typealias Middleware = (Views) -> Void
 
+public struct Options {
+    
+    public var isPresenting: Bool
+    public var viewOrder: ViewOrder
+    
+    public init(isPresenting: Bool = true,
+                viewOrder: ViewOrder = .sourceOnTop) {
+        self.isPresenting = isPresenting
+        self.viewOrder = viewOrder
+    }
+    
+    public enum ViewOrder {
+        case sourceOnTop
+        case sourceOnBottom
+    }
+}
+
 public func animate(fromView: UIView,
                     toView: UIView,
                     container: UIView,
-                    isAppearing: Bool,
+                    options: Options = Options(),
                     middleware: [Middleware] = [],
                     completion: @escaping (Bool) -> Void,
                     extraAnimations: (() -> Void)? = nil) {
     let transitionContainer = buildTransitionContainer(in: container)
     let fromViewShapshot = addFromViewSnapshot(fromView: fromView, container: container)
     
-    let views = buildViews(fromView: fromView, toView: toView, container: container, isPresenting: isAppearing)
+    let views = buildViews(
+        fromView: fromView,
+        toView: toView,
+        container: container,
+        options: options
+    )
     
     middleware.forEach{ $0(views) }
     
     views.forEach{ $0.applyModifers() }
     
-    views.reversed().forEach { $0.takeSnapshot() }
+    /*
+     
+     */
+    
+    if options.isPresenting {
+        views.toViews.reversed().forEach { $0.takeSnapshot() }
+        views.fromViews.reversed().forEach { $0.takeSnapshot() }
+    } else {
+        views.fromViews.reversed().forEach { $0.takeSnapshot() }
+        views.toViews.reversed().forEach { $0.takeSnapshot() }
+    }
+    
     views.forEach { $0.addSnapshot() }
     
     // All snapshots have been taken, so we can remove the `fromViewShapshot`
@@ -47,7 +80,7 @@ public func animate(fromView: UIView,
 private func buildViews(fromView: UIView,
                         toView: UIView,
                         container: UIView,
-                        isPresenting: Bool) -> Views {
+                        options: Options) -> Views {
     var fromViews = deconstruct(
         view: fromView,
         container: container,
@@ -64,7 +97,7 @@ private func buildViews(fromView: UIView,
         toViews: &toViews,
         fromViews: &fromViews,
         container: container,
-        isPresenting: isPresenting
+        isPresenting: options.isPresenting
     )
     
     /*
@@ -72,11 +105,19 @@ private func buildViews(fromView: UIView,
         - Need to reverse the animation on dimissing.
         -
      */
-
+    
+    let order: Views.Order
+    switch options.viewOrder {
+    case .sourceOnTop:
+        order = options.isPresenting ? .fromViewsFirst : .toViewsFirst
+    case .sourceOnBottom:
+        order = options.isPresenting ? .toViewsFirst : .fromViewsFirst
+    }
+    
     return Views(
         fromViews: fromViews,
         toViews: toViews,
-        order: isPresenting ? .fromViewsFirst : .toViewsFirst
+        order: order
     )
 }
 

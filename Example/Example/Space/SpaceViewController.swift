@@ -11,6 +11,7 @@ import Transition
 
 class SpaceViewController: UIViewController {
     
+    @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var bottomSheet: UIView!
     @IBOutlet weak var ticketsAvailable: UIButton!
     @IBOutlet weak var spaceMan: UIImageView!
@@ -19,14 +20,13 @@ class SpaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let maskLayer = CAShapeLayer()
-        maskLayer.path = UIBezierPath(
-            roundedRect: bottomSheet.bounds,
-            byRoundingCorners: [.topLeft, .topRight],
-            cornerRadii: CGSize(width: 20, height: 20)
-        ).cgPath
-        bottomSheet.layer.mask = maskLayer
+        view.shift.isHidden = true
         
+        contentView.shift.superview = .container
+        contentView.shift.animations = [.fade]
+        
+        bottomSheet.layer.cornerRadius = 20
+        bottomSheet.layer.masksToBounds = true
         bottomSheet.shift.animations = [.move(.up(280))]
         
         ticketsAvailable.layer.masksToBounds = true

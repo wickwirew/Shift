@@ -37,6 +37,8 @@ public final class ViewContext {
     }
     
     func takeSnapshot() {
+        guard !options.isHidden else { return }
+        
         if let match = match {
             snapshot = Snapshot(
                 finalContent: reverseAnimations ? match : view,
@@ -149,7 +151,7 @@ public final class ViewContext {
         snapshot?.layer.masksToBounds = finalState.masksToBounds
     }
     
-    /// Performs the animations that should not be performed
+    /// Performs the animations that should be performed
     /// in a `UIView` animation block.
     func performUiViewAnimations() {
         CATransaction.begin()
