@@ -17,6 +17,10 @@ class SpaceViewController: UIViewController {
     @IBOutlet weak var spaceMan: UIImageView!
     @IBOutlet weak var spaceTravel: UILabel!
     @IBOutlet weak var earth: UIImageView!
+    @IBOutlet weak var astronautTumbnail: UIImageView!
+    @IBOutlet weak var astronautTumbnailContainer: UIView!
+    @IBOutlet weak var movieDescription: UILabel!
+    @IBOutlet weak var rating: UIStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,14 +34,35 @@ class SpaceViewController: UIViewController {
         bottomSheet.layer.masksToBounds = true
         bottomSheet.shift.animations = [.move(.up(280))]
         
-        ticketsAvailable.layer.masksToBounds = true
-        ticketsAvailable.layer.cornerRadius = 25
+        astronautTumbnailContainer.shift.animations = [.move(.up(170))]
+        rating.shift.animations = [.move(.up(300))]
+        movieDescription.shift.animations = [.move(.up(400))]
+        
         ticketsAvailable.shift.animations = [.fade]
         
         spaceTravel.shift.animations = [.fade]
+        
         earth.shift.animations = [.move(.up(100))]
         
-        spaceMan.shift.animations = [.fade, .scale(3), .move(.up(400))]
+        spaceMan.shift.animations = [.scale(4), .move(.up(600))]
+        
+        ticketsAvailable.layer.masksToBounds = true
+        ticketsAvailable.layer.cornerRadius = 25
+        
+        spaceTravel.layer.shadowColor = UIColor.black.cgColor
+        spaceTravel.layer.shadowOffset = .zero
+        spaceTravel.layer.shadowRadius = 10
+        spaceTravel.layer.shadowOpacity = 0.3
+        
+        astronautTumbnail.layer.masksToBounds = true
+        astronautTumbnail.layer.cornerRadius = 12
+        
+        astronautTumbnailContainer.layer.cornerRadius = 12
+        astronautTumbnailContainer.layer.shadowColor = UIColor.black.cgColor
+        astronautTumbnailContainer.layer.shadowOffset = .zero
+        astronautTumbnailContainer.layer.shadowRadius = 10
+        astronautTumbnailContainer.layer.shadowOpacity = 0.3
+        astronautTumbnailContainer.layer.shadowPath = UIBezierPath(rect: astronautTumbnailContainer.bounds).cgPath
     }
     
     @IBAction func ticketsAvailablePressed(_ sender: Any) {

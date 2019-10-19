@@ -338,9 +338,71 @@
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUf-ef-2CR">
                                         <rect key="frame" x="0.0" y="616" width="414" height="280"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oLk-pk-Atf">
+                                                <rect key="frame" x="20" y="20" width="150" height="100"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Astronaut" translatesAutoresizingMaskIntoConstraints="NO" id="nYh-kj-ueY">
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="100"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="150" id="fX9-o0-miv"/>
+                                                            <constraint firstAttribute="height" constant="100" id="mcE-Vk-lgu"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="nYh-kj-ueY" firstAttribute="top" secondItem="oLk-pk-Atf" secondAttribute="top" id="7fr-9g-mle"/>
+                                                    <constraint firstAttribute="trailing" secondItem="nYh-kj-ueY" secondAttribute="trailing" id="LND-Ru-BQD"/>
+                                                    <constraint firstItem="nYh-kj-ueY" firstAttribute="leading" secondItem="oLk-pk-Atf" secondAttribute="leading" id="YsY-yU-T3J"/>
+                                                    <constraint firstAttribute="width" constant="150" id="f4M-Gy-6JO"/>
+                                                    <constraint firstAttribute="height" constant="100" id="j6a-dv-THW"/>
+                                                    <constraint firstAttribute="bottom" secondItem="nYh-kj-ueY" secondAttribute="bottom" id="v5z-n5-EHP"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ogK-eB-gfT">
+                                                <rect key="frame" x="186" y="20" width="208" height="53"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPv-8R-jSl">
+                                                        <rect key="frame" x="0.0" y="0.0" width="208" height="12"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="12" id="kzC-6s-SzH"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="98% RATING" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPD-0F-8ce">
+                                                        <rect key="frame" x="0.0" y="12" width="208" height="22.5"/>
+                                                        <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="17"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FIND OUT MORE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iGY-jk-L6x">
+                                                        <rect key="frame" x="0.0" y="34.5" width="208" height="18.5"/>
+                                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                                        <color key="textColor" systemColor="systemGreenColor" red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tyd-0m-Wbm">
+                                                <rect key="frame" x="20" y="140" width="374" height="90"/>
+                                                <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="ogK-eB-gfT" firstAttribute="leading" secondItem="oLk-pk-Atf" secondAttribute="trailing" constant="16" id="0QX-hy-gfS"/>
+                                            <constraint firstItem="oLk-pk-Atf" firstAttribute="top" secondItem="oUf-ef-2CR" secondAttribute="top" constant="20" id="bCW-Mx-f4g"/>
+                                            <constraint firstItem="Tyd-0m-Wbm" firstAttribute="leading" secondItem="oUf-ef-2CR" secondAttribute="leading" constant="20" id="bxo-o5-7yg"/>
+                                            <constraint firstAttribute="trailing" secondItem="Tyd-0m-Wbm" secondAttribute="trailing" constant="20" id="efX-0o-Isw"/>
+                                            <constraint firstItem="Tyd-0m-Wbm" firstAttribute="top" secondItem="oLk-pk-Atf" secondAttribute="bottom" constant="20" id="jtt-p1-XKi"/>
                                             <constraint firstAttribute="height" constant="280" id="mRr-ou-dE4"/>
+                                            <constraint firstAttribute="trailing" secondItem="ogK-eB-gfT" secondAttribute="trailing" constant="20" id="pkd-eq-SeU"/>
+                                            <constraint firstItem="ogK-eB-gfT" firstAttribute="top" secondItem="oUf-ef-2CR" secondAttribute="top" constant="20" id="tid-Y4-8Od"/>
+                                            <constraint firstItem="oLk-pk-Atf" firstAttribute="leading" secondItem="oUf-ef-2CR" secondAttribute="leading" constant="20" id="wmQ-Bo-Pwf"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mEJ-rw-xHu">
@@ -411,9 +473,13 @@
                         <viewLayoutGuide key="safeArea" id="AC7-Kh-VTh"/>
                     </view>
                     <connections>
+                        <outlet property="astronautTumbnail" destination="nYh-kj-ueY" id="8a2-6d-3ah"/>
+                        <outlet property="astronautTumbnailContainer" destination="oLk-pk-Atf" id="8dk-LS-3uW"/>
                         <outlet property="bottomSheet" destination="oUf-ef-2CR" id="g6c-DZ-fA5"/>
                         <outlet property="contentView" destination="jJD-Zb-VeX" id="2fU-Mr-hYH"/>
                         <outlet property="earth" destination="K6a-FI-kWG" id="WIQ-lh-NN5"/>
+                        <outlet property="movieDescription" destination="Tyd-0m-Wbm" id="jpb-7C-cQO"/>
+                        <outlet property="rating" destination="ogK-eB-gfT" id="Prs-7y-vay"/>
                         <outlet property="spaceMan" destination="VgZ-pk-htd" id="m0q-5O-XCb"/>
                         <outlet property="spaceTravel" destination="0Yg-R9-BJh" id="QQ2-EG-vc1"/>
                         <outlet property="ticketsAvailable" destination="mEJ-rw-xHu" id="fdJ-wY-IG9"/>
@@ -432,16 +498,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Earth" translatesAutoresizingMaskIntoConstraints="NO" id="cOr-E6-gAq">
-                                <rect key="frame" x="40" y="529" width="334" height="300"/>
+                                <rect key="frame" x="5" y="482" width="404" height="350"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="xHh-U5-BdQ"/>
+                                    <constraint firstAttribute="height" constant="350" id="xHh-U5-BdQ"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="transitionId" value="earth"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EARTH" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXN-T9-jjo">
-                                <rect key="frame" x="92" y="164" width="230" height="78"/>
+                                <rect key="frame" x="92" y="144" width="230" height="78"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="78" id="XZQ-CZ-mQG"/>
                                     <constraint firstAttribute="width" constant="230" id="sGJ-8E-R4w"/>
@@ -463,26 +529,128 @@
                                     <action selector="exitPressed:" destination="GLb-h7-xNP" eventType="touchUpInside" id="hBh-83-Njr"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Earth is the third planet from the Sun and the only object in the universe known to harbor life." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qzp-De-BPi">
+                                <rect key="frame" x="62.5" y="230" width="289" height="74"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="289" id="Mtf-gD-ulX"/>
+                                    <constraint firstAttribute="height" constant="74" id="r0u-kg-d6S"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Moon" translatesAutoresizingMaskIntoConstraints="NO" id="23e-xT-QKE">
+                                <rect key="frame" x="305" y="373" width="89" height="89"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="87" id="Epa-db-BU1"/>
+                                    <constraint firstAttribute="height" constant="89" id="gbB-Bh-lup"/>
+                                    <constraint firstAttribute="width" constant="89" id="zzb-0G-O0o"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="transitionId" value="moon"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Qzp-De-BPi" firstAttribute="top" secondItem="pXN-T9-jjo" secondAttribute="bottom" constant="8" id="4FF-gk-pO4"/>
                             <constraint firstItem="But-sD-n9u" firstAttribute="leading" secondItem="LOg-mP-aeV" secondAttribute="leading" constant="22" id="9gw-0X-6RR"/>
-                            <constraint firstItem="cOr-E6-gAq" firstAttribute="leading" secondItem="LOg-mP-aeV" secondAttribute="leading" constant="40" id="DbR-l9-q3p"/>
-                            <constraint firstItem="cOr-E6-gAq" firstAttribute="trailing" secondItem="LOg-mP-aeV" secondAttribute="trailing" constant="-40" id="S5k-M3-J1J"/>
+                            <constraint firstItem="cOr-E6-gAq" firstAttribute="leading" secondItem="LOg-mP-aeV" secondAttribute="leading" constant="5" id="DbR-l9-q3p"/>
+                            <constraint firstItem="Qzp-De-BPi" firstAttribute="centerX" secondItem="3qe-P4-eGi" secondAttribute="centerX" id="O9K-ad-ofs"/>
+                            <constraint firstItem="cOr-E6-gAq" firstAttribute="trailing" secondItem="LOg-mP-aeV" secondAttribute="trailing" constant="-5" id="S5k-M3-J1J"/>
                             <constraint firstItem="But-sD-n9u" firstAttribute="top" secondItem="LOg-mP-aeV" secondAttribute="top" id="T8e-Uk-u47"/>
                             <constraint firstItem="pXN-T9-jjo" firstAttribute="centerX" secondItem="3qe-P4-eGi" secondAttribute="centerX" id="XsP-Ms-EIq"/>
-                            <constraint firstItem="LOg-mP-aeV" firstAttribute="bottom" secondItem="cOr-E6-gAq" secondAttribute="bottom" constant="33" id="dO5-it-ojN"/>
-                            <constraint firstItem="pXN-T9-jjo" firstAttribute="top" secondItem="LOg-mP-aeV" secondAttribute="top" constant="120" id="tPe-Ud-5p0"/>
+                            <constraint firstItem="LOg-mP-aeV" firstAttribute="bottom" secondItem="cOr-E6-gAq" secondAttribute="bottom" constant="30" id="dO5-it-ojN"/>
+                            <constraint firstItem="LOg-mP-aeV" firstAttribute="trailing" secondItem="23e-xT-QKE" secondAttribute="trailing" constant="20" id="gia-P9-HZE"/>
+                            <constraint firstItem="cOr-E6-gAq" firstAttribute="top" secondItem="23e-xT-QKE" secondAttribute="bottom" constant="20" id="q5z-BO-vPJ"/>
+                            <constraint firstItem="pXN-T9-jjo" firstAttribute="top" secondItem="LOg-mP-aeV" secondAttribute="top" constant="100" id="tPe-Ud-5p0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="LOg-mP-aeV"/>
                     </view>
                     <connections>
-                        <outlet property="earth" destination="pXN-T9-jjo" id="6ma-Of-VPw"/>
+                        <outlet property="earth" destination="cOr-E6-gAq" id="7kE-8A-Vso"/>
+                        <outlet property="earthDescription" destination="Qzp-De-BPi" id="zNh-pH-mtZ"/>
+                        <outlet property="earthLabel" destination="pXN-T9-jjo" id="HG0-P1-n2S"/>
+                        <outlet property="moon" destination="23e-xT-QKE" id="Jgp-ix-x26"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cYy-S4-3mS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="537.68115942028987" y="1579.6875"/>
+        </scene>
+        <!--Moon View Controller-->
+        <scene sceneID="Puh-DF-t09">
+            <objects>
+                <viewController storyboardIdentifier="MoonViewController" id="HKU-oO-KZ9" customClass="MoonViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fg6-3k-JrW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MOON" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYu-Eu-KG8">
+                                <rect key="frame" x="92" y="144" width="230" height="78"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="78" id="fbb-hd-oaW"/>
+                                    <constraint firstAttribute="width" constant="230" id="r7w-PM-Wjj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="60"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Moon is an astronomical body that orbits the Earth as its only permanent natural satellite." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KQ6-ca-n2P">
+                                <rect key="frame" x="62" y="230" width="290" height="74"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="290" id="J1j-SE-O5I"/>
+                                    <constraint firstAttribute="height" constant="74" id="vzM-aQ-O8A"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Moon" translatesAutoresizingMaskIntoConstraints="NO" id="8eA-Tc-29w">
+                                <rect key="frame" x="5" y="482" width="404" height="350"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="X3Z-0o-d0x"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="transitionId" value="moon"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Quo-74-3m6">
+                                <rect key="frame" x="22" y="44" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="JPE-Zq-quq"/>
+                                    <constraint firstAttribute="width" constant="44" id="aT2-cb-Ixb"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="exitPressed:" destination="VjC-PR-N0T" eventType="touchUpInside" id="6b4-LO-cl9"/>
+                                    <action selector="exitPressed:" destination="HKU-oO-KZ9" eventType="touchUpInside" id="vCw-ew-fVj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ZYu-Eu-KG8" firstAttribute="centerX" secondItem="Fg6-3k-JrW" secondAttribute="centerX" id="8Fb-es-Ze5"/>
+                            <constraint firstItem="gx8-zW-7sa" firstAttribute="trailing" secondItem="8eA-Tc-29w" secondAttribute="trailing" constant="5" id="AdS-4z-vxk"/>
+                            <constraint firstItem="Quo-74-3m6" firstAttribute="top" secondItem="gx8-zW-7sa" secondAttribute="top" id="CFb-Pv-A9p"/>
+                            <constraint firstItem="KQ6-ca-n2P" firstAttribute="centerX" secondItem="ZYu-Eu-KG8" secondAttribute="centerX" id="DJi-N3-1ge"/>
+                            <constraint firstItem="KQ6-ca-n2P" firstAttribute="top" secondItem="ZYu-Eu-KG8" secondAttribute="bottom" constant="8" id="FCY-gw-9fF"/>
+                            <constraint firstItem="8eA-Tc-29w" firstAttribute="leading" secondItem="gx8-zW-7sa" secondAttribute="leading" constant="5" id="H6x-kk-jZb"/>
+                            <constraint firstItem="gx8-zW-7sa" firstAttribute="bottom" secondItem="8eA-Tc-29w" secondAttribute="bottom" constant="30" id="OIM-pD-DH8"/>
+                            <constraint firstItem="Quo-74-3m6" firstAttribute="leading" secondItem="gx8-zW-7sa" secondAttribute="leading" constant="22" id="UqG-ys-nVb"/>
+                            <constraint firstItem="ZYu-Eu-KG8" firstAttribute="top" secondItem="gx8-zW-7sa" secondAttribute="top" constant="100" id="hRs-Ym-kr1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gx8-zW-7sa"/>
+                    </view>
+                    <connections>
+                        <outlet property="moonDescription" destination="KQ6-ca-n2P" id="i9A-QQ-aeh"/>
+                        <outlet property="moonLabel" destination="ZYu-Eu-KG8" id="8O4-Ra-o5d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fV9-tr-SEl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1400" y="1580"/>
         </scene>
         <!--Second Playground View Controller-->
         <scene sceneID="HZK-Mm-cxW">
@@ -727,8 +895,10 @@
     </scenes>
     <resources>
         <image name="Album" width="355" height="355"/>
+        <image name="Astronaut" width="615" height="409"/>
         <image name="Earth" width="856" height="776"/>
         <image name="Fade" width="414" height="383"/>
+        <image name="Moon" width="403" height="403"/>
         <image name="NextSong" width="22" height="22"/>
         <image name="PlayButton" width="79" height="79"/>
         <image name="PreviousSong" width="22" height="22"/>
