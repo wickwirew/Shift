@@ -32,8 +32,7 @@ public func animate(fromView: UIView,
                     container: UIView,
                     options: Options = Options(),
                     middleware: [Middleware] = [],
-                    completion: @escaping (Bool) -> Void,
-                    extraAnimations: (() -> Void)? = nil) {
+                    completion: @escaping (Bool) -> Void) {
     let transitionContainer = buildTransitionContainer(in: container)
     let fromViewShapshot = addFromViewSnapshot(fromView: fromView, container: container)
     
@@ -52,6 +51,7 @@ public func animate(fromView: UIView,
     views.otherViews.reversed().forEach { $0.takeSnapshot() }
     
     views.forEach { $0.addSnapshot() }
+    views.forEach { $0.adjustPosition() }
     
     // All snapshots have been taken, so we can remove the `fromViewShapshot`
     // since there wont be anymore flashing, and the transition can begin.

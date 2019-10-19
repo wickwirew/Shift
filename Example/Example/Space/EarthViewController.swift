@@ -14,9 +14,7 @@ class EarthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.shift.isHidden = true
-        
-        shift.viewOrder = .sourceOnBottom
+//        shift.viewOrder = .sourceOnBottom
         
         earth.shift.animations = [.fade]
     }

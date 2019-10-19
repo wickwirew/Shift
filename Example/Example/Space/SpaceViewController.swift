@@ -20,8 +20,8 @@ class SpaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.shift.isHidden = true
         
+        contentView.shift.position = .front
         contentView.shift.superview = .container
         contentView.shift.animations = [.fade]
         
@@ -31,17 +31,12 @@ class SpaceViewController: UIViewController {
         
         ticketsAvailable.layer.masksToBounds = true
         ticketsAvailable.layer.cornerRadius = 25
-        ticketsAvailable.shift.superview = .container
         ticketsAvailable.shift.animations = [.fade]
         
-        spaceTravel.shift.superview = .parent
         spaceTravel.shift.animations = [.fade]
-        spaceTravel.shift.contentAnimation = .none
-        
         earth.shift.animations = [.move(.up(100))]
         
         spaceMan.shift.animations = [.fade, .scale(3), .move(.up(400))]
-        spaceMan.shift.contentAnimation = .none
     }
     
     @IBAction func ticketsAvailablePressed(_ sender: Any) {

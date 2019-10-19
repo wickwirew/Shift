@@ -16,11 +16,18 @@ public struct ShiftViewOptions {
     public var animations = [Animation]()
     public var superview: ShiftSuperview = .parent
     public var isHidden: Bool = false
+    public var position: ShiftPosition = .auto
 }
 
 public enum ShiftSuperview {
     case container
     case parent
+}
+
+public enum ShiftPosition {
+    case auto
+    case front
+    case back
 }
 
 /// How the the content, i.e. the subviews, shoud be handled

@@ -92,6 +92,19 @@ public final class ViewContext {
         }
     }
     
+    func adjustPosition() {
+        guard let snapshot = snapshot else { return }
+        
+        switch options.position {
+        case .auto:
+            break // already in the right position
+        case .front:
+            snapshot.superview?.bringSubviewToFront(snapshot)
+        case .back:
+            snapshot.superview?.sendSubviewToBack(snapshot)
+        }
+    }
+    
     func applyModifers() {
         guard match == nil else { return }
         
@@ -186,7 +199,7 @@ public final class ViewContext {
     
     /// Calculates an appropiate duration for the animation.
     func calculateDuration() -> TimeInterval {
-        return 1.5
+        return 1
 //        return 2
         // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
