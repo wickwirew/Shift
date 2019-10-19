@@ -14,11 +14,14 @@ public struct Options {
     
     public var isPresenting: Bool
     public var viewOrder: ViewOrder
+    public var baselineDuration: TimeInterval
     
     public init(isPresenting: Bool = true,
-                viewOrder: ViewOrder = .sourceOnTop) {
+                viewOrder: ViewOrder = .sourceOnTop,
+                baselineDuration: TimeInterval? = nil) {
         self.isPresenting = isPresenting
         self.viewOrder = viewOrder
+        self.baselineDuration = baselineDuration ?? 0.2
     }
     
     public enum ViewOrder {
@@ -86,13 +89,15 @@ private func buildViews(fromView: UIView,
     var otherViews = deconstruct(
         view: otherView,
         container: container,
-        reverseAnimations: options.isPresenting
+        reverseAnimations: options.isPresenting,
+        baselineDuration: options.baselineDuration
     )
     
     let sourceViews = deconstruct(
         view: sourceView,
         container: container,
-        reverseAnimations: !options.isPresenting
+        reverseAnimations: !options.isPresenting,
+        baselineDuration: options.baselineDuration
     )
     
     findMatches(
@@ -131,6 +136,7 @@ func findMatches(sourceViews: [ViewContext],
 private func deconstruct(view: UIView,
                          container: UIView,
                          reverseAnimations: Bool,
+                         baselineDuration: TimeInterval,
                          parent: ViewContext? = nil) -> [ViewContext] {
     guard !view.isHidden else { return [] }
     
@@ -153,7 +159,8 @@ private func deconstruct(view: UIView,
         let context = ViewContext(
             toView: view,
             superview: superView,
-            reverseAnimations: reverseAnimations
+            reverseAnimations: reverseAnimations,
+            baselineDuration: baselineDuration
         )
         
         views.append(context)
@@ -165,6 +172,7 @@ private func deconstruct(view: UIView,
             view: subview,
             container: container,
             reverseAnimations: reverseAnimations,
+            baselineDuration: baselineDuration,
             parent: parent
         )
         

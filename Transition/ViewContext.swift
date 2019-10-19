@@ -21,10 +21,12 @@ public final class ViewContext {
     let viewOriginalAlpha: CGFloat
     var reverseAnimations: Bool
     lazy var duration = calculateDuration()
+    let baselineDuration: TimeInterval
     
     init(toView: UIView,
          superview: Superview,
-         reverseAnimations: Bool) {
+         reverseAnimations: Bool,
+         baselineDuration: TimeInterval) {
         self.view = toView
         self.options = toView.shift
         self.viewOriginalAlpha = toView.alpha
@@ -33,6 +35,7 @@ public final class ViewContext {
         self.finalState = finalState
         self.superview = superview
         self.reverseAnimations = reverseAnimations
+        self.baselineDuration = baselineDuration
     }
     
     func takeSnapshot() {
@@ -199,20 +202,17 @@ public final class ViewContext {
     
     /// Calculates an appropiate duration for the animation.
     func calculateDuration() -> TimeInterval {
-        return 1
-//        return 2
         // The max duration should be 0.375 seconds
         // The lowest should be 0.2 seconds
         // So there is an additional 0.175 seconds to add based off
         // how far the view is going to move or how much
         // it will change in size.
-        let minDuration = 0.2
         let additionalDuration = 0.175
         
         let positionDistance = initialState.position.distance(to: finalState.position)
         let positionDuration = additionalDuration * TimeInterval(positionDistance.clamp(0, 500) / 500)
         
-        return minDuration + positionDuration
+        return baselineDuration + positionDuration
     }
 }
 

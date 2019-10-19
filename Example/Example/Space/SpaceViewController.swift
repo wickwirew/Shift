@@ -20,6 +20,7 @@ class SpaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        shift.baselineDuration = 0.75
         
         contentView.shift.position = .front
         contentView.shift.superview = .container

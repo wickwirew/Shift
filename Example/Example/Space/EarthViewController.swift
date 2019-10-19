@@ -14,9 +14,7 @@ class EarthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        shift.viewOrder = .sourceOnBottom
-        
-        earth.shift.animations = [.fade]
+        shift.baselineDuration = 0.75
     }
     
     @IBAction func exitPressed(_ sender: Any) {
