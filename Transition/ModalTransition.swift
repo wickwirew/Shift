@@ -34,7 +34,7 @@ func modalTransitionMiddlware(for viewController: UIViewController) -> Middlewar
 
 private var fade: Middleware {
     return { views in
-        views.topRootView?.options.animations = [.fade]
+        views.sourceRootView?.options.animations = [.fade]
     }
 }
 
@@ -42,13 +42,13 @@ private func slide(direction: ModalTransition.Direction, frame: CGRect) -> Middl
     return { views in
         switch direction {
         case .up:
-            views.topRootView?.options.animations = [.move(.up(frame.height))]
+            views.sourceRootView?.options.animations = [.move(.up(frame.height))]
         case .down:
-            views.topRootView?.options.animations = [.move(.down(frame.height))]
+            views.sourceRootView?.options.animations = [.move(.down(frame.height))]
         case .left:
-            views.topRootView?.options.animations = [.move(.left(frame.width))]
+            views.sourceRootView?.options.animations = [.move(.left(frame.width))]
         case .right:
-            views.topRootView?.options.animations = [.move(.right(frame.width))]
+            views.sourceRootView?.options.animations = [.move(.right(frame.width))]
         }
     }
 }

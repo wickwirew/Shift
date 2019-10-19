@@ -48,17 +48,8 @@ public func animate(fromView: UIView,
     
     views.forEach{ $0.applyModifers() }
     
-    /*
-     
-     */
-    
-    if options.isPresenting {
-        views.toViews.reversed().forEach { $0.takeSnapshot() }
-        views.fromViews.reversed().forEach { $0.takeSnapshot() }
-    } else {
-        views.fromViews.reversed().forEach { $0.takeSnapshot() }
-        views.toViews.reversed().forEach { $0.takeSnapshot() }
-    }
+    views.sourceViews.reversed().forEach { $0.takeSnapshot() }
+    views.otherViews.reversed().forEach { $0.takeSnapshot() }
     
     views.forEach { $0.addSnapshot() }
     
@@ -81,99 +72,60 @@ private func buildViews(fromView: UIView,
                         toView: UIView,
                         container: UIView,
                         options: Options) -> Views {
-    var fromViews = deconstruct(
-        view: fromView,
+    let sourceView: UIView
+    let otherView: UIView
+    
+    if options.isPresenting {
+        sourceView = toView
+        otherView = fromView
+    } else {
+        sourceView = fromView
+        otherView = toView
+    }
+    
+    var otherViews = deconstruct(
+        view: otherView,
         container: container,
-        reverseAnimations: true
+        reverseAnimations: options.isPresenting
     )
     
-    var toViews = deconstruct(
-        view: toView,
+    let sourceViews = deconstruct(
+        view: sourceView,
         container: container,
-        reverseAnimations: false
+        reverseAnimations: !options.isPresenting
     )
     
     findMatches(
-        toViews: &toViews,
-        fromViews: &fromViews,
+        sourceViews: sourceViews,
+        otherViews: &otherViews,
         container: container,
         isPresenting: options.isPresenting
     )
     
-    /*
-     Matches should always be against source views
-        - Need to reverse the animation on dimissing.
-        -
-     */
-    
-    let order: Views.Order
-    switch options.viewOrder {
-    case .sourceOnTop:
-        order = options.isPresenting ? .fromViewsFirst : .toViewsFirst
-    case .sourceOnBottom:
-        order = options.isPresenting ? .toViewsFirst : .fromViewsFirst
-    }
-    
     return Views(
-        fromViews: fromViews,
-        toViews: toViews,
-        order: order
+        otherViews: otherViews,
+        sourceViews: sourceViews,
+        order: options.viewOrder
     )
 }
 
-func findMatches(toViews: inout [ViewContext],
-                 fromViews: inout [ViewContext],
+func findMatches(sourceViews: [ViewContext],
+                 otherViews: inout [ViewContext],
                  container: UIView,
                  isPresenting: Bool) {
-    // The view to find the matches in will always be the source view.
-    let sourceViews = isPresenting ? toViews : fromViews
-
-    // The view to search through for matches
-    let targetViews = isPresenting ? fromViews : toViews
-
-    let targetViewsByIds = targetViews
+    let otherViewsByIds = otherViews
         .filter{ $0.options.id != nil }
         .reduce(into: [String: ViewContext](), { $0[$1.options.id!] = $1 })
 
     for view in sourceViews {
         guard let id = view.options.id,
-            let match = targetViewsByIds[id] else { continue }
+            let match = otherViewsByIds[id] else { continue }
         
-        match.discard = true
+        match.options.isHidden = true
         
         view.setMatch(to: match, container: container)
         view.reverseAnimations = !isPresenting
     }
-
-    if isPresenting {
-        fromViews = targetViews.filter{ !$0.discard }
-    } else {
-        toViews = targetViews.filter{ !$0.discard }
-    }
-}
-
-private func findAndRemoveMatches(from views: inout [ViewContext],
-                                  against: inout [ViewContext],
-                                  container: UIView) {
-    var indexesToRemove = [Int]()
-    
-    let viewsById: [String: (offset: Int, element: ViewContext)] = against
-        .enumerated()
-        .filter{ $0.element.options.id != nil }
-        .reduce(into: [:], { $0[$1.element.options.id!] = $1 })
-    
-    for (i, view) in views.enumerated() {
-        guard let id = view.options.id,
-            let match = viewsById[id] else { continue }
-        
-        view.setMatch(to: match.element, container: container)
-        
-        indexesToRemove.append(match.offset)
-    }
-    
-    indexesToRemove
-        .reversed()
-        .forEach{ against.remove(at: $0) }
 }
 
 private func deconstruct(view: UIView,
@@ -222,23 +174,6 @@ private func deconstruct(view: UIView,
     return views
 }
 
-private func findPotentialMatches(in view: UIView) -> [String: UIView] {
-    var views = [String: UIView]()
-    findPotentialMatches(in: view, views: &views)
-    return views
-}
-
-private func findPotentialMatches(in view: UIView,
-                                  views: inout [String: UIView]) {
-    if let id = view.shift.id {
-        views[id] = view
-    }
-    
-    for subview in view.subviews {
-        findPotentialMatches(in: subview, views: &views)
-    }
-}
-
 private func delay(_ duration: TimeInterval, action: @escaping () -> Void) {
     DispatchQueue.main.asyncAfter(
         deadline: .now() + duration,
@@ -270,50 +205,42 @@ public final class Views: Collection {
     public typealias Index = Int
     public typealias Element = ViewContext
     
-    public let fromViews: [ViewContext]
-    public let toViews: [ViewContext]
+    public let otherViews: [ViewContext]
+    public let sourceViews: [ViewContext]
     
-    private let order: Order
+    private let order: Options.ViewOrder
     
-    init(fromViews: [ViewContext],
-         toViews: [ViewContext],
-         order: Order) {
-        self.fromViews = fromViews
-        self.toViews = toViews
+    init(otherViews: [ViewContext],
+         sourceViews: [ViewContext],
+         order: Options.ViewOrder) {
+        self.otherViews = otherViews
+        self.sourceViews = sourceViews
         self.order = order
     }
     
-    public var fromRootView: ViewContext? {
-        return fromViews.first
+    public var otherRootView: ViewContext? {
+        return otherViews.first
     }
     
-    public var toRootView: ViewContext? {
-        return toViews.first
-    }
-    
-    public var bottomRootView: ViewContext? {
-        return bottomViews.first
-    }
-    
-    public var topRootView: ViewContext? {
-        return topViews.first
+    public var sourceRootView: ViewContext? {
+        return sourceViews.first
     }
     
     public var bottomViews: [ViewContext] {
         switch order {
-        case .toViewsFirst:
-            return toViews
-        case .fromViewsFirst:
-            return fromViews
+        case .sourceOnBottom:
+            return sourceViews
+        case .sourceOnTop:
+            return otherViews
         }
     }
     
     public var topViews: [ViewContext] {
         switch order {
-        case .toViewsFirst:
-            return fromViews
-        case .fromViewsFirst:
-            return toViews
+        case .sourceOnBottom:
+            return otherViews
+        case .sourceOnTop:
+            return sourceViews
         }
     }
     
@@ -339,10 +266,5 @@ public final class Views: Collection {
         } else {
             return topViews[position - bottomViews.endIndex]
         }
-    }
-    
-    enum Order {
-        case toViewsFirst
-        case fromViewsFirst
     }
 }

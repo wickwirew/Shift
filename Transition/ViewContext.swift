@@ -21,7 +21,6 @@ public final class ViewContext {
     let viewOriginalAlpha: CGFloat
     var reverseAnimations: Bool
     lazy var duration = calculateDuration()
-    var discard = false
     
     init(toView: UIView,
          superview: Superview,
@@ -82,6 +81,7 @@ public final class ViewContext {
     }
     
     func addSnapshot() {
+        // if view is hidden then it will not have a value.
         guard let snapshot = snapshot else { return }
         
         switch superview {
