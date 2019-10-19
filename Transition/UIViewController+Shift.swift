@@ -10,6 +10,8 @@ import UIKit
 
 public struct ShiftViewControllerOptions {
     public var modalTransition: ModalTransition?
+    public var viewOrder: Options.ViewOrder = .sourceOnTop
+    public var baselineDuration: TimeInterval?
 }
 
 extension UIViewController {

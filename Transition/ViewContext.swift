@@ -11,38 +11,51 @@ import UIKit
 public final class ViewContext {
     
     let view: UIView
-    let match: UIView?
+    var match: UIView?
     var snapshot: Snapshot?
     var initialState: ViewState
-    let finalState: ViewState
+    var finalState: ViewState
     var options: ShiftViewOptions
-    let superview: Superview
-    let matchOriginalAlpha: CGFloat
+    var superview: Superview
+    var matchOriginalAlpha: CGFloat = 0
     let viewOriginalAlpha: CGFloat
+    var reverseAnimations: Bool
     lazy var duration = calculateDuration()
+    let baselineDuration: TimeInterval
     
     init(toView: UIView,
          superview: Superview,
-         options: ShiftViewOptions,
-         match: UIView?) {
+         reverseAnimations: Bool,
+         baselineDuration: TimeInterval) {
         self.view = toView
-        self.options = options
+        self.options = toView.shift
         self.viewOriginalAlpha = toView.alpha
         let finalState = ViewState(view: toView, superview: superview)
-        self.initialState = match.map{ ViewState(view: $0, superview: superview) } ?? finalState
+        self.initialState = finalState
         self.finalState = finalState
         self.superview = superview
-        self.match = match
-        self.matchOriginalAlpha = match?.alpha ?? 0
+        self.reverseAnimations = reverseAnimations
+        self.baselineDuration = baselineDuration
     }
     
     func takeSnapshot() {
-        snapshot = Snapshot(
-            finalContent: view,
-            initialContent: match,
-            sizing: options.contentSizing,
-            animation: options.contentAnimation
-        )
+        guard !options.isHidden else { return }
+        
+        if let match = match {
+            snapshot = Snapshot(
+                finalContent: reverseAnimations ? match : view,
+                initialContent: reverseAnimations ? view : match,
+                sizing: options.contentSizing,
+                animation: options.contentAnimation
+            )
+        } else {
+            snapshot = Snapshot(
+                finalContent: view,
+                initialContent: nil,
+                sizing: options.contentSizing,
+                animation: options.contentAnimation
+            )
+        }
         
         guard let snapshot = snapshot else { return }
         
@@ -58,7 +71,20 @@ public final class ViewContext {
         view.alpha = 0
     }
     
+    func setMatch(to match: ViewContext, container: UIView) {
+        self.match = match.view
+        self.matchOriginalAlpha = match.view.alpha
+        self.superview = .global(container)
+        
+        if reverseAnimations {
+            self.finalState = ViewState(view: match.view, superview: superview)
+        } else {
+            self.initialState = ViewState(view: match.view, superview: superview)
+        }
+    }
+    
     func addSnapshot() {
+        // if view is hidden then it will not have a value.
         guard let snapshot = snapshot else { return }
         
         switch superview {
@@ -69,8 +95,27 @@ public final class ViewContext {
         }
     }
     
+    func adjustPosition() {
+        guard let snapshot = snapshot else { return }
+        
+        switch options.position {
+        case .auto:
+            break // already in the right position
+        case .front:
+            snapshot.superview?.bringSubviewToFront(snapshot)
+        case .back:
+            snapshot.superview?.sendSubviewToBack(snapshot)
+        }
+    }
+    
     func applyModifers() {
-        options.animations.apply(to: &initialState)
+        guard match == nil else { return }
+        
+        if reverseAnimations {
+            options.animations.apply(to: &finalState)
+        } else {
+            options.animations.apply(to: &initialState)
+        }
     }
     
     func performCaAnimations() {
@@ -122,7 +167,7 @@ public final class ViewContext {
         snapshot?.layer.masksToBounds = finalState.masksToBounds
     }
     
-    /// Performs the animations that should not be performed
+    /// Performs the animations that should be performed
     /// in a `UIView` animation block.
     func performUiViewAnimations() {
         CATransaction.begin()
@@ -162,13 +207,12 @@ public final class ViewContext {
         // So there is an additional 0.175 seconds to add based off
         // how far the view is going to move or how much
         // it will change in size.
-        let minDuration = 0.2
         let additionalDuration = 0.175
         
         let positionDistance = initialState.position.distance(to: finalState.position)
         let positionDuration = additionalDuration * TimeInterval(positionDistance.clamp(0, 500) / 500)
         
-        return minDuration + positionDuration
+        return baselineDuration + positionDuration
     }
 }
 

@@ -8,29 +8,53 @@
 
 import UIKit
 
-public typealias Middleware = ([ViewContext]) -> Void
+public typealias Middleware = (Views) -> Void
+
+public struct Options {
+    
+    public var isPresenting: Bool
+    public var viewOrder: ViewOrder
+    public var baselineDuration: TimeInterval
+    
+    public init(isPresenting: Bool = true,
+                viewOrder: ViewOrder = .sourceOnTop,
+                baselineDuration: TimeInterval? = nil) {
+        self.isPresenting = isPresenting
+        self.viewOrder = viewOrder
+        self.baselineDuration = baselineDuration ?? 0.2
+    }
+    
+    public enum ViewOrder {
+        case sourceOnTop
+        case sourceOnBottom
+    }
+}
 
 public func animate(fromView: UIView,
                     toView: UIView,
                     container: UIView,
+                    options: Options = Options(),
                     middleware: [Middleware] = [],
-                    completion: @escaping (Bool) -> Void,
-                    extraAnimations: (() -> Void)? = nil) {
+                    completion: @escaping (Bool) -> Void) {
     let transitionContainer = buildTransitionContainer(in: container)
     let fromViewShapshot = addFromViewSnapshot(fromView: fromView, container: container)
     
-    let views = deconstruct(
-        view: toView,
-        container: transitionContainer,
-        potentialMatches: findPotentialMatches(in: fromView)
+    let views = buildViews(
+        fromView: fromView,
+        toView: toView,
+        container: container,
+        options: options
     )
     
     middleware.forEach{ $0(views) }
     
     views.forEach{ $0.applyModifers() }
     
-    views.reversed().forEach { $0.takeSnapshot() }
+    views.sourceViews.reversed().forEach { $0.takeSnapshot() }
+    views.otherViews.reversed().forEach { $0.takeSnapshot() }
+    
     views.forEach { $0.addSnapshot() }
+    views.forEach { $0.adjustPosition() }
     
     // All snapshots have been taken, so we can remove the `fromViewShapshot`
     // since there wont be anymore flashing, and the transition can begin.
@@ -47,64 +71,115 @@ public func animate(fromView: UIView,
     }
 }
 
-private func deconstruct(view: UIView,
-                         container: UIView,
-                         parent: ViewContext? = nil,
-                         potentialMatches: [String: UIView]) -> [ViewContext] {
-    guard !view.isHidden else { return [] }
+private func buildViews(fromView: UIView,
+                        toView: UIView,
+                        container: UIView,
+                        options: Options) -> Views {
+    let sourceView: UIView
+    let otherView: UIView
     
-    var roots = [ViewContext]()
-    
-    let options = view.shift
-    let match = options.id != nil ? potentialMatches[options.id!] : nil
-    let hasMatch = match != nil
-    let viewNeedsAnimating = match != nil || !options.animations.isEmpty || parent == nil
-    
-    let superView: Superview
-    if let parent = parent {
-        superView = !hasMatch && options.superview != .container
-            ? .parent(parent)
-            : .global(container)
+    if options.isPresenting {
+        sourceView = toView
+        otherView = fromView
     } else {
-        superView = .global(container)
+        sourceView = fromView
+        otherView = toView
     }
     
-    let result: ViewContext? = !viewNeedsAnimating ? nil : ViewContext(
-        toView: view,
-        superview: superView,
-        options: options,
-        match: match
+    var otherViews = deconstruct(
+        view: otherView,
+        container: container,
+        reverseAnimations: options.isPresenting,
+        baselineDuration: options.baselineDuration
     )
     
-    result.map { roots.append($0) }
+    let sourceViews = deconstruct(
+        view: sourceView,
+        container: container,
+        reverseAnimations: !options.isPresenting,
+        baselineDuration: options.baselineDuration
+    )
+    
+    findMatches(
+        sourceViews: sourceViews,
+        otherViews: &otherViews,
+        container: container,
+        isPresenting: options.isPresenting
+    )
+    
+    return Views(
+        otherViews: otherViews,
+        sourceViews: sourceViews,
+        order: options.viewOrder
+    )
+}
+
+func findMatches(sourceViews: [ViewContext],
+                 otherViews: inout [ViewContext],
+                 container: UIView,
+                 isPresenting: Bool) {
+    let otherViewsByIds = otherViews
+        .filter{ $0.options.id != nil }
+        .reduce(into: [String: ViewContext](), { $0[$1.options.id!] = $1 })
+
+    for view in sourceViews {
+        guard let id = view.options.id,
+            let match = otherViewsByIds[id] else { continue }
+        
+        match.options.isHidden = true
+        
+        view.setMatch(to: match, container: container)
+        view.reverseAnimations = !isPresenting
+    }
+}
+
+private func deconstruct(view: UIView,
+                         container: UIView,
+                         reverseAnimations: Bool,
+                         baselineDuration: TimeInterval,
+                         parent: ViewContext? = nil) -> [ViewContext] {
+    guard !view.isHidden else { return [] }
+    
+    var views = [ViewContext]()
+    var parent = parent
+    
+    let viewNeedsAnimating = view.shift.id != nil
+        || !view.shift.animations.isEmpty
+        || parent == nil
+        || view.shift.superview == .container
+    
+    if viewNeedsAnimating {
+        let superView: Superview
+        if let parent = parent, view.shift.superview != .container {
+            superView = .parent(parent)
+        } else {
+            superView = .global(container)
+        }
+        
+        let context = ViewContext(
+            toView: view,
+            superview: superView,
+            reverseAnimations: reverseAnimations,
+            baselineDuration: baselineDuration
+        )
+        
+        views.append(context)
+        parent = context
+    }
     
     for subview in view.subviews {
-        roots.append(contentsOf: deconstruct(
+        let subviews = deconstruct(
             view: subview,
             container: container,
-            parent: result != nil ? result : parent,
-            potentialMatches: potentialMatches
-        ))
+            reverseAnimations: reverseAnimations,
+            baselineDuration: baselineDuration,
+            parent: parent
+        )
+        
+        views.append(contentsOf: subviews)
     }
     
-    return roots
-}
-
-private func findPotentialMatches(in view: UIView) -> [String: UIView] {
-    var views = [String: UIView]()
-    findPotentialMatches(in: view, views: &views)
     return views
-}
-
-private func findPotentialMatches(in view: UIView,
-                                  views: inout [String: UIView]) {
-    if let id = view.shift.id {
-        views[id] = view
-    }
-    
-    for subview in view.subviews {
-        findPotentialMatches(in: subview, views: &views)
-    }
 }
 
 private func delay(_ duration: TimeInterval, action: @escaping () -> Void) {
@@ -131,4 +206,73 @@ private func addFromViewSnapshot(fromView: UIView, container: UIView) -> UIView 
     container.addSubview(fromViewShapshot)
     fromViewShapshot.frame = fromView.frame
     return fromViewShapshot
+}
+
+public final class Views: Collection {
+    
+    public typealias Index = Int
+    public typealias Element = ViewContext
+    
+    public let otherViews: [ViewContext]
+    public let sourceViews: [ViewContext]
+    
+    private let order: Options.ViewOrder
+    
+    init(otherViews: [ViewContext],
+         sourceViews: [ViewContext],
+         order: Options.ViewOrder) {
+        self.otherViews = otherViews
+        self.sourceViews = sourceViews
+        self.order = order
+    }
+    
+    public var otherRootView: ViewContext? {
+        return otherViews.first
+    }
+    
+    public var sourceRootView: ViewContext? {
+        return sourceViews.first
+    }
+    
+    public var bottomViews: [ViewContext] {
+        switch order {
+        case .sourceOnBottom:
+            return sourceViews
+        case .sourceOnTop:
+            return otherViews
+        }
+    }
+    
+    public var topViews: [ViewContext] {
+        switch order {
+        case .sourceOnBottom:
+            return otherViews
+        case .sourceOnTop:
+            return sourceViews
+        }
+    }
+    
+    public var startIndex: Int {
+        return bottomViews.startIndex
+    }
+    
+    public var maxDuration: TimeInterval {
+        return map{ $0.duration }.max() ?? 0
+    }
+       
+    public var endIndex: Int {
+        return bottomViews.endIndex + topViews.endIndex
+    }
+    
+    public func index(after i: Int) -> Int {
+        return i + 1
+    }
+    
+    public subscript(position: Int) -> ViewContext {
+        if position < bottomViews.endIndex {
+            return bottomViews[position]
+        } else {
+            return topViews[position - bottomViews.endIndex]
+        }
+    }
 }

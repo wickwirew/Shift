@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ViewState {
+public struct ViewState {
     
     var position: CGPoint
     var bounds: CGRect
@@ -32,7 +32,8 @@ struct ViewState {
     var backgroundColor: UIColor?
     
     init(view: UIView, superview: Superview) {
-        self.position = superview.coordinateSpace.convert(view.layer.position, from: view.superview!)
+        self.position = superview.coordinateSpace
+            .convert(view.layer.position, from: view.superview!)
         self.bounds = view.bounds
         self.cornerRadius = view.layer.cornerRadius
         self.anchorPoint = view.layer.anchorPoint
