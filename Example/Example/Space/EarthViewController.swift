@@ -35,7 +35,7 @@ class EarthViewController: UIViewController {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "MoonViewController")
         viewController.shift.modalTransition = .fade
-        present(viewController, animated: true, completion: nil)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     @IBAction func exitPressed(_ sender: Any) {

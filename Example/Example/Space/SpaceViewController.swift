@@ -63,13 +63,25 @@ class SpaceViewController: UIViewController {
         astronautTumbnailContainer.layer.shadowRadius = 10
         astronautTumbnailContainer.layer.shadowOpacity = 0.3
         astronautTumbnailContainer.layer.shadowPath = UIBezierPath(rect: astronautTumbnailContainer.bounds).cgPath
+        
+        navigationController?.navigationBar.barTintColor = .black
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
+        navigationItem.setLeftBarButton(UIBarButtonItem(
+            image: UIImage(systemName: "xmark"),
+            style: .plain,
+            target: self,
+            action: #selector(exitPressed)
+        ), animated: false)
     }
     
     @IBAction func ticketsAvailablePressed(_ sender: Any) {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "EarthViewController")
         viewController.shift.modalTransition = .fade
-        present(viewController, animated: true, completion: nil)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     @IBAction func exitPressed(_ sender: Any) {

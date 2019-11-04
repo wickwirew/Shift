@@ -36,13 +36,13 @@ public func animate(fromView: UIView,
                     options: Options = Options(),
                     middleware: [Middleware] = [],
                     completion: @escaping (Bool) -> Void) {
-    let transitionContainer = buildTransitionContainer(in: container)
+    let transitionContainer = buildTransitionContainer(in: container, frame: toView.frame)
     let fromViewShapshot = addFromViewSnapshot(fromView: fromView, container: container)
     
     let views = buildViews(
         fromView: fromView,
         toView: toView,
-        container: container,
+        container: transitionContainer,
         options: options
     )
     
@@ -191,10 +191,10 @@ private func delay(_ duration: TimeInterval, action: @escaping () -> Void) {
 
 /// We want to build a new container for the transition, so all snapshots
 /// can be added to this while not affect the original `container`'s subview heirarchy
-private func buildTransitionContainer(in container: UIView) -> UIView {
+private func buildTransitionContainer(in container: UIView, frame: CGRect) -> UIView {
     let newContainer = UIView()
     container.addSubview(newContainer)
-    newContainer.frame = container.bounds
+    newContainer.frame = frame
     return newContainer
 }
 

@@ -18,6 +18,7 @@
 		DE257333233AD90000B19BE0 /* SongPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257332233AD90000B19BE0 /* SongPlayerViewController.swift */; };
 		DE257337233AFDFF00B19BE0 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257336233AFDFF00B19BE0 /* SongCell.swift */; };
 		DE839F3E235AB17B0080C4AA /* MoonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE839F3D235AB17B0080C4AA /* MoonViewController.swift */; };
+		DE839F40235B95AD0080C4AA /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE839F3F235B95AD0080C4AA /* ContentViewController.swift */; };
 		DE8A4A2523402F1C003ADD9B /* FirstPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8A4A2423402F1C003ADD9B /* FirstPlaygroundViewController.swift */; };
 		DE8A4A2723402F4E003ADD9B /* SecondPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8A4A2623402F4E003ADD9B /* SecondPlaygroundViewController.swift */; };
 		DEC7EA892351335D005BDE11 /* SpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7EA882351335D005BDE11 /* SpaceViewController.swift */; };
@@ -52,6 +53,7 @@
 		DE257332233AD90000B19BE0 /* SongPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongPlayerViewController.swift; sourceTree = "<group>"; };
 		DE257336233AFDFF00B19BE0 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		DE839F3D235AB17B0080C4AA /* MoonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonViewController.swift; sourceTree = "<group>"; };
+		DE839F3F235B95AD0080C4AA /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		DE8A4A2423402F1C003ADD9B /* FirstPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPlaygroundViewController.swift; sourceTree = "<group>"; };
 		DE8A4A2623402F4E003ADD9B /* SecondPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPlaygroundViewController.swift; sourceTree = "<group>"; };
 		DEC7EA882351335D005BDE11 /* SpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				DEED0032233FE896006511F2 /* SelectionViewController.swift */,
+				DE839F3F235B95AD0080C4AA /* ContentViewController.swift */,
 			);
 			path = Selection;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				DEC7EA8B23513378005BDE11 /* EarthViewController.swift in Sources */,
 				DE257333233AD90000B19BE0 /* SongPlayerViewController.swift in Sources */,
 				DE25730F233AD34700B19BE0 /* AppDelegate.swift in Sources */,
+				DE839F40235B95AD0080C4AA /* ContentViewController.swift in Sources */,
 				DE8A4A2523402F1C003ADD9B /* FirstPlaygroundViewController.swift in Sources */,
 				DE839F3E235AB17B0080C4AA /* MoonViewController.swift in Sources */,
 				DE257337233AFDFF00B19BE0 /* SongCell.swift in Sources */,

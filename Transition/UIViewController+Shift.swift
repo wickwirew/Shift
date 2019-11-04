@@ -19,6 +19,7 @@ extension UIViewController {
     private struct Keys {
         static var shift = "shift"
         static var transitionDelegate = "transitionDelegate"
+        static var transitionCoordinator = "transitionCoordinator"
     }
     
     public var shift: ShiftViewControllerOptions {
@@ -41,20 +42,33 @@ extension UIViewController {
                     nonatomic)
             }
             
-            let existing = getAssociatedObject(
-                key: &Keys.transitionDelegate,
-                as: ModalTransitioningDelegate.self
-            )
-            
-            guard existing == nil else { return }
-            
-            let delegate = ModalTransitioningDelegate()
-            
-            modalPresentationStyle = .custom
-            transitioningDelegate = delegate
-            modalTransitionStyle = .crossDissolve
-            
-            setAssociatedObject(key: &Keys.transitionDelegate, to: delegate)
+            if let nav = self as? UINavigationController {
+                let existing = getAssociatedObject(
+                    key: &Keys.transitionCoordinator,
+                    as: TransitionCoordinator.self
+                )
+                
+                guard existing == nil else { return }
+                
+                let coordinate = TransitionCoordinator()
+                nav.delegate = coordinate
+                setAssociatedObject(key: &Keys.transitionCoordinator, to: coordinate)
+            } else {
+                let existing = getAssociatedObject(
+                    key: &Keys.transitionDelegate,
+                    as: ModalTransitioningDelegate.self
+                )
+                
+                guard existing == nil else { return }
+                
+                let delegate = ModalTransitioningDelegate()
+                
+                modalPresentationStyle = .custom
+                transitioningDelegate = delegate
+                modalTransitionStyle = .crossDissolve
+                
+                setAssociatedObject(key: &Keys.transitionDelegate, to: delegate)
+            }
         }
     }
 }

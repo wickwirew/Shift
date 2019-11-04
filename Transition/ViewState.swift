@@ -33,7 +33,7 @@ public struct ViewState {
     
     init(view: UIView, superview: Superview) {
         self.position = superview.coordinateSpace
-            .convert(view.layer.position, from: view.superview!)
+            .convert(view.layer.position, from: view.superview ?? view)
         self.bounds = view.bounds
         self.cornerRadius = view.layer.cornerRadius
         self.anchorPoint = view.layer.anchorPoint

@@ -19,7 +19,7 @@ class ModalTransitionDismissing: NSObject, UIViewControllerAnimatedTransitioning
         using transitionContext: UIViewControllerContextTransitioning) {
         guard let fromViewController = transitionContext.viewController(forKey: .from),
             let toViewController = transitionContext.viewController(forKey: .to) else { return }
-        
+
         animate(
             fromView: fromViewController.view,
             toView: toViewController.view,
