@@ -1,5 +1,5 @@
 //
-//  TransitionCoordinator.swift
+//  NavControllerTransitionCoordinator.swift
 //  Transition
 //
 //  Created by Wes Wickwire on 10/30/19.
@@ -8,9 +8,7 @@
 
 import UIKit
 
-final class TransitionCoordinator: NSObject, UINavigationControllerDelegate {
-    
-    var interactionController: UIPercentDrivenInteractiveTransition?
+final class NavControllerTransitionCoordinator: NSObject, UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController,
                               animationControllerFor operation: UINavigationController.Operation,
@@ -24,10 +22,5 @@ final class TransitionCoordinator: NSObject, UINavigationControllerDelegate {
         default:
             return nil
         }
-    }
-    
-    func navigationController(_ navigationController: UINavigationController,
-                              interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactionController
     }
 }

@@ -45,12 +45,12 @@ extension UIViewController {
             if let nav = self as? UINavigationController {
                 let existing = getAssociatedObject(
                     key: &Keys.transitionCoordinator,
-                    as: TransitionCoordinator.self
+                    as: NavControllerTransitionCoordinator.self
                 )
                 
                 guard existing == nil else { return }
                 
-                let coordinate = TransitionCoordinator()
+                let coordinate = NavControllerTransitionCoordinator()
                 nav.delegate = coordinate
                 setAssociatedObject(key: &Keys.transitionCoordinator, to: coordinate)
             } else {
