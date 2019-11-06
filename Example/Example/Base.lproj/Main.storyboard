@@ -17,7 +17,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Iia-Nx-IV7">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -321,7 +321,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Earth" translatesAutoresizingMaskIntoConstraints="NO" id="K6a-FI-kWG">
-                                        <rect key="frame" x="73.5" y="262" width="267" height="254"/>
+                                        <rect key="frame" x="73.5" y="262" width="267.00000000000023" height="254"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="254" id="uiM-0N-9an"/>
                                             <constraint firstAttribute="width" constant="267" id="w7U-w8-Xcb"/>
@@ -525,7 +525,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Earth" translatesAutoresizingMaskIntoConstraints="NO" id="cOr-E6-gAq">
-                                <rect key="frame" x="5" y="482" width="404" height="350"/>
+                                <rect key="frame" x="5" y="482" width="404.00000000000023" height="350"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="350" id="xHh-U5-BdQ"/>
                                 </constraints>
