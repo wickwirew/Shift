@@ -28,7 +28,7 @@
 		DE839F64236A3BAD0080C4AA /* NavControllerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE839F63236A3BAD0080C4AA /* NavControllerTransitionCoordinator.swift */; };
 		DEAEC80B23398134003F5977 /* Shift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEAEC80123398134003F5977 /* Shift.framework */; };
 		DEAEC81023398134003F5977 /* TransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAEC80F23398134003F5977 /* TransitionTests.swift */; };
-		DEAEC81223398134003F5977 /* Transition.h in Headers */ = {isa = PBXBuildFile; fileRef = DEAEC80423398134003F5977 /* Transition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DEAEC81223398134003F5977 /* Shift.h in Headers */ = {isa = PBXBuildFile; fileRef = DEAEC80423398134003F5977 /* Shift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEC7EA86234E9282005BDE11 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7EA85234E9282005BDE11 /* Snapshot.swift */; };
 		DEED002A233EBFA2006511F2 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED0029233EBFA2006511F2 /* CGFloat+Extensions.swift */; };
 		DEED002E233EC498006511F2 /* CAMediaTimingFunction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED002D233EC498006511F2 /* CAMediaTimingFunction+Extensions.swift */; };
@@ -65,7 +65,7 @@
 		DE6236C3234C297700F3B010 /* ModalTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTransition.swift; sourceTree = "<group>"; };
 		DE839F63236A3BAD0080C4AA /* NavControllerTransitionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavControllerTransitionCoordinator.swift; sourceTree = "<group>"; };
 		DEAEC80123398134003F5977 /* Shift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DEAEC80423398134003F5977 /* Transition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transition.h; sourceTree = "<group>"; };
+		DEAEC80423398134003F5977 /* Shift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shift.h; sourceTree = "<group>"; };
 		DEAEC80523398134003F5977 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEAEC80A23398134003F5977 /* ShiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEAEC80F23398134003F5977 /* TransitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionTests.swift; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 				DE2572F7233ACE0B00B19BE0 /* ViewContext.swift */,
 				DE2572F9233ACE3400B19BE0 /* ViewState.swift */,
 				DEAEC80523398134003F5977 /* Info.plist */,
-				DEAEC80423398134003F5977 /* Transition.h */,
+				DEAEC80423398134003F5977 /* Shift.h */,
 			);
 			path = Shift;
 			sourceTree = "<group>";
@@ -191,7 +191,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEAEC81223398134003F5977 /* Transition.h in Headers */,
+				DEAEC81223398134003F5977 /* Shift.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
