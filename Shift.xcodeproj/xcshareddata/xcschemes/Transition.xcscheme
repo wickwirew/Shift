@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DEAEC80023398134003F5977"
-               BuildableName = "Transition.framework"
-               BlueprintName = "Transition"
-               ReferencedContainer = "container:Transition.xcodeproj">
+               BuildableName = "Shift.framework"
+               BlueprintName = "Shift"
+               ReferencedContainer = "container:Shift.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DEAEC80923398134003F5977"
-               BuildableName = "TransitionTests.xctest"
-               BlueprintName = "TransitionTests"
-               ReferencedContainer = "container:Transition.xcodeproj">
+               BuildableName = "ShiftTests.xctest"
+               BlueprintName = "ShiftTests"
+               ReferencedContainer = "container:Shift.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -61,9 +61,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DEAEC80023398134003F5977"
-            BuildableName = "Transition.framework"
-            BlueprintName = "Transition"
-            ReferencedContainer = "container:Transition.xcodeproj">
+            BuildableName = "Shift.framework"
+            BlueprintName = "Shift"
+            ReferencedContainer = "container:Shift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

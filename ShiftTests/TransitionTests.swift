@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Transition
+@testable import Shift
 
 class TransitionTests: XCTestCase {
 

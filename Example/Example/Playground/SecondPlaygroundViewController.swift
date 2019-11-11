@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Transition
+import Shift
 
 class SecondPlaygroundViewController: UIViewController {
 

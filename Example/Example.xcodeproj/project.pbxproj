@@ -13,10 +13,10 @@
 		DE257316233AD34700B19BE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE257314233AD34700B19BE0 /* Main.storyboard */; };
 		DE257318233AD34900B19BE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE257317233AD34900B19BE0 /* Assets.xcassets */; };
 		DE25731B233AD34900B19BE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE257319233AD34900B19BE0 /* LaunchScreen.storyboard */; };
-		DE257324233AD3B100B19BE0 /* Transition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE257323233AD3B100B19BE0 /* Transition.framework */; };
-		DE257325233AD3B100B19BE0 /* Transition.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE257323233AD3B100B19BE0 /* Transition.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DE257333233AD90000B19BE0 /* SongPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257332233AD90000B19BE0 /* SongPlayerViewController.swift */; };
 		DE257337233AFDFF00B19BE0 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE257336233AFDFF00B19BE0 /* SongCell.swift */; };
+		DE5591F7237A229600B7617D /* Shift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5591F6237A229600B7617D /* Shift.framework */; };
+		DE5591F8237A229600B7617D /* Shift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE5591F6237A229600B7617D /* Shift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DE839F3E235AB17B0080C4AA /* MoonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE839F3D235AB17B0080C4AA /* MoonViewController.swift */; };
 		DE839F40235B95AD0080C4AA /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE839F3F235B95AD0080C4AA /* ContentViewController.swift */; };
 		DE8A4A2523402F1C003ADD9B /* FirstPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8A4A2423402F1C003ADD9B /* FirstPlaygroundViewController.swift */; };
@@ -27,13 +27,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		DE257326233AD3B100B19BE0 /* Embed Frameworks */ = {
+		DE5591F9237A229600B7617D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DE257325233AD3B100B19BE0 /* Transition.framework in Embed Frameworks */,
+				DE5591F8237A229600B7617D /* Shift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,6 +52,7 @@
 		DE257323233AD3B100B19BE0 /* Transition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Transition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE257332233AD90000B19BE0 /* SongPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongPlayerViewController.swift; sourceTree = "<group>"; };
 		DE257336233AFDFF00B19BE0 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
+		DE5591F6237A229600B7617D /* Shift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Shift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE839F3D235AB17B0080C4AA /* MoonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoonViewController.swift; sourceTree = "<group>"; };
 		DE839F3F235B95AD0080C4AA /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		DE8A4A2423402F1C003ADD9B /* FirstPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPlaygroundViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE257324233AD3B100B19BE0 /* Transition.framework in Frameworks */,
+				DE5591F7237A229600B7617D /* Shift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +111,7 @@
 		DE257322233AD3B100B19BE0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DE5591F6237A229600B7617D /* Shift.framework */,
 				DE257323233AD3B100B19BE0 /* Transition.framework */,
 			);
 			name = Frameworks;
@@ -163,7 +165,7 @@
 				DE257307233AD34700B19BE0 /* Sources */,
 				DE257308233AD34700B19BE0 /* Frameworks */,
 				DE257309233AD34700B19BE0 /* Resources */,
-				DE257326233AD3B100B19BE0 /* Embed Frameworks */,
+				DE5591F9237A229600B7617D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

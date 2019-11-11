@@ -26,7 +26,7 @@
 		DE6236C2234C238100F3B010 /* UIViewController+Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6236C1234C238100F3B010 /* UIViewController+Shift.swift */; };
 		DE6236C4234C297700F3B010 /* ModalTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6236C3234C297700F3B010 /* ModalTransition.swift */; };
 		DE839F64236A3BAD0080C4AA /* NavControllerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE839F63236A3BAD0080C4AA /* NavControllerTransitionCoordinator.swift */; };
-		DEAEC80B23398134003F5977 /* Transition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEAEC80123398134003F5977 /* Transition.framework */; };
+		DEAEC80B23398134003F5977 /* Shift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEAEC80123398134003F5977 /* Shift.framework */; };
 		DEAEC81023398134003F5977 /* TransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAEC80F23398134003F5977 /* TransitionTests.swift */; };
 		DEAEC81223398134003F5977 /* Transition.h in Headers */ = {isa = PBXBuildFile; fileRef = DEAEC80423398134003F5977 /* Transition.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DEC7EA86234E9282005BDE11 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7EA85234E9282005BDE11 /* Snapshot.swift */; };
@@ -64,10 +64,10 @@
 		DE6236C1234C238100F3B010 /* UIViewController+Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Shift.swift"; sourceTree = "<group>"; };
 		DE6236C3234C297700F3B010 /* ModalTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTransition.swift; sourceTree = "<group>"; };
 		DE839F63236A3BAD0080C4AA /* NavControllerTransitionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavControllerTransitionCoordinator.swift; sourceTree = "<group>"; };
-		DEAEC80123398134003F5977 /* Transition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Transition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEAEC80123398134003F5977 /* Shift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEAEC80423398134003F5977 /* Transition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Transition.h; sourceTree = "<group>"; };
 		DEAEC80523398134003F5977 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DEAEC80A23398134003F5977 /* TransitionTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TransitionTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEAEC80A23398134003F5977 /* ShiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEAEC80F23398134003F5977 /* TransitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionTests.swift; sourceTree = "<group>"; };
 		DEAEC81123398134003F5977 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEC7EA85234E9282005BDE11 /* Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEAEC80B23398134003F5977 /* Transition.framework in Frameworks */,
+				DEAEC80B23398134003F5977 /* Shift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,8 +141,8 @@
 		DEAEC7F723398133003F5977 = {
 			isa = PBXGroup;
 			children = (
-				DEAEC80323398134003F5977 /* Transition */,
-				DEAEC80E23398134003F5977 /* TransitionTests */,
+				DEAEC80323398134003F5977 /* Shift */,
+				DEAEC80E23398134003F5977 /* ShiftTests */,
 				DEAEC80223398134003F5977 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -150,13 +150,13 @@
 		DEAEC80223398134003F5977 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DEAEC80123398134003F5977 /* Transition.framework */,
-				DEAEC80A23398134003F5977 /* TransitionTests.xctest */,
+				DEAEC80123398134003F5977 /* Shift.framework */,
+				DEAEC80A23398134003F5977 /* ShiftTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DEAEC80323398134003F5977 /* Transition */ = {
+		DEAEC80323398134003F5977 /* Shift */ = {
 			isa = PBXGroup;
 			children = (
 				DE2572FD233ACEDA00B19BE0 /* Extensions */,
@@ -172,16 +172,16 @@
 				DEAEC80523398134003F5977 /* Info.plist */,
 				DEAEC80423398134003F5977 /* Transition.h */,
 			);
-			path = Transition;
+			path = Shift;
 			sourceTree = "<group>";
 		};
-		DEAEC80E23398134003F5977 /* TransitionTests */ = {
+		DEAEC80E23398134003F5977 /* ShiftTests */ = {
 			isa = PBXGroup;
 			children = (
 				DEAEC80F23398134003F5977 /* TransitionTests.swift */,
 				DEAEC81123398134003F5977 /* Info.plist */,
 			);
-			path = TransitionTests;
+			path = ShiftTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,9 +198,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		DEAEC80023398134003F5977 /* Transition */ = {
+		DEAEC80023398134003F5977 /* Shift */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DEAEC81523398134003F5977 /* Build configuration list for PBXNativeTarget "Transition" */;
+			buildConfigurationList = DEAEC81523398134003F5977 /* Build configuration list for PBXNativeTarget "Shift" */;
 			buildPhases = (
 				DEAEC7FC23398134003F5977 /* Headers */,
 				DEAEC7FD23398134003F5977 /* Sources */,
@@ -211,14 +211,14 @@
 			);
 			dependencies = (
 			);
-			name = Transition;
+			name = Shift;
 			productName = Transition;
-			productReference = DEAEC80123398134003F5977 /* Transition.framework */;
+			productReference = DEAEC80123398134003F5977 /* Shift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		DEAEC80923398134003F5977 /* TransitionTests */ = {
+		DEAEC80923398134003F5977 /* ShiftTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DEAEC81823398134003F5977 /* Build configuration list for PBXNativeTarget "TransitionTests" */;
+			buildConfigurationList = DEAEC81823398134003F5977 /* Build configuration list for PBXNativeTarget "ShiftTests" */;
 			buildPhases = (
 				DEAEC80623398134003F5977 /* Sources */,
 				DEAEC80723398134003F5977 /* Frameworks */,
@@ -229,9 +229,9 @@
 			dependencies = (
 				DEAEC80D23398134003F5977 /* PBXTargetDependency */,
 			);
-			name = TransitionTests;
+			name = ShiftTests;
 			productName = TransitionTests;
-			productReference = DEAEC80A23398134003F5977 /* TransitionTests.xctest */;
+			productReference = DEAEC80A23398134003F5977 /* ShiftTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -253,7 +253,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DEAEC7FB23398133003F5977 /* Build configuration list for PBXProject "Transition" */;
+			buildConfigurationList = DEAEC7FB23398133003F5977 /* Build configuration list for PBXProject "Shift" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -265,8 +265,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DEAEC80023398134003F5977 /* Transition */,
-				DEAEC80923398134003F5977 /* TransitionTests */,
+				DEAEC80023398134003F5977 /* Shift */,
+				DEAEC80923398134003F5977 /* ShiftTests */,
 			);
 		};
 /* End PBXProject section */
@@ -331,7 +331,7 @@
 /* Begin PBXTargetDependency section */
 		DEAEC80D23398134003F5977 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DEAEC80023398134003F5977 /* Transition */;
+			target = DEAEC80023398134003F5977 /* Shift */;
 			targetProxy = DEAEC80C23398134003F5977 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -470,7 +470,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Transition/Info.plist;
+				INFOPLIST_FILE = Shift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -478,7 +478,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wickwirew.Transition;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wickwirew.Shift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -499,7 +499,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Transition/Info.plist;
+				INFOPLIST_FILE = Shift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -507,7 +507,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wickwirew.Transition;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wickwirew.Shift;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
@@ -557,7 +557,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DEAEC7FB23398133003F5977 /* Build configuration list for PBXProject "Transition" */ = {
+		DEAEC7FB23398133003F5977 /* Build configuration list for PBXProject "Shift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DEAEC81323398134003F5977 /* Debug */,
@@ -566,7 +566,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DEAEC81523398134003F5977 /* Build configuration list for PBXNativeTarget "Transition" */ = {
+		DEAEC81523398134003F5977 /* Build configuration list for PBXNativeTarget "Shift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DEAEC81623398134003F5977 /* Debug */,
@@ -575,7 +575,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DEAEC81823398134003F5977 /* Build configuration list for PBXNativeTarget "TransitionTests" */ = {
+		DEAEC81823398134003F5977 /* Build configuration list for PBXNativeTarget "ShiftTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DEAEC81923398134003F5977 /* Debug */,
