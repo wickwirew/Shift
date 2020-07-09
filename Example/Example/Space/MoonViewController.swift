@@ -17,10 +17,10 @@ class MoonViewController: UIViewController {
         super.viewDidLoad()
         shift.baselineDuration = 0.75
         
-        view.shift.animations = [.fade]
+        view.shift.animations.fade()
         
-        moonLabel.shift.animations = [.move(.left(200)), .fade]
-        moonDescription.shift.animations = [.move(.left(200)), .fade]
+        moonLabel.shift.animations.move(.left(200)).fade()
+        moonDescription.shift.animations.move(.left(200)).fade()
     }
     
     @IBAction func exitPressed(_ sender: Any) {

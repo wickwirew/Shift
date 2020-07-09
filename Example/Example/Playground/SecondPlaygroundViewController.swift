@@ -20,11 +20,11 @@ class SecondPlaygroundViewController: UIViewController {
         
         shift.enable()
         
-        view.shift.animations = [.fade]
+        view.shift.animations.fade()
         
-        whiteSquare.shift.animations = [.move(.up(303))]
+        whiteSquare.shift.animations.move(.up(303))
         whiteSquare.shift.superview = .container
-        smallSquare.shift.animations = [.move(.right(414)), .backgroundColor(.blue)]
+        smallSquare.shift.animations.move(.right(414)).backgroundColor(.blue)
         square.shift.contentSizing = .stretch
         square.shift.contentAnimation = .fade
     }

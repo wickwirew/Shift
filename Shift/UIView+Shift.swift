@@ -13,7 +13,7 @@ public struct ShiftViewOptions {
     public var id: String?
     public var contentSizing: ContentSizing = .stretch
     public var contentAnimation: ContentAnimation = .none
-    public var animations = [Animation]()
+    public var animations = Animations()
     public var superview: ShiftSuperview = .parent
     public var isHidden: Bool = false
     public var position: ShiftPosition = .auto

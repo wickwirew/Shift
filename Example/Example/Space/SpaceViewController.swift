@@ -24,29 +24,29 @@ class SpaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.shift.animations = [.fade]
+        view.shift.animations.fade()
         
         shift.baselineDuration = 0.75
         
         contentView.shift.position = .front
         contentView.shift.superview = .container
-        contentView.shift.animations = [.fade]
+        contentView.shift.animations.fade()
         
         bottomSheet.layer.cornerRadius = 20
         bottomSheet.layer.masksToBounds = true
-        bottomSheet.shift.animations = [.move(.up(280))]
+        bottomSheet.shift.animations.move(.up(280))
         
-        astronautTumbnailContainer.shift.animations = [.move(.up(170))]
-        rating.shift.animations = [.move(.up(300))]
-        movieDescription.shift.animations = [.move(.up(400))]
+        astronautTumbnailContainer.shift.animations.move(.up(170))
+        rating.shift.animations.move(.up(300))
+        movieDescription.shift.animations.move(.up(400))
         
-        ticketsAvailable.shift.animations = [.fade]
+        ticketsAvailable.shift.animations.fade()
         
-        spaceTravel.shift.animations = [.fade]
+        spaceTravel.shift.animations.fade()
         
-        earth.shift.animations = [.move(.up(100))]
+        earth.shift.animations.move(.up(100))
         
-        spaceMan.shift.animations = [.scale(4), .move(.up(600))]
+        spaceMan.shift.animations.scale(4).move(.up(600))
         
         ticketsAvailable.layer.masksToBounds = true
         ticketsAvailable.layer.cornerRadius = 25

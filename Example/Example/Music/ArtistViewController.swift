@@ -37,7 +37,7 @@ class ArtistViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         shift.enable()
-        view.shift.animations = [.fade]
+        view.shift.animations.fade()
         
         tableView.delegate = self
         tableView.dataSource = self

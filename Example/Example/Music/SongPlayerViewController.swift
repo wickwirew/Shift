@@ -26,7 +26,7 @@ class SongPlayerViewController: UIViewController {
         albumCover.layer.shadowRadius = 15
         albumCover.layer.shadowOpacity = 0.3
         
-        view.shift.animations = [.fade]
+        view.shift.animations.fade()
         view.layer.insertSublayer(gradient, at: 0)
         
         gradient.colors = [

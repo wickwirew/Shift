@@ -19,14 +19,14 @@ class EarthViewController: UIViewController {
         super.viewDidLoad()
         shift.baselineDuration = 0.75
         
-        view.shift.animations = [.fade]
+        view.shift.animations.fade()
         
-        earth.shift.animations = [.move(.up(300)), .move(.right(100)), .fade]
+        earth.shift.animations.move(.up(300)).move(.right(100)).fade()
         
-        earthLabel.shift.animations = [.move(.right(200)), .fade]
-        earthDescription.shift.animations = [.move(.right(200)), .fade]
+        earthLabel.shift.animations.move(.right(200)).fade()
+        earthDescription.shift.animations.move(.right(200)).fade()
         
-        moon.shift.animations = [.move(.left(200)), .fade]
+        moon.shift.animations.move(.left(200)).fade()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(moonTapped))
         moon.isUserInteractionEnabled = true
