@@ -34,7 +34,6 @@ public func animate(fromView: UIView,
                     toView: UIView,
                     container: UIView,
                     options: Options = Options(),
-                    middleware: [Middleware] = [],
                     completion: @escaping (Bool) -> Void) {
     let transitionContainer = buildTransitionContainer(in: container, frame: toView.frame)
     let fromViewShapshot = addFromViewSnapshot(fromView: fromView, container: container)
@@ -45,8 +44,6 @@ public func animate(fromView: UIView,
         container: transitionContainer,
         options: options
     )
-    
-    middleware.forEach{ $0(views) }
     
     views.forEach{ $0.applyModifers() }
     
