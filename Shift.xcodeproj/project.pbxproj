@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DE2572F3233ACDF200B19BE0 /* UIView+Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572EF233ACDF200B19BE0 /* UIView+Shift.swift */; };
-		DE2572F4233ACDF200B19BE0 /* Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F0233ACDF200B19BE0 /* Animate.swift */; };
+		DE2572F4233ACDF200B19BE0 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F0233ACDF200B19BE0 /* Animator.swift */; };
 		DE2572F5233ACDF200B19BE0 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F1233ACDF200B19BE0 /* CALayer+Extensions.swift */; };
 		DE2572F8233ACE0B00B19BE0 /* ViewContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F7233ACE0B00B19BE0 /* ViewContext.swift */; };
 		DE2572FA233ACE3400B19BE0 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F9233ACE3400B19BE0 /* ViewState.swift */; };
@@ -45,7 +45,7 @@
 
 /* Begin PBXFileReference section */
 		DE2572EF233ACDF200B19BE0 /* UIView+Shift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shift.swift"; sourceTree = "<group>"; };
-		DE2572F0233ACDF200B19BE0 /* Animate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animate.swift; sourceTree = "<group>"; };
+		DE2572F0233ACDF200B19BE0 /* Animator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		DE2572F1233ACDF200B19BE0 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
 		DE2572F7233ACE0B00B19BE0 /* ViewContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContext.swift; sourceTree = "<group>"; };
 		DE2572F9233ACE3400B19BE0 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 			children = (
 				DE2572FD233ACEDA00B19BE0 /* Extensions */,
 				DE257327233AD4BC00B19BE0 /* Transitions */,
-				DE2572F0233ACDF200B19BE0 /* Animate.swift */,
+				DE2572F0233ACDF200B19BE0 /* Animator.swift */,
 				DE6236BD2346D59C00F3B010 /* Animation.swift */,
 				DEC7EA85234E9282005BDE11 /* Snapshot.swift */,
 				DE2572EF233ACDF200B19BE0 /* UIView+Shift.swift */,
@@ -299,7 +299,7 @@
 				DE6236C2234C238100F3B010 /* UIViewController+Shift.swift in Sources */,
 				DE25732B233AD57900B19BE0 /* ModalTransitionPresentationController.swift in Sources */,
 				DE2572FF233AD2DD00B19BE0 /* CGPoint+Extensions.swift in Sources */,
-				DE2572F4233ACDF200B19BE0 /* Animate.swift in Sources */,
+				DE2572F4233ACDF200B19BE0 /* Animator.swift in Sources */,
 				DE2572F3233ACDF200B19BE0 /* UIView+Shift.swift in Sources */,
 				DE257301233AD30200B19BE0 /* CATransform3D+Extensions.swift in Sources */,
 				DE2572F8233ACE0B00B19BE0 /* ViewContext.swift in Sources */,

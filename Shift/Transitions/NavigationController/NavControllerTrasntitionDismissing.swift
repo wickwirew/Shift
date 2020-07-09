@@ -9,9 +9,9 @@
 import UIKit
 
 class NavControllerTrasntitionDismissing: NSObject, UIViewControllerAnimatedTransitioning {
-    
     let delay: Bool
     let insertToView: Bool
+    let animator = Animator()
     
     init(delay: Bool = false, insertToView: Bool = false) {
         self.delay = delay
@@ -31,7 +31,7 @@ class NavControllerTrasntitionDismissing: NSObject, UIViewControllerAnimatedTran
         transitionContext.containerView.insertSubview(toViewController.view, at: 0)
         
         DispatchQueue.main.async {
-            animate(
+            self.animator.animate(
                 fromView: fromViewController.view,
                 toView: toViewController.view,
                 container: transitionContext.containerView,

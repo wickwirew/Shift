@@ -9,6 +9,7 @@
 import UIKit
 
 class NavControllerTrasntitionPresenting: NSObject, UIViewControllerAnimatedTransitioning {
+    let animator = Animator()
     
     func transitionDuration(
         using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
@@ -28,7 +29,7 @@ class NavControllerTrasntitionPresenting: NSObject, UIViewControllerAnimatedTran
         toViewController.view.layoutIfNeeded()
         
         DispatchQueue.main.async {
-            animate(
+            self.animator.animate(
                 fromView: fromViewController.view,
                 toView: toViewController.view,
                 container: transitionContext.containerView,
