@@ -19,13 +19,6 @@ class SelectionViewController: UIViewController {
             Example(name: "Playground", viewController: "FirstPlaygroundViewController"),
             Example(name: "Space", viewController: "SpaceViewController", isModal: false),
         ]),
-        Section(name: "Modal Transitions", examples: [
-            Example(name: "Fade", viewController: "ContentViewController", modalTransition: .fade),
-            Example(name: "Slide Left", viewController: "ContentViewController", modalTransition: .slide(.left)),
-            Example(name: "Slide Right", viewController: "ContentViewController", modalTransition: .slide(.right)),
-            Example(name: "Slide Up", viewController: "ContentViewController", modalTransition: .slide(.up)),
-            Example(name: "Slide Down", viewController: "ContentViewController", modalTransition: .slide(.down)),
-        ])
     ]
     
     override func viewDidLoad() {
@@ -46,16 +39,13 @@ class SelectionViewController: UIViewController {
     struct Example {
         let name: String
         let viewController: String
-        let modalTransition: ModalTransition
         let isModal: Bool
         
         init(name: String,
              viewController: String,
-             modalTransition: ModalTransition = .fade,
              isModal: Bool = true) {
             self.name = name
             self.viewController = viewController
-            self.modalTransition = modalTransition
             self.isModal = isModal
         }
     }
@@ -95,13 +85,13 @@ extension SelectionViewController: UITableViewDataSource, UITableViewDelegate {
         
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: example.viewController)
-        viewController.shift.modalTransition = example.modalTransition
+        viewController.shift.enable()
         
         if example.isModal {
             present(viewController, animated: true, completion: nil)
         } else {
             let nav = UINavigationController(rootViewController: viewController)
-            nav.shift.modalTransition = .fade
+            nav.shift.enable()
             nav.modalPresentationStyle = .fullScreen
             present(nav, animated: true, completion: nil)
         }

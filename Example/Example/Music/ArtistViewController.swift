@@ -36,7 +36,8 @@ class ArtistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        shift.modalTransition = .fade
+        shift.enable()
+        view.shift.animations = [.fade]
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -51,7 +52,7 @@ class ArtistViewController: UIViewController {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "SongPlayerViewController")
         viewController.view.backgroundColor = .black
-        viewController.shift.modalTransition = .fade
+        viewController.shift.enable()
         present(viewController, animated: true, completion: nil)
     }
     

@@ -19,6 +19,8 @@ class EarthViewController: UIViewController {
         super.viewDidLoad()
         shift.baselineDuration = 0.75
         
+        view.shift.animations = [.fade]
+        
         earth.shift.animations = [.move(.up(300)), .move(.right(100)), .fade]
         
         earthLabel.shift.animations = [.move(.right(200)), .fade]
@@ -34,7 +36,7 @@ class EarthViewController: UIViewController {
     @objc func moonTapped() {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "MoonViewController")
-        viewController.shift.modalTransition = .fade
+        viewController.shift.enable()
         navigationController?.pushViewController(viewController, animated: true)
     }
     

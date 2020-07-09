@@ -24,7 +24,6 @@
 		DE6236BE2346D59C00F3B010 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6236BD2346D59C00F3B010 /* Animation.swift */; };
 		DE6236C0234C233E00F3B010 /* NSObject+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6236BF234C233E00F3B010 /* NSObject+Extensions.swift */; };
 		DE6236C2234C238100F3B010 /* UIViewController+Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6236C1234C238100F3B010 /* UIViewController+Shift.swift */; };
-		DE6236C4234C297700F3B010 /* ModalTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE6236C3234C297700F3B010 /* ModalTransition.swift */; };
 		DE839F64236A3BAD0080C4AA /* NavControllerTransitionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE839F63236A3BAD0080C4AA /* NavControllerTransitionCoordinator.swift */; };
 		DEAEC80B23398134003F5977 /* Shift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEAEC80123398134003F5977 /* Shift.framework */; };
 		DEAEC81023398134003F5977 /* TransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAEC80F23398134003F5977 /* TransitionTests.swift */; };
@@ -62,7 +61,6 @@
 		DE6236BD2346D59C00F3B010 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		DE6236BF234C233E00F3B010 /* NSObject+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+Extensions.swift"; sourceTree = "<group>"; };
 		DE6236C1234C238100F3B010 /* UIViewController+Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Shift.swift"; sourceTree = "<group>"; };
-		DE6236C3234C297700F3B010 /* ModalTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTransition.swift; sourceTree = "<group>"; };
 		DE839F63236A3BAD0080C4AA /* NavControllerTransitionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavControllerTransitionCoordinator.swift; sourceTree = "<group>"; };
 		DEAEC80123398134003F5977 /* Shift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEAEC80423398134003F5977 /* Shift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shift.h; sourceTree = "<group>"; };
@@ -163,7 +161,6 @@
 				DE257327233AD4BC00B19BE0 /* Transitions */,
 				DE2572F0233ACDF200B19BE0 /* Animate.swift */,
 				DE6236BD2346D59C00F3B010 /* Animation.swift */,
-				DE6236C3234C297700F3B010 /* ModalTransition.swift */,
 				DEC7EA85234E9282005BDE11 /* Snapshot.swift */,
 				DE2572EF233ACDF200B19BE0 /* UIView+Shift.swift */,
 				DE6236C1234C238100F3B010 /* UIViewController+Shift.swift */,
@@ -293,7 +290,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE6236C4234C297700F3B010 /* ModalTransition.swift in Sources */,
 				DE5591F2236FAFFC00B7617D /* NavControllerTrasntitionDismissing.swift in Sources */,
 				DE5591F0236FAFC400B7617D /* NavControllerTrasntitionPresenting.swift in Sources */,
 				DE25732F233AD66300B19BE0 /* ModalTransitionDismissing.swift in Sources */,

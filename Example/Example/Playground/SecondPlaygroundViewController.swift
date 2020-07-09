@@ -18,7 +18,7 @@ class SecondPlaygroundViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        shift.modalTransition = .fade
+        shift.enable()
         
         view.shift.animations = [.fade]
         

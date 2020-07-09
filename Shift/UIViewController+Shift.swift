@@ -9,9 +9,19 @@
 import UIKit
 
 public struct ShiftViewControllerOptions {
-    public var modalTransition: ModalTransition?
+    public var enabled = false
     public var viewOrder: Options.ViewOrder = .sourceOnTop
     public var baselineDuration: TimeInterval?
+    
+    /// The view controller will now be presented via shift.
+    public mutating func enable() {
+        enabled = true
+    }
+    
+    /// The view controller will no longer be presented via shift.
+    public mutating func disable() {
+        enabled = false
+    }
 }
 
 extension UIViewController {
@@ -34,7 +44,7 @@ extension UIViewController {
             
             let nonatomic = objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC
             
-            guard newValue.modalTransition != nil else {
+            guard newValue.enabled else {
                 return objc_setAssociatedObject(
                     self,
                     &Keys.transitionDelegate,

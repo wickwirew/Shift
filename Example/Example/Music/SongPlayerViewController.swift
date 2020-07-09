@@ -18,7 +18,7 @@ class SongPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        shift.modalTransition = .fade
+        shift.enable()
         
         albumCover.layer.masksToBounds = false
         albumCover.layer.shadowColor = UIColor.black.cgColor
@@ -26,6 +26,7 @@ class SongPlayerViewController: UIViewController {
         albumCover.layer.shadowRadius = 15
         albumCover.layer.shadowOpacity = 0.3
         
+        view.shift.animations = [.fade]
         view.layer.insertSublayer(gradient, at: 0)
         
         gradient.colors = [

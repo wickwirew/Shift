@@ -24,6 +24,8 @@ class SpaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.shift.animations = [.fade]
+        
         shift.baselineDuration = 0.75
         
         contentView.shift.position = .front
@@ -80,7 +82,7 @@ class SpaceViewController: UIViewController {
     @IBAction func ticketsAvailablePressed(_ sender: Any) {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "EarthViewController")
-        viewController.shift.modalTransition = .fade
+        viewController.shift.enable()
         navigationController?.pushViewController(viewController, animated: true)
     }
     

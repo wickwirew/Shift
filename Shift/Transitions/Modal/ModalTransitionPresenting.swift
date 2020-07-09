@@ -36,7 +36,7 @@ class ModalTransitionPresenting: NSObject, UIViewControllerAnimatedTransitioning
                 viewOrder: toViewController.shift.viewOrder,
                 baselineDuration: toViewController.shift.baselineDuration
             ),
-            middleware: [modalTransitionMiddlware(for: toViewController)],
+            middleware: [],
             completion: { complete in
                 toViewController.view.alpha = 1
                 transitionContext.completeTransition(complete)
