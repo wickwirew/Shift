@@ -139,12 +139,7 @@ public final class Animator {
         var views = [ViewContext]()
         var parent = parent
         
-        let viewNeedsAnimating = view.shift.id != nil
-            || !view.shift.animations.isEmpty
-            || parent == nil
-            || view.shift.superview == .container
-        
-        if viewNeedsAnimating {
+        if view.shift.requiresAnimation {
             let superView: Superview
             if let parent = parent, view.shift.superview != .container {
                 superView = .parent(parent)

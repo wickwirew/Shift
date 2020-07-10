@@ -16,8 +16,7 @@ class ModalTransitionPresenting: NSObject, UIViewControllerAnimatedTransitioning
         return 0.375
     }
     
-    func animateTransition(
-        using transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let toViewController = transitionContext.viewController(forKey: .to),
             let fromViewController = transitionContext.viewController(forKey: .from) else { return }
         

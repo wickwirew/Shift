@@ -17,6 +17,14 @@ public struct ShiftViewOptions {
     public var superview: ShiftSuperview = .parent
     public var isHidden: Bool = false
     public var position: ShiftPosition = .auto
+    
+    /// Whether or not the view needs to be independently
+    /// animated during the transition.
+    var requiresAnimation: Bool {
+        return id != nil
+            || !animations.isEmpty
+            || superview == .container
+    }
 }
 
 public enum ShiftSuperview {

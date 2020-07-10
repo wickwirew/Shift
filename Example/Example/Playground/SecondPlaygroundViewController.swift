@@ -19,6 +19,7 @@ class SecondPlaygroundViewController: UIViewController {
         super.viewDidLoad()
         
         shift.enable()
+        shift.baselineDuration = 3
         
         view.shift.animations.fade()
         
