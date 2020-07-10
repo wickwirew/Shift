@@ -78,8 +78,10 @@ public final class ViewContext {
         
         if reverseAnimations {
             self.finalState = ViewState(view: match.view, superview: superview)
+            self.initialState = ViewState(view: view, superview: superview)
         } else {
             self.initialState = ViewState(view: match.view, superview: superview)
+            self.finalState = ViewState(view: view, superview: superview)
         }
     }
     
@@ -108,13 +110,13 @@ public final class ViewContext {
         }
     }
     
-    func applyModifers() {
+    func applyModifers(filter: Animations.Filter) {
         guard match == nil else { return }
         
         if reverseAnimations {
-            options.animations.apply(to: &finalState)
+            options.animations.apply(to: &finalState, filter: filter)
         } else {
-            options.animations.apply(to: &initialState)
+            options.animations.apply(to: &initialState, filter: filter)
         }
     }
     

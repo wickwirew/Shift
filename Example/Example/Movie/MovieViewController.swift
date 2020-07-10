@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Shift
 
 class MovieViewController: UIViewController {
     @IBOutlet weak var worker: UIImageView!
@@ -17,23 +18,29 @@ class MovieViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        shift.baselineDuration = 0.4
+        shift.baselineDuration = 0.5
+        
+        let filter: Animations.Condition = { $0.toViewControllerType != ActionsViewController.self && !$0.isDisappear }
         
         actionsButton.layer.cornerRadius = 34
         actionsButton.layer.masksToBounds = true
-        actionsButton.shift.animations.move(.up(200))
+        actionsButton.shift.id = "background"
+        actionsButton.shift.animations.move(.up(200), filter)
+        actionsButton.imageView?.shift.id = "movieIcon"
         
-        view.shift.animations.fade()
-        xButton.shift.animations.fade()
+        view.shift.animations.fade(filter)
+        xButton.shift.animations.fade(filter)
         
-        contentView.shift.animations.fade()
+        contentView.shift.animations.fade(filter)
         
-        background.shift.animations.scale(1.1)
-        worker.shift.animations.move(.left(40))
+        background.shift.animations.scale(1.1, filter)
+        worker.shift.animations.move(.left(40), filter)
     }
     
     @IBAction func actionsButtonPressed(_ sender: Any) {
-        
+        let viewController = UIStoryboard(name: "Main", bundle: nil)
+            .instantiateViewController(identifier: "ActionsViewController")
+        present(viewController, animated: true, completion: nil)
     }
     
     @IBAction func xPressed(_ sender: Any) {

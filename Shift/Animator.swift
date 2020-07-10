@@ -12,13 +12,16 @@ public struct Options {
     public var isPresenting: Bool
     public var viewOrder: ViewOrder
     public var baselineDuration: TimeInterval
+    public var toViewControllerType: UIViewController.Type?
     
     public init(isPresenting: Bool = true,
                 viewOrder: ViewOrder = .sourceOnTop,
-                baselineDuration: TimeInterval? = nil) {
+                baselineDuration: TimeInterval? = nil,
+                toViewControllerType: UIViewController.Type? = nil) {
         self.isPresenting = isPresenting
         self.viewOrder = viewOrder
         self.baselineDuration = baselineDuration ?? 0.2
+        self.toViewControllerType = toViewControllerType
     }
     
     public enum ViewOrder {
@@ -44,7 +47,12 @@ public final class Animator {
             options: options
         )
         
-        views.forEach{ $0.applyModifers() }
+        let animationFilter = Animations.Filter(
+            mode: options.isPresenting ? .onAppear : .onDisappear,
+            toViewControllerType: options.toViewControllerType
+        )
+        
+        views.forEach{ $0.applyModifers(filter: animationFilter) }
         
         views.sourceViews.reversed().forEach { $0.takeSnapshot() }
         views.otherViews.reversed().forEach { $0.takeSnapshot() }

@@ -38,7 +38,8 @@ class NavControllerTrasntitionDismissing: NSObject, UIViewControllerAnimatedTran
                 options: Options(
                     isPresenting: false,
                     viewOrder: fromViewController.shift.viewOrder,
-                    baselineDuration: fromViewController.shift.baselineDuration
+                    baselineDuration: fromViewController.shift.baselineDuration,
+                    toViewControllerType: type(of: toViewController)
                 ),
                 completion: { complete in
                     fromViewController.view.removeFromSuperview()

@@ -22,6 +22,7 @@
 		DE8A4A2523402F1C003ADD9B /* FirstPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8A4A2423402F1C003ADD9B /* FirstPlaygroundViewController.swift */; };
 		DE8A4A2723402F4E003ADD9B /* SecondPlaygroundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8A4A2623402F4E003ADD9B /* SecondPlaygroundViewController.swift */; };
 		DEA2C2FA24B7F96400E691E3 /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA2C2F924B7F96400E691E3 /* MovieViewController.swift */; };
+		DEA2C2FC24B816C200E691E3 /* ActionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA2C2FB24B816C200E691E3 /* ActionsViewController.swift */; };
 		DEC7EA892351335D005BDE11 /* SpaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7EA882351335D005BDE11 /* SpaceViewController.swift */; };
 		DEC7EA8B23513378005BDE11 /* EarthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7EA8A23513378005BDE11 /* EarthViewController.swift */; };
 		DEED0033233FE896006511F2 /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED0032233FE896006511F2 /* SelectionViewController.swift */; };
@@ -59,6 +60,7 @@
 		DE8A4A2423402F1C003ADD9B /* FirstPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPlaygroundViewController.swift; sourceTree = "<group>"; };
 		DE8A4A2623402F4E003ADD9B /* SecondPlaygroundViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPlaygroundViewController.swift; sourceTree = "<group>"; };
 		DEA2C2F924B7F96400E691E3 /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
+		DEA2C2FB24B816C200E691E3 /* ActionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionsViewController.swift; sourceTree = "<group>"; };
 		DEC7EA882351335D005BDE11 /* SpaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceViewController.swift; sourceTree = "<group>"; };
 		DEC7EA8A23513378005BDE11 /* EarthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarthViewController.swift; sourceTree = "<group>"; };
 		DEED0032233FE896006511F2 /* SelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				DEA2C2F924B7F96400E691E3 /* MovieViewController.swift */,
+				DEA2C2FB24B816C200E691E3 /* ActionsViewController.swift */,
 			);
 			path = Movie;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEA2C2FC24B816C200E691E3 /* ActionsViewController.swift in Sources */,
 				DEA2C2FA24B7F96400E691E3 /* MovieViewController.swift in Sources */,
 				DE257313233AD34700B19BE0 /* ArtistViewController.swift in Sources */,
 				DEC7EA8B23513378005BDE11 /* EarthViewController.swift in Sources */,

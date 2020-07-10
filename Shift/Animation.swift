@@ -11,30 +11,41 @@ import UIKit
 /// Additional animations that can be added to the view
 /// during the transition.
 public class Animations {
-    typealias Animation = (inout ViewState) -> Void
+    /// A condition to optionally apply an animation based on
+    /// an input filter.
+    public typealias Condition = (Filter) -> Bool
+    
+    /// An animation to be applied to a view.
+    struct Animation {
+        /// The condition on whether or not to apply the animation
+        let condition: Condition?
+        /// Applies the animation to the view.
+        let apply: (inout ViewState) -> Void
+    }
     
     /// The aggregated list of animations to apply
     private var animations = [Animation]()
     
+    /// Whether or not there are any animations.
     var isEmpty: Bool {
         return animations.isEmpty
     }
     
     /// Fades the view.
     @discardableResult
-    public func fade() -> Animations {
-        animations.append { viewState in
+    public func fade(_ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.alpha = 0
-        }
+        })
         return self
     }
     
     /// Scales the view by the `value`
     @discardableResult
-    public func scale(_ value: CGFloat) -> Animations {
-        animations.append { viewState in
+    public func scale(_ value: CGFloat, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.transform = CATransform3DScale(viewState.transform, value, value, value)
-        }
+        })
         return self
     }
     
@@ -42,16 +53,16 @@ public class Animations {
     /// - Parameters:
     ///   - direction: The direction and value to move.
     @discardableResult
-    public func move(_ direction: Direction) -> Animations {
+    public func move(_ direction: Direction, _ condition: Condition? = nil) -> Animations {
         switch direction {
         case .up(let value):
-            return move(x: 0, y: value)
+            return move(x: 0, y: value, condition)
         case .down(let value):
-            return move(x: 0, y: -value)
+            return move(x: 0, y: -value, condition)
         case .left(let value):
-            return move(x: value, y: 0)
+            return move(x: value, y: 0, condition)
         case .right(let value):
-            return move(x: -value, y: 0)
+            return move(x: -value, y: 0, condition)
         }
     }
     
@@ -60,182 +71,182 @@ public class Animations {
     ///   - x: The delta for the x axis
     ///   - y: The delta for the y axis
     @discardableResult
-    public func move(x: CGFloat, y: CGFloat) -> Animations {
-        animations.append { viewState in
+    public func move(x: CGFloat, y: CGFloat, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.position.x += x
             viewState.position.y += y
-        }
+        })
         return self
     }
     
     /// Sets the `bounds` to the intended `value`.
     @discardableResult
-    public func bounds(_ value: CGRect) -> Animations {
-        animations.append { viewState in
+    public func bounds(_ value: CGRect, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.bounds = value
-        }
+        })
         return self
     }
 
     /// Sets the `alpha` to the intended `value`.
     @discardableResult
-    public func alpha(_ value: CGFloat) -> Animations {
-        animations.append { viewState in
+    public func alpha(_ value: CGFloat, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.alpha = value
-        }
+        })
         return self
     }
 
     /// Sets the `cornerRadius` to the intended `value`.
     @discardableResult
-    public func cornerRadius(_ value: CGFloat) -> Animations {
-        animations.append { viewState in
+    public func cornerRadius(_ value: CGFloat, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.cornerRadius = value
-        }
+        })
         return self
     }
 
     /// Sets the `anchorPoint` to the intended `value`.
     @discardableResult
-    public func anchorPoint(_ value: CGPoint) -> Animations {
-        animations.append { viewState in
+    public func anchorPoint(_ value: CGPoint, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.anchorPoint = value
-        }
+        })
         return self
     }
 
     /// Sets the `zPosition` to the intended `value`.
     @discardableResult
-    public func zPosition(_ value: CGFloat) -> Animations {
-        animations.append { viewState in
+    public func zPosition(_ value: CGFloat, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.zPosition = value
-        }
+        })
         return self
     }
 
     /// Sets the `opacity` to the intended `value`.
     @discardableResult
-    public func opacity(_ value: Float) -> Animations {
-        animations.append { viewState in
+    public func opacity(_ value: Float, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.opacity = value
-        }
+        })
         return self
     }
 
     /// Sets the `isOpaque` to the intended `value`.
     @discardableResult
-    public func isOpaque(_ value: Bool) -> Animations {
-        animations.append { viewState in
+    public func isOpaque(_ value: Bool, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.isOpaque = value
-        }
+        })
         return self
     }
 
     /// Sets the `masksToBounds` to the intended `value`.
     @discardableResult
-    public func masksToBounds(_ value: Bool) -> Animations {
-        animations.append { viewState in
+    public func masksToBounds(_ value: Bool, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.masksToBounds = value
-        }
+        })
         return self
     }
 
     /// Sets the `borderColor` to the intended `value`.
     @discardableResult
-    public func borderColor(_ value: CGColor?) -> Animations {
-        animations.append { viewState in
+    public func borderColor(_ value: CGColor?, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.borderColor = value
-        }
+        })
         return self
     }
 
     /// Sets the `borderWidth` to the intended `value`.
     @discardableResult
-    public func borderWidth(_ value: CGFloat) -> Animations {
-        animations.append { viewState in
+    public func borderWidth(_ value: CGFloat, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.borderWidth = value
-        }
+        })
         return self
     }
 
     /// Sets the `contentsRect` to the intended `value`.
     @discardableResult
-    public func contentsRect(_ value: CGRect) -> Animations {
-        animations.append { viewState in
+    public func contentsRect(_ value: CGRect, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.contentsRect = value
-        }
+        })
         return self
     }
 
     /// Sets the `contentsScale` to the intended `value`.
     @discardableResult
-    public func contentsScale(_ value: CGFloat) -> Animations {
-        animations.append { viewState in
+    public func contentsScale(_ value: CGFloat, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.contentsScale = value
-        }
+        })
         return self
     }
 
     /// Sets the `shadowColor` to the intended `value`.
     @discardableResult
-    public func shadowColor(_ value: CGColor?) -> Animations {
-        animations.append { viewState in
+    public func shadowColor(_ value: CGColor?, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.shadowColor = value
-        }
+        })
         return self
     }
 
     /// Sets the `shadowOffset` to the intended `value`.
     @discardableResult
-    public func shadowOffset(_ value: CGSize) -> Animations {
-        animations.append { viewState in
+    public func shadowOffset(_ value: CGSize, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.shadowOffset = value
-        }
+        })
         return self
     }
 
     /// Sets the `shadowRadius` to the intended `value`.
     @discardableResult
-    public func shadowRadius(_ value: CGFloat) -> Animations {
-        animations.append { viewState in
+    public func shadowRadius(_ value: CGFloat, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.shadowRadius = value
-        }
+        })
         return self
     }
 
     /// Sets the `shadowOpacity` to the intended `value`.
     @discardableResult
-    public func shadowOpacity(_ value: Float) -> Animations {
-        animations.append { viewState in
+    public func shadowOpacity(_ value: Float, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.shadowOpacity = value
-        }
+        })
         return self
     }
 
     /// Sets the `shadowPath` to the intended `value`.
     @discardableResult
-    public func shadowPath(_ value: CGPath?) -> Animations {
-        animations.append { viewState in
+    public func shadowPath(_ value: CGPath?, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.shadowPath = value
-        }
+        })
         return self
     }
 
     /// Sets the `transform` to the intended `value`.
     @discardableResult
-    public func transform(_ value: CATransform3D) -> Animations {
-        animations.append { viewState in
+    public func transform(_ value: CATransform3D, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.transform = value
-        }
+        })
         return self
     }
 
     /// Sets the `backgroundColor` to the intended `value`.
     @discardableResult
-    public func backgroundColor(_ value: UIColor?) -> Animations {
-        animations.append { viewState in
+    public func backgroundColor(_ value: UIColor?, _ condition: Condition? = nil) -> Animations {
+        animations.append(Animation(condition: condition) { viewState in
             viewState.backgroundColor = value
-        }
+        })
         return self
     }
 
@@ -246,8 +257,29 @@ public class Animations {
         case right(CGFloat)
     }
     
+    public struct Filter {
+        public let mode: Mode
+        public let toViewControllerType: UIViewController.Type?
+        
+        public enum Mode {
+            case onAppear
+            case onDisappear
+        }
+        
+        public var isAppear: Bool {
+            mode == .onAppear
+        }
+        
+        public var isDisappear: Bool {
+            mode == .onDisappear
+        }
+    }
+    
     /// Applies the animations to the view state.
-    func apply(to viewState: inout ViewState) {
-        animations.forEach { $0(&viewState) }
+    func apply(to viewState: inout ViewState, filter: Filter) {
+        animations.forEach { animation in
+            guard animation.condition == nil || animation.condition?(filter) == true else { return }
+            animation.apply(&viewState)
+        }
     }
 }
