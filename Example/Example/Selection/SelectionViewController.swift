@@ -18,6 +18,7 @@ class SelectionViewController: UIViewController {
             Example(name: "Music Player", viewController: "ArtistViewController"),
             Example(name: "Playground", viewController: "FirstPlaygroundViewController"),
             Example(name: "Space", viewController: "SpaceViewController", isModal: false),
+            Example(name: "Movie", viewController: "MovieViewController"),
         ]),
     ]
     
