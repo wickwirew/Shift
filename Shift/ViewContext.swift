@@ -9,7 +9,6 @@
 import UIKit
 
 public final class ViewContext {
-    
     let view: UIView
     var match: UIView?
     var snapshot: Snapshot?
@@ -53,7 +52,7 @@ public final class ViewContext {
                 finalContent: view,
                 initialContent: nil,
                 sizing: options.contentSizing,
-                animation: options.contentAnimation
+                animation: .none
             )
         }
         

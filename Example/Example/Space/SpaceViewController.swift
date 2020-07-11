@@ -10,7 +10,6 @@ import UIKit
 import Shift
 
 class SpaceViewController: UIViewController {
-    
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var bottomSheet: UIView!
     @IBOutlet weak var ticketsAvailable: UIButton!

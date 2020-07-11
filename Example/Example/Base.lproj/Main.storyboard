@@ -649,6 +649,7 @@
                         <viewLayoutGuide key="safeArea" id="ZXX-4m-VSt"/>
                     </view>
                     <connections>
+                        <outlet property="actionsLabel" destination="pWF-w9-tuI" id="HdO-Ea-LG9"/>
                         <outlet property="moveIcon" destination="HwF-pR-s1n" id="xAU-Ug-Z9j"/>
                     </connections>
                 </viewController>

@@ -12,7 +12,7 @@ import UIKit
 public struct ShiftViewOptions {
     public var id: String?
     public var contentSizing: ContentSizing = .stretch
-    public var contentAnimation: ContentAnimation = .none
+    public var contentAnimation: ContentAnimation = .fade
     public var animations = Animations()
     public var superview: ShiftSuperview = .parent
     public var isHidden: Bool = false

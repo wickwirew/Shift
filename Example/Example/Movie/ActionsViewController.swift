@@ -12,6 +12,7 @@ import Shift
 class ActionsViewController: UIViewController {
     let transition = ActionsTransitionDelegate()
     @IBOutlet weak var moveIcon: UIImageView!
+    @IBOutlet weak var actionsLabel: UILabel!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -30,8 +31,6 @@ class ActionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        shift.baselineDuration = 3
-        
         view.shift.id = "background"
         view.layer.cornerRadius = 12
         view.layer.masksToBounds = true

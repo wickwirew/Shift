@@ -20,7 +20,7 @@ public struct Options {
                 toViewControllerType: UIViewController.Type? = nil) {
         self.isPresenting = isPresenting
         self.viewOrder = viewOrder
-        self.baselineDuration = baselineDuration ?? 0.2
+        self.baselineDuration = baselineDuration ?? 0.25
         self.toViewControllerType = toViewControllerType
     }
     

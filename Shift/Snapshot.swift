@@ -36,6 +36,7 @@ final class Snapshot: UIView {
     }
     
     func setContentAnimationStart() {
+        
         switch animation {
         case .fade:
             finalContent?.alpha = 0
