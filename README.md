@@ -7,7 +7,9 @@ Shift can automatically transition matched views from one view controller to the
 Shift is very similar to [Hero](https://github.com/HeroTransitions/Hero) in that it can animate view controller transitions. It differs in that it is not tied to view controllers only. The animations can be applied to two different `UIView`s regardless of whether an actual transition is occurring. Which can be useful if you are transitioning between two child view controllers, or just two plain `UIView` subviews. It can also be plugged easily into custom transitions where you need to supply your own `UIViewControllerAnimatedTransitioning` or `UIPresentationController`. This can be very useful if the destination view controller maybe does not cover the full screen.
 
 ## Examples
-![Space](https://github.com/wickwirew/Shift/blob/master/Resources/SpaceGif.gif) ![Music](https://github.com/wickwirew/Shift/blob/master/Resources/MusicGif.gif) ![Movie](https://github.com/wickwirew/Shift/blob/master/Resources/MovieGif.gif)
+All examples can be found in the `/Examples` folder, and can be run via the `/Examples/Examples.xcworkspace`.
+
+<img src="https://github.com/wickwirew/Shift/blob/master/Resources/SpaceGif.gif" width="240"/> <img src="https://github.com/wickwirew/Shift/blob/master/Resources/MusicGif.gif" width="240"/> <img src="https://github.com/wickwirew/Shift/blob/master/Resources/MovieGif.gif" width="240"/>
 
 ## Matched Views
 A matched view is where you have a view on the source view, that needs to be animated to a view on the destination view. This can be done by supplying a matching `id` to each view. During the transition, the source view's frame, and other common properties, will be animated to match the destinations.
