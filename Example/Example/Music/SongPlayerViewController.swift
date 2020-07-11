@@ -37,6 +37,14 @@ class SongPlayerViewController: UIViewController {
         gradient.locations = [0, 0.3, 1]
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        delay {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         gradient.frame = view.bounds

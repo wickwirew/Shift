@@ -48,6 +48,14 @@ class ArtistViewController: UIViewController {
         playerSongTitle.addGestureRecognizer(tap)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        delay {
+            self.titlePressed()
+        }
+    }
+    
     @objc func titlePressed() {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "SongPlayerViewController")

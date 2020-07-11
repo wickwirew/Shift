@@ -43,6 +43,14 @@ class ActionsViewController: UIViewController {
         styleContainer(addToFavorites)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        delay {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     func styleContainer(_ container: UIView) {
         container.layer.masksToBounds = true
         container.layer.cornerRadius = 8
