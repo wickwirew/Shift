@@ -13,6 +13,8 @@ class ActionsViewController: UIViewController {
     let transition = ActionsTransitionDelegate()
     @IBOutlet weak var moveIcon: UIImageView!
     @IBOutlet weak var actionsLabel: UILabel!
+    @IBOutlet weak var addToWatchLater: UIView!
+    @IBOutlet weak var addToFavorites: UIView!
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -36,6 +38,14 @@ class ActionsViewController: UIViewController {
         view.layer.masksToBounds = true
         
         moveIcon.shift.id = "movieIcon"
+        
+        styleContainer(addToWatchLater)
+        styleContainer(addToFavorites)
+    }
+    
+    func styleContainer(_ container: UIView) {
+        container.layer.masksToBounds = true
+        container.layer.cornerRadius = 8
     }
 }
 
@@ -62,25 +72,27 @@ class ActionsTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate
 
 class ActionsPresentationController: UIPresentationController {
     let background = UIButton()
+    let width = CGFloat(275)
+    let height = CGFloat(263)
     
     override var frameOfPresentedViewInContainerView: CGRect {
         guard let containerView = containerView else { return .zero }
         return CGRect(
-            x: 20,
-            y: containerView.frame.height - 350 - 20,
-            width: containerView.frame.width - 40,
-            height: 350
+            x: containerView.frame.width - 20 - width,
+            y: containerView.frame.height - 20 - height,
+            width: width,
+            height: height
         )
     }
     
-    override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
-        return CGSize(width: parentSize.width - 40, height: 350)
+    override func size(forChildContentContainer container: UIContentContainer,
+                       withParentContainerSize parentSize: CGSize) -> CGSize {
+        return CGSize(width: width, height: height)
     }
     
     override func presentationTransitionWillBegin() {
         super.presentationTransitionWillBegin()
         containerView?.insertSubview(background, at: 0)
-        
         background.addTarget(self, action: #selector(backgroundSelected), for: .touchUpInside)
     }
     

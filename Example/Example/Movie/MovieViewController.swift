@@ -20,7 +20,7 @@ class MovieViewController: UIViewController {
         super.viewDidLoad()
         shift.baselineDuration = 0.5
         
-        let filter: Animations.Condition = { $0.toViewControllerType != ActionsViewController.self && !$0.isDisappear }
+        let filter: Animations.Condition = { $0.toViewControllerType == MovieViewController.self && $0.isAppear }
         
         actionsButton.layer.cornerRadius = 34
         actionsButton.layer.masksToBounds = true
@@ -28,13 +28,12 @@ class MovieViewController: UIViewController {
         actionsButton.shift.animations.move(.up(200), filter)
         actionsButton.imageView?.shift.id = "movieIcon"
         
-        view.shift.animations.fade(filter)
-        xButton.shift.animations.fade(filter)
+//        view.shift.animations.fade(filter)
+//        xButton.shift.animations.fade(filter)
+//        contentView.shift.animations.fade(filter)
         
-        contentView.shift.animations.fade(filter)
-        
-        background.shift.animations.scale(1.1, filter)
-        worker.shift.animations.move(.left(40), filter)
+//        background.shift.animations.scale(1.1, filter)
+//        worker.shift.animations.move(.left(40), filter)
     }
     
     @IBAction func actionsButtonPressed(_ sender: Any) {
