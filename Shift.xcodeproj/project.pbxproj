@@ -31,6 +31,7 @@
 		DEC7EA86234E9282005BDE11 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7EA85234E9282005BDE11 /* Snapshot.swift */; };
 		DEED002A233EBFA2006511F2 /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED0029233EBFA2006511F2 /* CGFloat+Extensions.swift */; };
 		DEED002E233EC498006511F2 /* CAMediaTimingFunction+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEED002D233EC498006511F2 /* CAMediaTimingFunction+Extensions.swift */; };
+		DEEDFC4724BA509200F89320 /* DefaultShiftAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEEDFC4624BA509200F89320 /* DefaultShiftAnimation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		DEC7EA85234E9282005BDE11 /* Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
 		DEED0029233EBFA2006511F2 /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Extensions.swift"; sourceTree = "<group>"; };
 		DEED002D233EC498006511F2 /* CAMediaTimingFunction+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CAMediaTimingFunction+Extensions.swift"; sourceTree = "<group>"; };
+		DEEDFC4624BA509200F89320 /* DefaultShiftAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultShiftAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 				DEC7EA85234E9282005BDE11 /* Snapshot.swift */,
 				DE2572EF233ACDF200B19BE0 /* UIView+Shift.swift */,
 				DE6236C1234C238100F3B010 /* UIViewController+Shift.swift */,
+				DEEDFC4624BA509200F89320 /* DefaultShiftAnimation.swift */,
 				DE2572F7233ACE0B00B19BE0 /* ViewContext.swift */,
 				DE2572F9233ACE3400B19BE0 /* ViewState.swift */,
 				DEAEC80523398134003F5977 /* Info.plist */,
@@ -307,6 +310,7 @@
 				DE839F64236A3BAD0080C4AA /* NavControllerTransitionCoordinator.swift in Sources */,
 				DE6236BE2346D59C00F3B010 /* Animation.swift in Sources */,
 				DE257335233ADA1B00B19BE0 /* UIView+Extensions.swift in Sources */,
+				DEEDFC4724BA509200F89320 /* DefaultShiftAnimation.swift in Sources */,
 				DE257329233AD4D200B19BE0 /* ModalTransitionModalTransitioningDelegate.swift in Sources */,
 				DEED002A233EBFA2006511F2 /* CGFloat+Extensions.swift in Sources */,
 				DE6236C0234C233E00F3B010 /* NSObject+Extensions.swift in Sources */,

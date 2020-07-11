@@ -16,11 +16,17 @@ class MoonViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         shift.baselineDuration = 0.75
-        
-        view.shift.animations.fade()
-        
+
         moonLabel.shift.animations.move(.left(200)).fade()
         moonDescription.shift.animations.move(.left(200)).fade()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        delay {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func exitPressed(_ sender: Any) {

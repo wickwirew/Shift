@@ -23,8 +23,6 @@ class SpaceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.shift.animations.fade()
-        
         shift.baselineDuration = 0.75
         
         contentView.shift.position = .front
@@ -78,6 +76,14 @@ class SpaceViewController: UIViewController {
         ), animated: false)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        delay {
+            self.ticketsAvailablePressed(self)
+        }
+    }
+    
     @IBAction func ticketsAvailablePressed(_ sender: Any) {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "EarthViewController")
@@ -88,4 +94,8 @@ class SpaceViewController: UIViewController {
     @IBAction func exitPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+}
+
+func delay(_ action: @escaping () -> Void) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: action)
 }

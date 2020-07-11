@@ -37,7 +37,8 @@ class NavControllerTrasntitionPresenting: NSObject, UIViewControllerAnimatedTran
                     isPresenting: true,
                     viewOrder: toViewController.shift.viewOrder,
                     baselineDuration: toViewController.shift.baselineDuration,
-                    toViewControllerType: type(of: toViewController)
+                    toViewControllerType: type(of: toViewController),
+                    defaultAnimation: toViewController.shift.defaultAnimation
                 ),
                 completion: { complete in
                     toViewController.view.alpha = 1

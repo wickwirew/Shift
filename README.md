@@ -2,7 +2,7 @@
 
 Shift is a simple, delarative animation library for building complex view controller and view transitions in UIKit.
 
-Shift can automatically transition matched views from one view controller to the next, by simply providing an `id` to the source and destination views. Transitions like these can make transition feel very fluid and natural and can help give context to the destination screen. Additional animations can be applied to both the matched and unmatched views that will be run during the transition.
+Shift can automatically transition matched views from one view controller to the next, by simply providing an `id` to the source and destination views. Transitions like these can make transition feel very fluid and natural and can help give context to the destination screen. Additional animations can be applied to the unmatched views that will be run during the transition.
 
 Shift is very similar to [Hero](https://github.com/HeroTransitions/Hero) in that it can animate view controller transitions. It differs in that it is not tied to view controllers only. The animations can be applied to two different `UIView`s regardless of whether an actual transition is occurring. Which can be useful if you are transitioning between two child view controllers, or just two plain `UIView` subviews. It can also be plugged easily into custom transitions where you need to supply your own `UIViewControllerAnimatedTransitioning` or `UIPresentationController`. This can be very useful if the destination view controller maybe does not cover the full screen.
 
@@ -17,6 +17,7 @@ Note: None of the views are actually edited, snapshots of each are used.
 
 ## Additional animations
 If one view does not have a match, but needs to maybe slide in from offscreen, or fade in, you can apply additional animations to accomplish that.
+Additional animations will be ignored for matched views.
 
 For example. If we want a view to fade in, and slide in from the right by 300 points, it can be done by applying the animations like so:
 ```swift

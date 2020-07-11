@@ -24,7 +24,11 @@ public class Animations {
     }
     
     /// The aggregated list of animations to apply
-    private var animations = [Animation]()
+    private var animations: [Animation]
+    
+    init(animations: [Animation] = []) {
+        self.animations = animations
+    }
     
     /// Whether or not there are any animations.
     var isEmpty: Bool {
@@ -281,5 +285,9 @@ public class Animations {
             guard animation.condition == nil || animation.condition?(filter) == true else { return }
             animation.apply(&viewState)
         }
+    }
+    
+    func copy() -> Animations {
+        return Animations(animations: animations)
     }
 }

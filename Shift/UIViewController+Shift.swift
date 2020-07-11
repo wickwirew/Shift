@@ -12,6 +12,7 @@ public struct ShiftViewControllerOptions {
     public var enabled = false
     public var viewOrder: Options.ViewOrder = .auto
     public var baselineDuration: TimeInterval?
+    public var defaultAnimation: DefaultShiftAnimation? = DefaultAnimations.Fade()
     
     /// The view controller will now be presented via shift.
     public mutating func enable() {

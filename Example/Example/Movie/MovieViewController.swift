@@ -27,13 +27,6 @@ class MovieViewController: UIViewController {
         actionsButton.shift.id = "background"
         actionsButton.shift.animations.move(.up(200), filter)
         actionsButton.imageView?.shift.id = "movieIcon"
-        
-//        view.shift.animations.fade(filter)
-//        xButton.shift.animations.fade(filter)
-//        contentView.shift.animations.fade(filter)
-        
-//        background.shift.animations.scale(1.1, filter)
-//        worker.shift.animations.move(.left(40), filter)
     }
     
     @IBAction func actionsButtonPressed(_ sender: Any) {

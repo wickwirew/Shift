@@ -18,9 +18,7 @@ class EarthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         shift.baselineDuration = 0.75
-        
-        view.shift.animations.fade()
-        
+
         earth.shift.animations.move(.up(300)).move(.right(100)).fade()
         
         earthLabel.shift.animations.move(.right(200)).fade()
@@ -31,6 +29,20 @@ class EarthViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(moonTapped))
         moon.isUserInteractionEnabled = true
         moon.addGestureRecognizer(tap)
+    }
+    
+    var isFirst = true
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        delay {
+            if self.isFirst {
+                self.moonTapped()
+                self.isFirst = false
+            } else {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     @objc func moonTapped() {

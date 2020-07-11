@@ -13,15 +13,18 @@ public struct Options {
     public var viewOrder: ViewOrder
     public var baselineDuration: TimeInterval
     public var toViewControllerType: UIViewController.Type?
+    public var defaultAnimation: DefaultShiftAnimation?
     
     public init(isPresenting: Bool = true,
                 viewOrder: ViewOrder = .auto,
                 baselineDuration: TimeInterval? = nil,
-                toViewControllerType: UIViewController.Type? = nil) {
+                toViewControllerType: UIViewController.Type? = nil,
+                defaultAnimation: DefaultShiftAnimation? = nil) {
         self.isPresenting = isPresenting
         self.viewOrder = viewOrder
-        self.baselineDuration = baselineDuration ?? 0.275
+        self.baselineDuration = baselineDuration ?? 0.265
         self.toViewControllerType = toViewControllerType
+        self.defaultAnimation = defaultAnimation
     }
     
     /// How the `toView`'s and `fromView`'s will be ordered within
@@ -53,6 +56,8 @@ public final class Animator {
             container: transitionContainer,
             options: options
         )
+        
+        options.defaultAnimation?.apply(to: views, options: options)
         
         let animationFilter = Animations.Filter(
             mode: options.isPresenting ? .onAppear : .onDisappear,
@@ -174,7 +179,7 @@ public final class Animator {
         var views = [ViewContext]()
         var parent = parent
         
-        if view.shift.requiresAnimation {
+        if view.shift.requiresAnimation || parent == nil {
             let superView: Superview
             if let parent = parent, view.shift.superview != .container {
                 superView = .parent(parent)
@@ -186,7 +191,8 @@ public final class Animator {
                 toView: view,
                 superview: superView,
                 reverseAnimations: reverseAnimations,
-                baselineDuration: baselineDuration
+                baselineDuration: baselineDuration,
+                isRootView: parent == nil
             )
             
             views.append(context)
@@ -266,17 +272,17 @@ public final class ShiftViews: Collection {
     /// or the view being dismissed.
     /// This is the view that all matches reside in as well.
     public var sourceViewRoot: ViewContext? {
-        return isPresenting ? toViews.first : fromViews.first
+        return isPresenting ? toRootView : fromRootView
     }
     
     /// The view we are transitioning from.
     public var fromRootView: ViewContext? {
-        return fromViews.first
+        return fromViews.first { $0.isRootView }
     }
     
     /// The view we are transitioning too.
     public var toRootView: ViewContext? {
-        return toViews.first
+        return toViews.first { $0.isRootView }
     }
     
     /// The views at the bottom of the container.

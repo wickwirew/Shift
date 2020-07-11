@@ -21,13 +21,15 @@ public final class ViewContext {
     var reverseAnimations: Bool
     lazy var duration = calculateDuration()
     let baselineDuration: TimeInterval
+    let isRootView: Bool
     
     init(toView: UIView,
          superview: Superview,
          reverseAnimations: Bool,
-         baselineDuration: TimeInterval) {
+         baselineDuration: TimeInterval,
+         isRootView: Bool) {
         self.view = toView
-        self.options = toView.shift
+        self.options = toView.shift.copy()
         self.viewOriginalAlpha = toView.alpha
         let finalState = ViewState(view: toView, superview: superview)
         self.initialState = finalState
@@ -35,6 +37,7 @@ public final class ViewContext {
         self.superview = superview
         self.reverseAnimations = reverseAnimations
         self.baselineDuration = baselineDuration
+        self.isRootView = isRootView
     }
     
     func takeSnapshot() {
