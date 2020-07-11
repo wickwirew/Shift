@@ -32,7 +32,7 @@ class ActionsViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         view.shift.id = "background"
         view.layer.cornerRadius = 12
         view.layer.masksToBounds = true

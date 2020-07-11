@@ -10,7 +10,7 @@ import UIKit
 
 public struct ShiftViewControllerOptions {
     public var enabled = false
-    public var viewOrder: Options.ViewOrder = .sourceOnTop
+    public var viewOrder: Options.ViewOrder = .auto
     public var baselineDuration: TimeInterval?
     
     /// The view controller will now be presented via shift.

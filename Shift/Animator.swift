@@ -15,18 +15,25 @@ public struct Options {
     public var toViewControllerType: UIViewController.Type?
     
     public init(isPresenting: Bool = true,
-                viewOrder: ViewOrder = .sourceOnTop,
+                viewOrder: ViewOrder = .auto,
                 baselineDuration: TimeInterval? = nil,
                 toViewControllerType: UIViewController.Type? = nil) {
         self.isPresenting = isPresenting
         self.viewOrder = viewOrder
-        self.baselineDuration = baselineDuration ?? 0.25
+        self.baselineDuration = baselineDuration ?? 0.275
         self.toViewControllerType = toViewControllerType
     }
     
+    /// How the `toView`'s and `fromView`'s will be ordered within
+    /// the transition container.
     public enum ViewOrder {
-        case sourceOnTop
-        case sourceOnBottom
+        /// On presenting the `toView` will be on top,
+        /// and on dismissal the `fromView` will be onTop
+        case auto
+        /// The `toView`s will be on top
+        case toViewsOnTop
+        /// The `fromView`s will be on top.
+        case fromViewsOnTop
     }
 }
 
@@ -54,8 +61,8 @@ public final class Animator {
         
         views.forEach{ $0.applyModifers(filter: animationFilter) }
         
-        views.sourceViews.reversed().forEach { $0.takeSnapshot() }
-        views.otherViews.reversed().forEach { $0.takeSnapshot() }
+        views.topViews.reversed().forEach { $0.takeSnapshot() }
+        views.bottomViews.reversed().forEach { $0.takeSnapshot() }
         
         views.forEach { $0.addSnapshot() }
         views.forEach { $0.adjustPosition() }
@@ -75,57 +82,78 @@ public final class Animator {
         }
     }
 
+    /// Builds the list of `views` used for the transition,
+    /// and also assigns any matches that may exist.
     private func buildViews(fromView: UIView,
                             toView: UIView,
                             container: UIView,
-                            options: Options) -> Views {
-        let sourceView: UIView
-        let otherView: UIView
-        
-        if options.isPresenting {
-            sourceView = toView
-            otherView = fromView
-        } else {
-            sourceView = fromView
-            otherView = toView
-        }
-        
-        var otherViews = deconstruct(
-            view: otherView,
+                            options: Options) -> ShiftViews {
+        let fromViews = deconstruct(
+            view: fromView,
             container: container,
-            reverseAnimations: options.isPresenting,
+            reverseAnimations: true,
             baselineDuration: options.baselineDuration
         )
         
-        let sourceViews = deconstruct(
-            view: sourceView,
+        let toViews = deconstruct(
+            view: toView,
             container: container,
-            reverseAnimations: !options.isPresenting,
+            reverseAnimations: false,
             baselineDuration: options.baselineDuration
         )
         
         findMatches(
-            sourceViews: sourceViews,
-            otherViews: &otherViews,
+            toViews: toViews,
+            fromViews: fromViews,            
             container: container,
             isPresenting: options.isPresenting
         )
         
-        return Views(
-            otherViews: otherViews,
-            sourceViews: sourceViews,
-            order: options.viewOrder
+        return ShiftViews(
+            fromViews: fromViews,
+            toViews: toViews,
+            order: options.viewOrder,
+            isPresenting: options.isPresenting
         )
     }
 
-    func findMatches(sourceViews: [ViewContext],
-                     otherViews: inout [ViewContext],
+    func findMatches(toViews: [ViewContext],
+                     fromViews: [ViewContext],
                      container: UIView,
                      isPresenting: Bool) {
+        /// The views that the matches will be assigned too.
+        let sourceViews: [ViewContext]
+        /// The views that are potential matches for the source views.
+        /// Any view that is matched will be hidden in these views
+        /// since they are matched in the source view.
+        let otherViews: [ViewContext]
+        
+        // We want to always match against the view being transitioned too,
+        // or the view being dismissed.
+        if isPresenting {
+            sourceViews = toViews
+            otherViews = fromViews
+        } else {
+            sourceViews = fromViews
+            otherViews = toViews
+        }
+        
+        findMatches(
+            for: sourceViews,
+            in: otherViews,
+            container: container
+        )
+    }
+    
+    func findMatches(for sourceViews: [ViewContext],
+                     in otherViews: [ViewContext],
+                     container: UIView) {
+        // Get a lookup of views by their `shift.id`
         let otherViewsByIds = otherViews
             .filter{ $0.options.id != nil }
             .reduce(into: [String: ViewContext](), { $0[$1.options.id!] = $1 })
 
+        // Loop through views, and looking for matches.
         for view in sourceViews {
             guard let id = view.options.id,
                 let match = otherViewsByIds[id] else { continue }
@@ -133,7 +161,6 @@ public final class Animator {
             match.options.isHidden = true
             
             view.setMatch(to: match, container: container)
-            view.reverseAnimations = !isPresenting
         }
     }
 
@@ -208,47 +235,73 @@ public final class Animator {
     }
 }
 
-public final class Views: Collection {
-    
+
+/// The collection of views that will be used for the transition.
+/// It only contains the views that need to be animated. All others
+/// are captured within the snapshots.
+public final class ShiftViews: Collection {
     public typealias Index = Int
     public typealias Element = ViewContext
     
-    public let otherViews: [ViewContext]
-    public let sourceViews: [ViewContext]
-    
+    /// The views being transitioned from.
+    public let fromViews: [ViewContext]
+    /// The views being transitioned too.
+    public let toViews: [ViewContext]
+    /// The how to order the `toViews` and `fromViews`
     private let order: Options.ViewOrder
+    /// Whether or not the view is being presented.
+    private let isPresenting: Bool
     
-    init(otherViews: [ViewContext],
-         sourceViews: [ViewContext],
-         order: Options.ViewOrder) {
-        self.otherViews = otherViews
-        self.sourceViews = sourceViews
+    init(fromViews: [ViewContext],
+         toViews: [ViewContext],
+         order: Options.ViewOrder,
+         isPresenting: Bool) {
+        self.fromViews = fromViews
+        self.toViews = toViews
         self.order = order
+        self.isPresenting = isPresenting
     }
     
-    public var otherRootView: ViewContext? {
-        return otherViews.first
+    /// The source view is either the view being transitioned to,
+    /// or the view being dismissed.
+    /// This is the view that all matches reside in as well.
+    public var sourceViewRoot: ViewContext? {
+        return isPresenting ? toViews.first : fromViews.first
     }
     
-    public var sourceRootView: ViewContext? {
-        return sourceViews.first
+    /// The view we are transitioning from.
+    public var fromRootView: ViewContext? {
+        return fromViews.first
     }
     
+    /// The view we are transitioning too.
+    public var toRootView: ViewContext? {
+        return toViews.first
+    }
+    
+    /// The views at the bottom of the container.
+    /// These are below the `topViews`
     public var bottomViews: [ViewContext] {
         switch order {
-        case .sourceOnBottom:
-            return sourceViews
-        case .sourceOnTop:
-            return otherViews
+        case .auto:
+            return isPresenting ? fromViews : toViews
+        case .fromViewsOnTop:
+            return toViews
+        case .toViewsOnTop:
+            return fromViews
         }
     }
     
+    /// The views at the top of the container.
+    /// These are abolve the `bottomViews`
     public var topViews: [ViewContext] {
         switch order {
-        case .sourceOnBottom:
-            return otherViews
-        case .sourceOnTop:
-            return sourceViews
+        case .auto:
+            return isPresenting ? toViews : fromViews
+        case .fromViewsOnTop:
+            return fromViews
+        case .toViewsOnTop:
+            return toViews
         }
     }
     
