@@ -18,6 +18,10 @@ All examples can be found in the `/Examples` folder, and can be run via the `/Ex
 
 ## Matched Views
 A matched view is where you have a view on the source view, that needs to be animated to a view on the destination view. This can be done by supplying a matching `id` to each view. During the transition, the source view's frame, and other common properties, will be animated to match the destinations.
+
+Example:
+![Match](https://github.com/wickwirew/Shift/blob/master/Resources/Match.gif)
+
 ```swift
 sourceView.shift.id = "view"
 destinationView.shift.id = "view"
@@ -55,6 +59,8 @@ self.animator.animate(
 )
 ```
 Thats about all the code needed. See the default [modal transition animator](https://github.com/wickwirew/Shift/blob/master/Shift/Transitions/Modal/ModalTransitionDismissing.swift) supplied for the full example.
+
+In the examples project, the "Movie" view uses a custom `UIPresentationController` to present a non-fullscreen context menu.
 
 # Credits
 * [Hero](https://github.com/HeroTransitions/Hero) was obviously a huge inspiration behind this library, so a ton of credit goes to [lkzhao](https://github.com/lkzhao) and the [Contributors](https://github.com/HeroTransitions/Hero/graphs/contributors). This is merely another option if Hero does not nessecarily do everything you need.
