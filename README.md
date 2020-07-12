@@ -16,6 +16,37 @@ All examples can be found in the `/Examples` folder, and can be run via the `/Ex
 
 <img src="https://github.com/wickwirew/Shift/blob/master/Resources/SpaceGif.gif" width="240"/> <img src="https://github.com/wickwirew/Shift/blob/master/Resources/MusicGif.gif" width="240"/> <img src="https://github.com/wickwirew/Shift/blob/master/Resources/MovieGif.gif" width="240"/>
 
+## Start
+To begin using **Shift**, you must enable it before presenting the view controller.
+
+```swift
+viewController.shift.enable()
+present(viewController, animated: true, completion: nil)
+```
+
+This will cause **Shift** to take over for any transition for the view controller. If you stop here, when presenting the view controller you will see that the view is presented with a nice fade animation. This is the `defaultAnimation`, and is customizable. If none is desired it can be stopped by setting it to `nil`. There are also multiple other [defaults provided](https://github.com/wickwirew/Shift/blob/master/Shift/DefaultShiftAnimation.swift).
+
+```swift
+viewController.shift.defaultAnimation = DefaultAnimations.Scale(.down)
+```
+
+You can make your own custom default animations as well by conforming to `DefaultShiftAnimation`, and setting the desired animations on the views. How to add custom addition animations will be [covered later](#additional-animations).
+
+### Baseline Duration
+The duration of the transition animation is determinded by the `baselineDuration` provided. This it, well a baseline for the duration and not the actual value that will be used. Each view will calculate a duration for its animations based off the animations being applied. The `baselineDuration` is the minimum duration, and each view will add additional time on top if need be.
+
+```swift
+// Transition will now take about 1 second.
+viewController.shift.baselineDuration = 1
+```
+
+### View Order
+The "toViews" and "fromViews", or the views that we are transitioning from and to, need to be added to the transition container. The order in which they are added can be tweaked, to give you control over which views are on top or bottom. This is done by the `viewOrder` property. By default this will be `auto`. Auto adds the view is basically the order you would expect. The view being transitioned to will be on top, and on dismissal the view that is being dismissed will be on top. However this may not be what you want. Using view order you can choose which views should be on top.
+
+```swift
+viewController.shift.viewOrder = .fromViewsOnTop
+```
+
 ## Matched Views
 A matched view is where you have a view on the source view, that needs to be animated to a view on the destination view. This can be done by supplying a matching `id` to each view. During the transition, the source view's frame, and other common properties, will be animated to match the destinations.
 
@@ -73,7 +104,7 @@ If one view does not have a match, but needs to be animated during the transitio
 For example. If we want a view to fade in, and slide in from the left by 150 points, it can be done by applying the animations like so:
 
 ```swift
-item.shift.animations
+view.shift.animations
     .fade()
     .move(.right(150))
 ```
@@ -102,7 +133,7 @@ When a view is animated during a transition, it's snapshot must be added to a vi
 With **parent**, it's `superview` will be a view that most closly relates to the view's actual `superview` in the original view heirarchy. If its `superview`s position, is being animated, it will also be animated since it's a subview of the the view being animated.
 
 ```swift
-view.shift.superview = .parent
+star.shift.superview = .parent
 ```
 
 ![Parent](https://github.com/wickwirew/Shift/blob/master/Resources/Parent.gif)
@@ -110,7 +141,7 @@ view.shift.superview = .parent
 On **container** it will be added directly to the transition's `container` view, and it will not be affected by the original `superview`s position. `parent` is the default choice, however matched views will always use `container` regardless of the choice.
 
 ```swift
-view.shift.superview = .container
+star.shift.superview = .container
 ```
 
 ![Container](https://github.com/wickwirew/Shift/blob/master/Resources/Container.gif)
