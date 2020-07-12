@@ -20,14 +20,17 @@ public class Animations {
             self.predicate = predicate
         }
         
+        /// When the view is appearing
         public static var onAppear: Condition {
             return Condition { $0.isAppear }
         }
         
+        /// When the view is disappearing
         public static var onDisappear: Condition {
             return Condition { $0.isDisappear }
         }
         
+        /// Filter based on a custom `predicate`
         public static func filter(_ predicate: @escaping (Filter) -> Bool) -> Condition {
             return Condition(predicate)
         }

@@ -17,7 +17,7 @@ public enum DefaultAnimations {
     public struct Fade: DefaultShiftAnimation {
         public init() {}
         public func apply(to views: ShiftViews, isPresenting: Bool) {
-            views.sourceViewRoot?.options.animations.fade()
+            views.sourceViewRoot?.animations.fade()
         }
     }
     
@@ -38,7 +38,7 @@ public enum DefaultAnimations {
         }
         
         public func apply(to views: ShiftViews, isPresenting: Bool) {
-            views.sourceViewRoot?.options.animations.fade().scale(amount)
+            views.sourceViewRoot?.animations.fade().scale(amount)
         }
     }
 }

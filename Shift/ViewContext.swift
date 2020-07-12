@@ -8,20 +8,44 @@
 
 import UIKit
 
+/// Manages a view during the transition process.
+/// It is aware of the view it is animating and any
+/// matches it may have.
+/// It will take all snapshot, manage adding the `view` to
+/// the correct `superview` for the transition, and actually
+/// apply all of the correct animations.
 public final class ViewContext {
+    /// Whether or not the view is the root view being transitioned.
+    /// If view controllers are being transitioned this would be the
+    /// view controller's `view` property.
+    public let isRootView: Bool
+    
+    /// The view being animated.
     let view: UIView
+    /// The match for the view if any.
     var match: UIView?
+    /// The snapshot of view view that the animations will be applied to.
     var snapshot: Snapshot?
+    /// The starting view state for the `snapshot`
     var initialState: ViewState
+    /// The final view state for the `snapshot`
     var finalState: ViewState
-    var options: ShiftViewOptions
+    /// The superview for the `snapshot`
     var superview: Superview
+    /// The `match`'s original alpha.
     var matchOriginalAlpha: CGFloat = 0
+    /// The `view`'s original alpha.
     let viewOriginalAlpha: CGFloat
+    /// Whether or not to reverse the animations.
     var reverseAnimations: Bool
-    lazy var duration = calculateDuration()
+    /// The minimum time for the duration calculation.
     let baselineDuration: TimeInterval
-    let isRootView: Bool
+    
+    /// Any options for the view.
+    /// These are a mutable copy of the the view's original options.
+    private var options: ShiftViewOptions
+    
+    lazy var duration = calculateDuration()
     
     init(toView: UIView,
          superview: Superview,
@@ -38,6 +62,22 @@ public final class ViewContext {
         self.reverseAnimations = reverseAnimations
         self.baselineDuration = baselineDuration
         self.isRootView = isRootView
+    }
+    
+    public var id: String? {
+        return options.id
+    }
+    
+    public var animations: Animations {
+        return options.animations
+    }
+    
+    public var isHidden: Bool {
+        get {
+            return options.isHidden
+        } set {
+            options.isHidden = newValue
+        }
     }
     
     func takeSnapshot() {

@@ -58,14 +58,14 @@ public final class Animator {
         let sourceViewController = isPresenting ? toViewController : fromViewController
         
         self.init(fromView: fromViewController.view,
-                  toView: toViewController.view,
-                  container: container,
-                  isPresenting: isPresenting,
-                  viewOrder: sourceViewController.shift.viewOrder,
-                  baselineDuration: sourceViewController.shift.baselineDuration,
-                  defaultAnimation: sourceViewController.shift.defaultAnimation,
-                  fromViewControllerType: type(of: fromViewController),
-                  toViewControllerType: type(of: toViewController)
+            toView: toViewController.view,
+            container: container,
+            isPresenting: isPresenting,
+            viewOrder: sourceViewController.shift.viewOrder,
+            baselineDuration: sourceViewController.shift.baselineDuration,
+            defaultAnimation: sourceViewController.shift.defaultAnimation,
+            fromViewControllerType: type(of: fromViewController),
+            toViewControllerType: type(of: toViewController)
         )
     }
     
@@ -126,12 +126,7 @@ public final class Animator {
             reverseAnimations: false
         )
         
-        findMatches(
-            toViews: toViews,
-            fromViews: fromViews,            
-            container: container,
-            isPresenting: isPresenting
-        )
+        findMatches(toViews: toViews, fromViews: fromViews)
         
         return ShiftViews(
             fromViews: fromViews,
@@ -141,10 +136,7 @@ public final class Animator {
         )
     }
 
-    func findMatches(toViews: [ViewContext],
-                     fromViews: [ViewContext],
-                     container: UIView,
-                     isPresenting: Bool) {
+    func findMatches(toViews: [ViewContext], fromViews: [ViewContext]) {
         /// The views that the matches will be assigned too.
         let sourceViews: [ViewContext]
         /// The views that are potential matches for the source views.
@@ -172,15 +164,15 @@ public final class Animator {
                      in otherViews: [ViewContext]) {
         // Get a lookup of views by their `shift.id`
         let otherViewsByIds = otherViews
-            .filter{ $0.options.id != nil }
-            .reduce(into: [String: ViewContext](), { $0[$1.options.id!] = $1 })
+            .filter{ $0.id != nil }
+            .reduce(into: [String: ViewContext](), { $0[$1.id!] = $1 })
 
         // Loop through views, and looking for matches.
         for view in sourceViews {
-            guard let id = view.options.id,
+            guard let id = view.id,
                 let match = otherViewsByIds[id] else { continue }
             
-            match.options.isHidden = true
+            match.isHidden = true
             
             view.setMatch(to: match, container: container)
         }

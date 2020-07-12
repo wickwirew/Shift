@@ -111,7 +111,7 @@ view.shift.animations
 
 ![AdditionalAnimation](https://github.com/wickwirew/Shift/blob/master/Resources/AdditionAnimation.gif)
 
-To view a full list of potentials animations, please [see](https://github.com/wickwirew/Shift/blob/master/Shift/Animation.swift)
+To view a full list of potentials animations, please [see](https://github.com/wickwirew/Shift/blob/master/Shift/Animations.swift)
 
 These animations can be setup to **conditionally** run based on some predicate. Each animation function has an optional parameter to supply a `Condition`, it is always the last parameter. If the condition is not met, the animation will not be added.
 
