@@ -29,7 +29,7 @@ Thats it! The `sourceView` will now be magically moved to match the `destination
 Note: None of the views are actually edited, snapshots of each are used.
 
 ### Content Animation
-When views are matched, their content may be different. How the content is transitioned to the new content can be customized. There are two different options for content animations, `fade` and `none`.
+When views are matched, their content may be different. How it is transitioned from the initial content to the new content can be customized. There are two different options for content animations, `fade` and `none`. This option can be changed via the `view.shift.contentAnimation` and is only valid on matched view, since unmatched views do not have content changes.
 
 On `fade` the initial content will be faded out and the new content will be faded in.
 
