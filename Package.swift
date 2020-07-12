@@ -1,3 +1,4 @@
+// swift-tools-version:5.2
 let package = Package(
     name: "Shift",
     platforms: [
