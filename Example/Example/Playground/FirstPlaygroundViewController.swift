@@ -14,7 +14,7 @@ class FirstPlaygroundViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        item.shift.id = "item"
+//        item.shift.id = "item"
     }
     
     @IBAction func buttonPressed(_ sender: Any) {

@@ -17,10 +17,10 @@ class SecondPlaygroundViewController: UIViewController {
         super.viewDidLoad()
         shift.enable()
         shift.baselineDuration = 1
-        item.shift.id = "item"
-//        item.shift.contentSizing = .final
-        star.shift.superview = .container
-        star.shift.animations.fade()
+        
+        item.shift.animations
+            .fade()
+            .move(.right(150))
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {

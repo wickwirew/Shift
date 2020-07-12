@@ -50,15 +50,17 @@ With `final`, the content's size will be set to it's final size instantly, and a
 ![Final](https://github.com/wickwirew/Shift/blob/master/Resources/FinalSize.gif)
 
 ## Additional animations
-If one view does not have a match, but needs to maybe slide in from offscreen, or fade in, you can apply additional animations to accomplish that.
-Additional animations will be ignored for matched views.
+If one view does not have a match, but needs to be animated during the transition, you can provide a number of addition animations. These animations will be applied during the transition, and will be automatically reversed on dismissal.
 
-For example. If we want a view to fade in, and slide in from the right by 300 points, it can be done by applying the animations like so:
+For example. If we want a view to fade in, and slide in from the left by 150 points, it can be done by applying the animations like so:
+
 ```swift
-view.shift.animations
+item.shift.animations
     .fade()
-    .move(x: 300, y: 0)
+    .move(.right(150))
 ```
+
+![Final](https://github.com/wickwirew/Shift/blob/master/Resources/AdditionalAnimation.gif)
 
 ## Superview
 `shift.superview`
