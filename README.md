@@ -1,6 +1,11 @@
-<img src="https://github.com/wickwirew/Shift/blob/master/Resources/Shift.png" width="400"/>
+<p align="center">
+    <img src="https://github.com/wickwirew/Shift/blob/master/Resources/Shift.png" width="400"/>
+</p>
 
 Shift is a simple, delarative animation library for building complex view controller and view transitions in UIKit.
+
+![Swift 5.0](https://img.shields.io/badge/Swift-5.0-green.svg)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
 Shift can automatically transition matched views from one view controller to the next, by simply providing an `id` to the source and destination views. Transitions like these can make transition feel very fluid and natural and can help give context to the destination screen. Additional animations can be applied to the unmatched views that will be run during the transition.
 
