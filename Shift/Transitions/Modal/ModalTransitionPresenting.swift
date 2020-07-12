@@ -36,6 +36,7 @@ public class ModalTransitionPresenting: NSObject, UIViewControllerAnimatedTransi
                 viewOrder: toViewController.shift.viewOrder,
                 baselineDuration: toViewController.shift.baselineDuration,
                 toViewControllerType: type(of: toViewController),
+                fromViewControllerType: type(of: fromViewController),
                 defaultAnimation: toViewController.shift.defaultAnimation
             ),
             completion: { complete in

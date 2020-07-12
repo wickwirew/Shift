@@ -20,12 +20,10 @@ class MovieViewController: UIViewController {
         super.viewDidLoad()
         shift.baselineDuration = 0.5
         
-        let filter: Animations.Condition = { $0.toViewControllerType == MovieViewController.self && $0.isAppear }
-        
         actionsButton.layer.cornerRadius = 34
         actionsButton.layer.masksToBounds = true
         actionsButton.shift.id = "background"
-        actionsButton.shift.animations.move(.up(200), filter)
+        actionsButton.shift.animations.move(.up(200), .onAppear)
         actionsButton.imageView?.shift.id = "movieIcon"
     }
     

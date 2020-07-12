@@ -13,17 +13,20 @@ public struct Options {
     public var viewOrder: ViewOrder
     public var baselineDuration: TimeInterval
     public var toViewControllerType: UIViewController.Type?
+    public var fromViewControllerType: UIViewController.Type?
     public var defaultAnimation: DefaultShiftAnimation?
     
     public init(isPresenting: Bool = true,
                 viewOrder: ViewOrder = .auto,
                 baselineDuration: TimeInterval? = nil,
                 toViewControllerType: UIViewController.Type? = nil,
+                fromViewControllerType: UIViewController.Type? = nil,
                 defaultAnimation: DefaultShiftAnimation? = nil) {
         self.isPresenting = isPresenting
         self.viewOrder = viewOrder
         self.baselineDuration = baselineDuration ?? 0.265
         self.toViewControllerType = toViewControllerType
+        self.fromViewControllerType = fromViewControllerType
         self.defaultAnimation = defaultAnimation
     }
     
@@ -59,12 +62,7 @@ public final class Animator {
         
         options.defaultAnimation?.apply(to: views, options: options)
         
-        let animationFilter = Animations.Filter(
-            mode: options.isPresenting ? .onAppear : .onDisappear,
-            toViewControllerType: options.toViewControllerType
-        )
-        
-        views.forEach{ $0.applyModifers(filter: animationFilter) }
+        applyAnimations(to: views, options: options)
         
         views.topViews.reversed().forEach { $0.takeSnapshot() }
         views.bottomViews.reversed().forEach { $0.takeSnapshot() }
@@ -87,6 +85,18 @@ public final class Animator {
         }
     }
 
+    private func applyAnimations(to views: ShiftViews,
+                                 options: Options) {
+        let filter = Animations.Filter(
+            mode: options.isPresenting ? .onAppear : .onDisappear,
+            toViewControllerType: options.toViewControllerType,
+            fromViewControllerType: options.fromViewControllerType
+        )
+        
+        views.toViews.forEach{ $0.applyModifers(filter: filter) }
+        views.fromViews.forEach{ $0.applyModifers(filter: filter) }
+    }
+    
     /// Builds the list of `views` used for the transition,
     /// and also assigns any matches that may exist.
     private func buildViews(fromView: UIView,

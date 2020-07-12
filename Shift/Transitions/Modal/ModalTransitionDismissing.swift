@@ -30,6 +30,7 @@ public class ModalTransitionDismissing: NSObject, UIViewControllerAnimatedTransi
                 viewOrder: fromViewController.shift.viewOrder,
                 baselineDuration: fromViewController.shift.baselineDuration,
                 toViewControllerType: type(of: toViewController),
+                fromViewControllerType: type(of: fromViewController),
                 defaultAnimation: fromViewController.shift.defaultAnimation
             ),
             completion: { complete in

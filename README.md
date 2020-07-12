@@ -80,7 +80,21 @@ item.shift.animations
 
 ![AdditionalAnimation](https://github.com/wickwirew/Shift/blob/master/Resources/AdditionAnimation.gif)
 
-To view a full list of potentials animations, please [see](https://github.com/wickwirew/Shift/blob/master/Shift/Animation.swift) 
+To view a full list of potentials animations, please [see](https://github.com/wickwirew/Shift/blob/master/Shift/Animation.swift)
+
+These animations can be setup to **conditionally** run based on some predicate. Each animation function has an optional parameter to supply a `Condition`, it is always the last parameter. If the condition is not met, the animation will not be added.
+
+To only have a view scale up when the view appears, but not scale back down on disappearing, do:
+
+```swift
+view.animations.scale(2, .onAppear)
+```
+
+To provide a custom condition, you can use the `.filter`.
+
+```swift
+view.animations.scale(2, .filter{ ... })
+```
 
 ## Superview
 When a view is animated during a transition, it's snapshot must be added to a view within the transition. There are two different options for the `superview`, `parent` and `container`. Each different superview can affect how the view appears to make it to it's final position. 

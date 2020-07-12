@@ -13,7 +13,25 @@ import UIKit
 public class Animations {
     /// A condition to optionally apply an animation based on
     /// an input filter.
-    public typealias Condition = (Filter) -> Bool
+    public struct Condition {
+        public let predicate: (Filter) -> Bool
+        
+        public init(_ predicate: @escaping (Filter) -> Bool) {
+            self.predicate = predicate
+        }
+        
+        public static var onAppear: Condition {
+            return Condition { $0.isAppear }
+        }
+        
+        public static var onDisappear: Condition {
+            return Condition { $0.isDisappear }
+        }
+        
+        public static func filter(_ predicate: @escaping (Filter) -> Bool) -> Condition {
+            return Condition(predicate)
+        }
+    }
     
     /// An animation to be applied to a view.
     struct Animation {
@@ -261,9 +279,11 @@ public class Animations {
         case right(CGFloat)
     }
     
+    /// The infomation provided to a `Condition`
     public struct Filter {
         public let mode: Mode
         public let toViewControllerType: UIViewController.Type?
+        public let fromViewControllerType: UIViewController.Type?
         
         public enum Mode {
             case onAppear
@@ -282,7 +302,7 @@ public class Animations {
     /// Applies the animations to the view state.
     func apply(to viewState: inout ViewState, filter: Filter) {
         animations.forEach { animation in
-            guard animation.condition == nil || animation.condition?(filter) == true else { return }
+            guard animation.condition == nil || animation.condition?.predicate(filter) == true else { return }
             animation.apply(&viewState)
         }
     }
