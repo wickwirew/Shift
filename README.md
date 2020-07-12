@@ -78,7 +78,7 @@ item.shift.animations
     .move(.right(150))
 ```
 
-![Final](https://github.com/wickwirew/Shift/blob/master/Resources/AdditionalAnimation.gif)
+![AdditionalAnimation](https://github.com/wickwirew/Shift/blob/master/Resources/AdditionAnimation.gif)
 
 To view a full list of potentials animations, please [see](https://github.com/wickwirew/Shift/blob/master/Shift/Animation.swift) 
 
