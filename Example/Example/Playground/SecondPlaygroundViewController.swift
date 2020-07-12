@@ -11,6 +11,7 @@ import Shift
 
 class SecondPlaygroundViewController: UIViewController {
     @IBOutlet weak var item: UIView!
+    @IBOutlet weak var star: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,8 @@ class SecondPlaygroundViewController: UIViewController {
         shift.baselineDuration = 1
         item.shift.id = "item"
 //        item.shift.contentSizing = .final
+        star.shift.superview = .container
+        star.shift.animations.fade()
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {

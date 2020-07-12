@@ -277,16 +277,16 @@
                                 </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="djU-ZQ-5gr">
-                                <rect key="frame" x="40" y="433" width="70" height="30"/>
-                                <color key="backgroundColor" red="0.0039215686274509803" green="0.32941176470588235" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="40" y="410.66666666666669" width="75" height="75"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="4Qn-Vn-qXh"/>
-                                    <constraint firstAttribute="width" constant="70" id="HVr-H8-UjV"/>
+                                    <constraint firstAttribute="height" constant="75" id="4Qn-Vn-qXh"/>
+                                    <constraint firstAttribute="width" constant="75" id="HVr-H8-UjV"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
+                                        <real key="value" value="37.5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -890,14 +890,14 @@
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="fXI-Jl-Arl">
                                         <rect key="frame" x="17.666666666666657" y="17.66666666666665" width="40" height="39.666666666666671"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="0.0039215686274509803" green="0.32941176470588235" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="M80-Lw-edk"/>
                                             <constraint firstAttribute="width" constant="40" id="mAl-VN-u2b"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0039215686274509803" green="0.32941176470588235" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="BgZ-5G-xEb"/>
                                     <constraint firstItem="fXI-Jl-Arl" firstAttribute="centerY" secondItem="mMa-9n-nTj" secondAttribute="centerY" id="m3n-wa-4mT"/>
@@ -924,7 +924,8 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isTransitionEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="item" destination="mMa-9n-nTj" id="2ve-2Z-nhd"/>
+                        <outlet property="item" destination="mMa-9n-nTj" id="A4Z-H4-EMx"/>
+                        <outlet property="star" destination="fXI-Jl-Arl" id="CC1-GQ-9de"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tpL-M7-JE1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

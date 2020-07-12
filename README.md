@@ -60,6 +60,18 @@ view.shift.animations
     .move(x: 300, y: 0)
 ```
 
+## Superview
+`shift.superview`
+When a view is animated during a transition, it's snapshot must be added to a view within the transition. There are two different options for the `superview`, `parent` and `container`. Each different superview can affect how the view appears to make it to it's final position. With `parent`, it's `superview` will be a view that most closly relates to the view's actual `superview` in the original view heirarchy. If its `superview`s position, is being animated, it will also be animated since it's a subview of the the view being animated. On `container` it will be added directly to the transition's `container` view, and it will not be affected by the original `superview`s position. `parent` is the default choice, however matched views will always use `container` regardless of the choice.
+
+Parent:
+
+![Parent](https://github.com/wickwirew/Shift/blob/master/Resources/Parent.gif)
+
+Container:
+
+![Container](https://github.com/wickwirew/Shift/blob/master/Resources/Container.gif)
+
 ## Custom Transitions
 If you need to supply your own `UIViewControllerAnimatedTransitioning` or `UIPresentationController`, it is very simply to incorporate shift into the transition.
 At the heart of every transition is the `Animator`. It is responsible for performing the animations.
