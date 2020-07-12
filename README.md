@@ -137,11 +137,7 @@ Thats about all the code needed. See the default [modal transition animator](htt
 
 In the examples project, the "Movie" view uses a custom `UIPresentationController` to present a non-fullscreen context menu.
 
-# Credits
-* [Hero](https://github.com/HeroTransitions/Hero) was obviously a huge inspiration behind this library, so a ton of credit goes to [lkzhao](https://github.com/lkzhao) and the [Contributors](https://github.com/HeroTransitions/Hero/graphs/contributors). This is merely another option if Hero does not nessecarily do everything you need.
-* [SamAtmoreMedia](https://dribbble.com/SamAtmoreMedia) on Dribbble for the [concept](https://dribbble.com/shots/4475042-Space-app-transition-experiement) of the space example design.
-
-# Installation
+## Installation
 
 ### Swift Package Manager
 
@@ -165,3 +161,7 @@ it, simply add the following lines to your Podfile:
 use_frameworks!
 pod 'ShiftTransitions'
 ```
+
+## Credits
+* [Hero](https://github.com/HeroTransitions/Hero) was obviously a huge inspiration behind this library, so a ton of credit goes to [lkzhao](https://github.com/lkzhao) and the [Contributors](https://github.com/HeroTransitions/Hero/graphs/contributors). This is merely another option if Hero does not nessecarily do everything you need.
+* [SamAtmoreMedia](https://dribbble.com/SamAtmoreMedia) on Dribbble for the [concept](https://dribbble.com/shots/4475042-Space-app-transition-experiement) of the space example design.
