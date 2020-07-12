@@ -31,11 +31,11 @@ Note: None of the views are actually edited, snapshots of each are used.
 ### Content Animation
 When views are matched, their content may be different. How the content is transitioned to the new content can be customized. There are two different options for content animations, `fade` and `none`.
 
-Fade:
+On *fade* the initial content will be faded out and the new content will be faded in.
 
 ![Match](https://github.com/wickwirew/Shift/blob/master/Resources/Fade.gif)
 
-None:
+On *none* the content will immediately show the final content.
 
 ![Match](https://github.com/wickwirew/Shift/blob/master/Resources/NoFade.gif)
 
