@@ -19,7 +19,6 @@ All examples can be found in the `/Examples` folder, and can be run via the `/Ex
 ## Matched Views
 A matched view is where you have a view on the source view, that needs to be animated to a view on the destination view. This can be done by supplying a matching `id` to each view. During the transition, the source view's frame, and other common properties, will be animated to match the destinations.
 
-Example:
 ![Match](https://github.com/wickwirew/Shift/blob/master/Resources/Match.gif)
 
 ```swift
