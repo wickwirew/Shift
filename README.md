@@ -28,6 +28,17 @@ destinationView.shift.id = "view"
 Thats it! The `sourceView` will now be magically moved to match the `destinationView`.
 Note: None of the views are actually edited, snapshots of each are used.
 
+### Content Animation
+When views are matched, their content may be different. How the content is transitioned to the new content can be customized. There are two different options for content animations, `fade` and `none`.
+
+Fade:
+
+![Match](https://github.com/wickwirew/Shift/blob/master/Resources/Fade.gif)
+
+None:
+
+![Match](https://github.com/wickwirew/Shift/blob/master/Resources/NoFade.gif)
+
 ## Additional animations
 If one view does not have a match, but needs to maybe slide in from offscreen, or fade in, you can apply additional animations to accomplish that.
 Additional animations will be ignored for matched views.
