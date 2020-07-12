@@ -22,30 +22,48 @@ A matched view is where you have a view on the source view, that needs to be ani
 ![Match](https://github.com/wickwirew/Shift/blob/master/Resources/Match.gif)
 
 ```swift
-sourceView.shift.id = "view"
-destinationView.shift.id = "view"
+firstView.shift.id = "view"
+secondView.shift.id = "view"
 ```
 Thats it! The `sourceView` will now be magically moved to match the `destinationView`.
 Note: None of the views are actually edited, snapshots of each are used.
 
 ### Content Animation
-When views are matched, their content may be different. How it is transitioned from the initial content to the new content can be customized. There are two different options for content animations, `fade` and `none`. This option can be changed via the `view.shift.contentAnimation` and is only valid on matched view, since unmatched views do not have content changes.
+When views are matched, their content may be different. How it is transitioned from the initial content to the new content can be customized. There are two different options for content animations, `fade` and `none`. This option is only valid on matched view, since unmatched views do not have content changes.
 
-On `fade` the initial content will be faded out and the new content will be faded in.
+On **fade** the initial content will be faded out and the new content will be faded in.
+
+```swift
+view.shift.contentAnimation = .fade
+```
 
 ![Match](https://github.com/wickwirew/Shift/blob/master/Resources/Fade.gif)
 
-On `none` the content will immediately show the final content.
+On **none** the content will immediately show the final content.
+
+```swift
+view.shift.contentAnimation = .none
+```
 
 ![Match](https://github.com/wickwirew/Shift/blob/master/Resources/NoFade.gif)
 
 ### Content Sizing
-Matched views may change size during the transition. Since snapshots of the views are used, when they are resized the content may warp and stretch. You can customize the behavior of how the content is sized view the `shift.contentSizing` property. There are two different sizing options, `stretch` and `final`.
-With `stretch`, the content's size will directly match the view as it is changed to its new final frame.
+Matched views may change size during the transition. Since snapshots of the views are used, when they are resized the content may warp and stretch. You can customize the behavior of how the content is sized. There are two different sizing options, `stretch` and `final`.
+
+With **stretch**, the content's size will directly match the view as it is changed to its new final frame.
+
+```swift
+view.shift.contentSizing = .stretch
+```
 
 ![Stretch](https://github.com/wickwirew/Shift/blob/master/Resources/StretchSize.gif)
 
-With `final`, the content's size will be set to it's final size instantly, and any size changes will not affect it.
+With **final**, the content's size will be set to it's final size instantly, and any size changes will not affect it.
+
+
+```swift
+view.shift.contentSizing = .final
+```
 
 ![Final](https://github.com/wickwirew/Shift/blob/master/Resources/FinalSize.gif)
 
@@ -60,8 +78,9 @@ view.shift.animations
     .move(x: 300, y: 0)
 ```
 
+To view a full list of potentials animations, please [see](https://github.com/wickwirew/Shift/blob/master/Shift/Animation.swift) 
+
 ## Superview
-`shift.superview`
 When a view is animated during a transition, it's snapshot must be added to a view within the transition. There are two different options for the `superview`, `parent` and `container`. Each different superview can affect how the view appears to make it to it's final position. 
 
 With **parent**, it's `superview` will be a view that most closly relates to the view's actual `superview` in the original view heirarchy. If its `superview`s position, is being animated, it will also be animated since it's a subview of the the view being animated.
@@ -105,3 +124,28 @@ In the examples project, the "Movie" view uses a custom `UIPresentationControlle
 # Credits
 * [Hero](https://github.com/HeroTransitions/Hero) was obviously a huge inspiration behind this library, so a ton of credit goes to [lkzhao](https://github.com/lkzhao) and the [Contributors](https://github.com/HeroTransitions/Hero/graphs/contributors). This is merely another option if Hero does not nessecarily do everything you need.
 * [SamAtmoreMedia](https://dribbble.com/SamAtmoreMedia) on Dribbble for the [concept](https://dribbble.com/shots/4475042-Space-app-transition-experiement) of the space example design.
+
+# Installation
+
+### Swift Package Manager
+
+**Shift** is available through [Swift Package Manager](https://github.com/apple/swift-package-manager/).
+
+To add it via SPM, simply add `https://github.com/wickwirew/Shift.git` to your list of packages in Xcode.
+
+### Carthage
+
+Shift is available through [Carthage](https://github.com/Carthage/Carthage). To install
+it, simply add the following line to your Cartfile:
+
+`github "wickwirew/Shift"`
+
+### CocoaPods
+
+**Shift** is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following lines to your Podfile:
+
+```ruby
+use_frameworks!
+pod 'ShiftTransitions'
+```
