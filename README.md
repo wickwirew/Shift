@@ -33,7 +33,7 @@ viewController.shift.defaultAnimation = DefaultAnimations.Scale(.down)
 You can make your own custom default animations as well by conforming to `DefaultShiftAnimation`, and setting the desired animations on the views. How to add custom addition animations will be [covered later](#additional-animations).
 
 ### Baseline Duration
-The duration of the transition animation is determinded by the `baselineDuration` provided. This it, well a baseline for the duration and not the actual value that will be used. Each view will calculate a duration for its animations based off the animations being applied. The `baselineDuration` is the minimum duration, and each view will add additional time on top if need be.
+The duration of the transition animation is determinded by the `baselineDuration` provided. This it, well a baseline for the duration and not the actual value that will be used. Each view will calculate a duration for its animations based off the animations being applied. In other words, the `baselineDuration` is the minimum duration, and each view will add additional time on top if need be.
 
 ```swift
 // Transition will now take about 1 second.
