@@ -62,13 +62,21 @@ view.shift.animations
 
 ## Superview
 `shift.superview`
-When a view is animated during a transition, it's snapshot must be added to a view within the transition. There are two different options for the `superview`, `parent` and `container`. Each different superview can affect how the view appears to make it to it's final position. With `parent`, it's `superview` will be a view that most closly relates to the view's actual `superview` in the original view heirarchy. If its `superview`s position, is being animated, it will also be animated since it's a subview of the the view being animated. On `container` it will be added directly to the transition's `container` view, and it will not be affected by the original `superview`s position. `parent` is the default choice, however matched views will always use `container` regardless of the choice.
+When a view is animated during a transition, it's snapshot must be added to a view within the transition. There are two different options for the `superview`, `parent` and `container`. Each different superview can affect how the view appears to make it to it's final position. 
 
-Parent:
+With **parent**, it's `superview` will be a view that most closly relates to the view's actual `superview` in the original view heirarchy. If its `superview`s position, is being animated, it will also be animated since it's a subview of the the view being animated.
+
+```swift
+view.shift.superview = .parent
+```
 
 ![Parent](https://github.com/wickwirew/Shift/blob/master/Resources/Parent.gif)
 
-Container:
+On **container** it will be added directly to the transition's `container` view, and it will not be affected by the original `superview`s position. `parent` is the default choice, however matched views will always use `container` regardless of the choice.
+
+```swift
+view.shift.superview = .container
+```
 
 ![Container](https://github.com/wickwirew/Shift/blob/master/Resources/Container.gif)
 
@@ -96,4 +104,4 @@ In the examples project, the "Movie" view uses a custom `UIPresentationControlle
 
 # Credits
 * [Hero](https://github.com/HeroTransitions/Hero) was obviously a huge inspiration behind this library, so a ton of credit goes to [lkzhao](https://github.com/lkzhao) and the [Contributors](https://github.com/HeroTransitions/Hero/graphs/contributors). This is merely another option if Hero does not nessecarily do everything you need.
-* [IDK] on Dribbble for the concept of the space example design.
+* [SamAtmoreMedia](https://dribbble.com/SamAtmoreMedia) on Dribbble for the [concept](https://dribbble.com/shots/4475042-Space-app-transition-experiement) of the space example design.
