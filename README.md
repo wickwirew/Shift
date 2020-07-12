@@ -39,6 +39,16 @@ On `none` the content will immediately show the final content.
 
 ![Match](https://github.com/wickwirew/Shift/blob/master/Resources/NoFade.gif)
 
+### Content Sizing
+Matched views may change size during the transition. Since snapshots of the views are used, when they are resized the content may warp and stretch. You can customize the behavior of how the content is sized view the `shift.contentSizing` property. There are two different sizing options, `stretch` and `final`.
+With `stretch`, the content's size will directly match the view as it is changed to its new final frame.
+
+![Stretch](https://github.com/wickwirew/Shift/blob/master/Resources/StretchSize.gif)
+
+With `final`, the content's size will be set to it's final size instantly, and any size changes will not affect it.
+
+![Final](https://github.com/wickwirew/Shift/blob/master/Resources/FinalSize.gif)
+
 ## Additional animations
 If one view does not have a match, but needs to maybe slide in from offscreen, or fade in, you can apply additional animations to accomplish that.
 Additional animations will be ignored for matched views.

@@ -277,16 +277,16 @@
                                 </connections>
                             </button>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="djU-ZQ-5gr">
-                                <rect key="frame" x="40" y="413" width="70" height="70"/>
+                                <rect key="frame" x="40" y="433" width="70" height="30"/>
                                 <color key="backgroundColor" red="0.0039215686274509803" green="0.32941176470588235" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="4Qn-Vn-qXh"/>
+                                    <constraint firstAttribute="height" constant="30" id="4Qn-Vn-qXh"/>
                                     <constraint firstAttribute="width" constant="70" id="HVr-H8-UjV"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="35"/>
+                                        <integer key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>

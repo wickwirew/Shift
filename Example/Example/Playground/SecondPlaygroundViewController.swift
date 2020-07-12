@@ -17,7 +17,7 @@ class SecondPlaygroundViewController: UIViewController {
         shift.enable()
         shift.baselineDuration = 1
         item.shift.id = "item"
-//        item.shift.contentAnimation = .none
+//        item.shift.contentSizing = .final
     }
     
     @IBAction func backButtonPressed(_ sender: Any) {
