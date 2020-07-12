@@ -11,7 +11,6 @@ import UIKit
 class NavControllerTrasntitionDismissing: NSObject, UIViewControllerAnimatedTransitioning {
     let delay: Bool
     let insertToView: Bool
-    let animator = Animator()
     
     init(delay: Bool = false, insertToView: Bool = false) {
         self.delay = delay
@@ -30,24 +29,18 @@ class NavControllerTrasntitionDismissing: NSObject, UIViewControllerAnimatedTran
         
         transitionContext.containerView.insertSubview(toViewController.view, at: 0)
         
+        let animator = Animator(
+            fromView: fromViewController,
+            toView: toViewController,
+            container: transitionContext.containerView,
+            isPresenting: false
+        )
+        
         DispatchQueue.main.async {
-            self.animator.animate(
-                fromView: fromViewController.view,
-                toView: toViewController.view,
-                container: transitionContext.containerView,
-                options: Options(
-                    isPresenting: false,
-                    viewOrder: fromViewController.shift.viewOrder,
-                    baselineDuration: fromViewController.shift.baselineDuration,
-                    toViewControllerType: type(of: toViewController),
-                    fromViewControllerType: type(of: fromViewController),
-                    defaultAnimation: fromViewController.shift.defaultAnimation
-                ),
-                completion: { complete in
-                    fromViewController.view.removeFromSuperview()
-                    transitionContext.completeTransition(complete)
-                }
-            )
+            animator.animate { complete in
+                fromViewController.view.removeFromSuperview()
+                transitionContext.completeTransition(complete)
+            }
         }
     }
 }

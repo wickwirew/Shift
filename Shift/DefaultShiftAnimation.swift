@@ -9,14 +9,14 @@
 import UIKit
 
 public protocol DefaultShiftAnimation {
-    func apply(to views: ShiftViews, options: Options)
+    func apply(to views: ShiftViews, isPresenting: Bool)
 }
 
 public enum DefaultAnimations {
     
     public struct Fade: DefaultShiftAnimation {
         public init() {}
-        public func apply(to views: ShiftViews, options: Options) {
+        public func apply(to views: ShiftViews, isPresenting: Bool) {
             views.sourceViewRoot?.options.animations.fade()
         }
     }
@@ -37,7 +37,7 @@ public enum DefaultAnimations {
             self.amount = amount
         }
         
-        public func apply(to views: ShiftViews, options: Options) {
+        public func apply(to views: ShiftViews, isPresenting: Bool) {
             views.sourceViewRoot?.options.animations.fade().scale(amount)
         }
     }

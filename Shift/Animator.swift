@@ -8,61 +8,78 @@
 
 import UIKit
 
-public struct Options {
-    public var isPresenting: Bool
-    public var viewOrder: ViewOrder
-    public var baselineDuration: TimeInterval
-    public var toViewControllerType: UIViewController.Type?
-    public var fromViewControllerType: UIViewController.Type?
-    public var defaultAnimation: DefaultShiftAnimation?
+/// Performs all animations for the transition.
+public final class Animator {
+    /// Whether or not a view is being presented or dismissed.
+    private let isPresenting: Bool
+    /// How to order the views within the transition container.
+    private let viewOrder: ViewOrder
+    /// The minimum time for the duration caclulations.
+    private let baselineDuration: TimeInterval
+    /// The default animation to be run.
+    private let defaultAnimation: DefaultShiftAnimation?
+    /// The view we are transitioning from.
+    private let fromView: UIView
+    /// The view we are transitioning too.
+    private let toView: UIView
+    /// The container in which the transition is happening.
+    private let container: UIView
+    /// The view controller's type that is being transitioned from.
+    private let fromViewControllerType: UIViewController.Type?
+    /// The view controller's type that is being transitioned too.
+    private let toViewControllerType: UIViewController.Type?
     
-    public init(isPresenting: Bool = true,
+    public init(fromView: UIView,
+                toView: UIView,
+                container: UIView,
+                isPresenting: Bool,
                 viewOrder: ViewOrder = .auto,
                 baselineDuration: TimeInterval? = nil,
-                toViewControllerType: UIViewController.Type? = nil,
+                defaultAnimation: DefaultShiftAnimation? = nil,
                 fromViewControllerType: UIViewController.Type? = nil,
-                defaultAnimation: DefaultShiftAnimation? = nil) {
+                toViewControllerType: UIViewController.Type? = nil) {
+        self.fromView = fromView
+        self.toView = toView
+        self.container = container
         self.isPresenting = isPresenting
         self.viewOrder = viewOrder
         self.baselineDuration = baselineDuration ?? 0.265
-        self.toViewControllerType = toViewControllerType
-        self.fromViewControllerType = fromViewControllerType
         self.defaultAnimation = defaultAnimation
+        self.fromViewControllerType = fromViewControllerType
+        self.toViewControllerType = toViewControllerType
     }
     
-    /// How the `toView`'s and `fromView`'s will be ordered within
-    /// the transition container.
-    public enum ViewOrder {
-        /// On presenting the `toView` will be on top,
-        /// and on dismissal the `fromView` will be onTop
-        case auto
-        /// The `toView`s will be on top
-        case toViewsOnTop
-        /// The `fromView`s will be on top.
-        case fromViewsOnTop
+    public convenience init(fromView fromViewController: UIViewController,
+                            toView toViewController: UIViewController,
+                            container: UIView,
+                            isPresenting: Bool) {
+        // For presenting we want to use the toViewControllers options,
+        // on dismissal we want the fromViewController since it is being dismissed.
+        let sourceViewController = isPresenting ? toViewController : fromViewController
+        
+        self.init(fromView: fromViewController.view,
+                  toView: toViewController.view,
+                  container: container,
+                  isPresenting: isPresenting,
+                  viewOrder: sourceViewController.shift.viewOrder,
+                  baselineDuration: sourceViewController.shift.baselineDuration,
+                  defaultAnimation: sourceViewController.shift.defaultAnimation,
+                  fromViewControllerType: type(of: fromViewController),
+                  toViewControllerType: type(of: toViewController)
+        )
     }
-}
-
-/// Performs all animations for the transition.
-public final class Animator {
-    public func animate(fromView: UIView,
-                        toView: UIView,
-                        container: UIView,
-                        options: Options = Options(),
-                        completion: @escaping (Bool) -> Void) {
+    
+    /// Perform the transition animation.
+    /// - Parameter completion: A closure to be called on completion.
+    public func animate(completion: @escaping (Bool) -> Void) {
         let transitionContainer = buildTransitionContainer(in: container, frame: toView.frame)
         let fromViewShapshot = addFromViewSnapshot(fromView: fromView, container: container)
         
-        let views = buildViews(
-            fromView: fromView,
-            toView: toView,
-            container: transitionContainer,
-            options: options
-        )
+        let views = buildViews()
         
-        options.defaultAnimation?.apply(to: views, options: options)
+        defaultAnimation?.apply(to: views, isPresenting: isPresenting)
         
-        applyAnimations(to: views, options: options)
+        applyAnimations(to: views)
         
         views.topViews.reversed().forEach { $0.takeSnapshot() }
         views.bottomViews.reversed().forEach { $0.takeSnapshot() }
@@ -85,12 +102,11 @@ public final class Animator {
         }
     }
 
-    private func applyAnimations(to views: ShiftViews,
-                                 options: Options) {
+    private func applyAnimations(to views: ShiftViews) {
         let filter = Animations.Filter(
-            mode: options.isPresenting ? .onAppear : .onDisappear,
-            toViewControllerType: options.toViewControllerType,
-            fromViewControllerType: options.fromViewControllerType
+            mode: isPresenting ? .onAppear : .onDisappear,
+            toViewControllerType: toViewControllerType,
+            fromViewControllerType: fromViewControllerType
         )
         
         views.toViews.forEach{ $0.applyModifers(filter: filter) }
@@ -99,36 +115,29 @@ public final class Animator {
     
     /// Builds the list of `views` used for the transition,
     /// and also assigns any matches that may exist.
-    private func buildViews(fromView: UIView,
-                            toView: UIView,
-                            container: UIView,
-                            options: Options) -> ShiftViews {
+    private func buildViews() -> ShiftViews {
         let fromViews = deconstruct(
             view: fromView,
-            container: container,
-            reverseAnimations: true,
-            baselineDuration: options.baselineDuration
+            reverseAnimations: true
         )
         
         let toViews = deconstruct(
             view: toView,
-            container: container,
-            reverseAnimations: false,
-            baselineDuration: options.baselineDuration
+            reverseAnimations: false
         )
         
         findMatches(
             toViews: toViews,
             fromViews: fromViews,            
             container: container,
-            isPresenting: options.isPresenting
+            isPresenting: isPresenting
         )
         
         return ShiftViews(
             fromViews: fromViews,
             toViews: toViews,
-            order: options.viewOrder,
-            isPresenting: options.isPresenting
+            order: viewOrder,
+            isPresenting: isPresenting
         )
     }
 
@@ -155,14 +164,12 @@ public final class Animator {
         
         findMatches(
             for: sourceViews,
-            in: otherViews,
-            container: container
+            in: otherViews
         )
     }
     
     func findMatches(for sourceViews: [ViewContext],
-                     in otherViews: [ViewContext],
-                     container: UIView) {
+                     in otherViews: [ViewContext]) {
         // Get a lookup of views by their `shift.id`
         let otherViewsByIds = otherViews
             .filter{ $0.options.id != nil }
@@ -180,9 +187,7 @@ public final class Animator {
     }
 
     private func deconstruct(view: UIView,
-                             container: UIView,
                              reverseAnimations: Bool,
-                             baselineDuration: TimeInterval,
                              parent: ViewContext? = nil) -> [ViewContext] {
         guard !view.isHidden else { return [] }
         
@@ -212,9 +217,7 @@ public final class Animator {
         for subview in view.subviews {
             let subviews = deconstruct(
                 view: subview,
-                container: container,
                 reverseAnimations: reverseAnimations,
-                baselineDuration: baselineDuration,
                 parent: parent
             )
             
@@ -251,6 +254,17 @@ public final class Animator {
     }
 }
 
+/// How the `toView`'s and `fromView`'s will be ordered within
+/// the transition container.
+public enum ViewOrder {
+    /// On presenting the `toView` will be on top,
+    /// and on dismissal the `fromView` will be onTop
+    case auto
+    /// The `toView`s will be on top
+    case toViewsOnTop
+    /// The `fromView`s will be on top.
+    case fromViewsOnTop
+}
 
 /// The collection of views that will be used for the transition.
 /// It only contains the views that need to be animated. All others
@@ -264,13 +278,13 @@ public final class ShiftViews: Collection {
     /// The views being transitioned too.
     public let toViews: [ViewContext]
     /// The how to order the `toViews` and `fromViews`
-    private let order: Options.ViewOrder
+    private let order: ViewOrder
     /// Whether or not the view is being presented.
     private let isPresenting: Bool
     
     init(fromViews: [ViewContext],
          toViews: [ViewContext],
-         order: Options.ViewOrder,
+         order: ViewOrder,
          isPresenting: Bool) {
         self.fromViews = fromViews
         self.toViews = toViews

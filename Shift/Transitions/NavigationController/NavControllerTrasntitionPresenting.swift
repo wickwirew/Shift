@@ -9,8 +9,6 @@
 import UIKit
 
 class NavControllerTrasntitionPresenting: NSObject, UIViewControllerAnimatedTransitioning {
-    let animator = Animator()
-    
     func transitionDuration(
         using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.375
@@ -28,24 +26,18 @@ class NavControllerTrasntitionPresenting: NSObject, UIViewControllerAnimatedTran
         toViewController.view.setNeedsLayout()
         toViewController.view.layoutIfNeeded()
         
+        let animator = Animator(
+            fromView: fromViewController,
+            toView: toViewController,
+            container: transitionContext.containerView,
+            isPresenting: true
+        )
+        
         DispatchQueue.main.async {
-            self.animator.animate(
-                fromView: fromViewController.view,
-                toView: toViewController.view,
-                container: transitionContext.containerView,
-                options: Options(
-                    isPresenting: true,
-                    viewOrder: toViewController.shift.viewOrder,
-                    baselineDuration: toViewController.shift.baselineDuration,
-                    toViewControllerType: type(of: toViewController),
-                    fromViewControllerType: type(of: fromViewController),
-                    defaultAnimation: toViewController.shift.defaultAnimation
-                ),
-                completion: { complete in
-                    toViewController.view.alpha = 1
-                    transitionContext.completeTransition(complete)
-                }
-            )
+            animator.animate { complete in
+                toViewController.view.alpha = 1
+                transitionContext.completeTransition(complete)
+            }
         }
     }
 }

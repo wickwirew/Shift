@@ -10,7 +10,7 @@ import UIKit
 
 public struct ShiftViewControllerOptions {
     public var enabled = false
-    public var viewOrder: Options.ViewOrder = .auto
+    public var viewOrder: ViewOrder = .auto
     public var baselineDuration: TimeInterval?
     public var defaultAnimation: DefaultShiftAnimation? = DefaultAnimations.Fade()
     

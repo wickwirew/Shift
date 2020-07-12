@@ -9,8 +9,6 @@
 import UIKit
 
 public class ModalTransitionPresenting: NSObject, UIViewControllerAnimatedTransitioning {
-    let animator = Animator()
-    
     public func transitionDuration(
         using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.375
@@ -27,22 +25,16 @@ public class ModalTransitionPresenting: NSObject, UIViewControllerAnimatedTransi
         toViewController.view.setNeedsLayout()
         toViewController.view.layoutIfNeeded()
         
-        self.animator.animate(
-            fromView: fromViewController.view,
-            toView: toViewController.view,
+        let animator = Animator(
+            fromView: fromViewController,
+            toView: toViewController,
             container: transitionContext.containerView,
-            options: Options(
-                isPresenting: true,
-                viewOrder: toViewController.shift.viewOrder,
-                baselineDuration: toViewController.shift.baselineDuration,
-                toViewControllerType: type(of: toViewController),
-                fromViewControllerType: type(of: fromViewController),
-                defaultAnimation: toViewController.shift.defaultAnimation
-            ),
-            completion: { complete in
-                toViewController.view.alpha = 1
-                transitionContext.completeTransition(complete)
-            }
+            isPresenting: true
         )
+        
+        animator.animate { complete in
+            toViewController.view.alpha = 1
+            transitionContext.completeTransition(complete)
+        }
     }
 }
