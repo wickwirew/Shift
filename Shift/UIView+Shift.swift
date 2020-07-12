@@ -23,12 +23,12 @@ public struct ShiftViewOptions {
     public var animations = Animations()
     /// What should be the superview of the view during the transition.
     /// For matched items, they will automatically be put in the `container`
-    public var superview: ShiftSuperview = .parent
+    public var superview: Superview = .parent
     /// Whether or not the view is hidden in the transition.
     public var isHidden: Bool = false
     /// How the view is positioned.
     /// This is along the z axis.
-    public var position: ShiftPosition = .auto
+    public var position: Position = .auto
     
     /// Whether or not the view needs to be independently
     /// animated during the transition.
@@ -47,44 +47,44 @@ public struct ShiftViewOptions {
         result.animations = animations.copy()
         return result
     }
-}
+    
+    /// What should be the superview of the view during the transition.
+    public enum Superview {
+        /// The view will be added to the transition container.
+        case container
+        /// The view will be added to the views normal superview.
+        case parent
+    }
 
-/// What should be the superview of the view during the transition.
-public enum ShiftSuperview {
-    /// The view will be added to the transition container.
-    case container
-    /// The view will be added to the views normal superview.
-    case parent
-}
+    /// How the view is positioned.
+    /// This is along the z axis.
+    public enum Position {
+        /// The view will live its normal position.
+        /// i.e. it will be (about) where it is in the actual view.
+        case auto
+        /// View will be moved to the front.
+        case front
+        /// View will be moved to the back.
+        case back
+    }
 
-/// How the view is positioned.
-/// This is along the z axis.
-public enum ShiftPosition {
-    /// The view will live its normal position.
-    /// i.e. it will be (about) where it is in the actual view.
-    case auto
-    /// View will be moved to the front.
-    case front
-    /// View will be moved to the back.
-    case back
-}
+    /// How the the content, i.e. the subviews, shoud be handled
+    /// during the animation.
+    public enum ContentSizing {
+        /// Content will be stretched.
+        case stretch
+        /// Content will be in its final state
+        case final
+    }
 
-/// How the the content, i.e. the subviews, shoud be handled
-/// during the animation.
-public enum ContentSizing {
-    /// Content will be stretched.
-    case stretch
-    /// Content will be in its final state
-    case final
-}
-
-/// How the content will be animated.
-/// This is only valid for matched items.
-public enum ContentAnimation {
-    /// The content will be faded from the start content to the final content.
-    case fade
-    /// There will be no animation. It will just always be in the final state.
-    case none
+    /// How the content will be animated.
+    /// This is only valid for matched items.
+    public enum ContentAnimation {
+        /// The content will be faded from the start content to the final content.
+        case fade
+        /// There will be no animation. It will just always be in the final state.
+        case final
+    }
 }
 
 extension UIView {

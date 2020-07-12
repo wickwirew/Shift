@@ -12,19 +12,19 @@ final class Snapshot: UIView {
     
     private let finalContent: UIView?
     private let initialContent: UIView?
-    private let sizing: ContentSizing
-    private let animation: ContentAnimation
+    private let sizing: ShiftViewOptions.ContentSizing
+    private let animation: ShiftViewOptions.ContentAnimation
     
     init(finalContent: UIView?,
          initialContent: UIView?,
-         sizing: ContentSizing,
-         animation: ContentAnimation) {
+         sizing: ShiftViewOptions.ContentSizing,
+         animation: ShiftViewOptions.ContentAnimation) {
         
         self.finalContent = finalContent?.snapshot()
         switch animation {
         case .fade:
             self.initialContent = initialContent?.snapshot()
-        case .none:
+        case .final:
             self.initialContent = nil
         }
         
@@ -41,7 +41,7 @@ final class Snapshot: UIView {
         case .fade:
             finalContent?.alpha = 0
             initialContent?.alpha = 1
-        case .none:
+        case .final:
             break
         }
     }
@@ -51,7 +51,7 @@ final class Snapshot: UIView {
         case .fade:
             finalContent?.alpha = 1
             initialContent?.alpha = 0
-        case .none:
+        case .final:
             break
         }
     }

@@ -55,7 +55,7 @@ public final class ViewContext {
                 finalContent: view,
                 initialContent: nil,
                 sizing: options.contentSizing,
-                animation: .none
+                animation: .final
             )
         }
         
