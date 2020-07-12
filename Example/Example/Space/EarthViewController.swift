@@ -31,20 +31,6 @@ class EarthViewController: UIViewController {
         moon.addGestureRecognizer(tap)
     }
     
-    var isFirst = true
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        delay {
-            if self.isFirst {
-                self.moonTapped()
-                self.isFirst = false
-            } else {
-                self.navigationController?.popViewController(animated: true)
-            }
-        }
-    }
-    
     @objc func moonTapped() {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "MoonViewController")

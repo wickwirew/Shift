@@ -54,7 +54,7 @@ self.animator.animate(
     }
 )
 ```
-Thats about all the code needed. See the default [modal transition animator](https://github.com/wickwirew/Shift/blob/8c4f806a776bcbcb3a729688ec77d79599e08e3b/Shift/Transitions/Modal/ModalTransitionPresenting.swift#L30) supplied for the full example.
+Thats about all the code needed. See the default [modal transition animator](https://github.com/wickwirew/Shift/blob/master/Shift/Transitions/Modal/ModalTransitionDismissing.swift) supplied for the full example.
 
 # Credits
 * [Hero](https://github.com/HeroTransitions/Hero) was obviously a huge inspiration behind this library, so a ton of credit goes to [lkzhao](https://github.com/lkzhao) and the [Contributors](https://github.com/HeroTransitions/Hero/graphs/contributors). This is merely another option if Hero does not nessecarily do everything you need.

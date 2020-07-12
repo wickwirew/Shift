@@ -29,14 +29,6 @@ class MovieViewController: UIViewController {
         actionsButton.imageView?.shift.id = "movieIcon"
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        delay {
-            self.actionsButtonPressed(self)
-        }
-    }
-    
     @IBAction func actionsButtonPressed(_ sender: Any) {
         let viewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "ActionsViewController")
