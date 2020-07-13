@@ -16,7 +16,6 @@ class SelectionViewController: UIViewController {
     var examples: [Section] = [
         Section(name: "Demos", examples: [
             Example(name: "Music Player", viewController: "ArtistViewController"),
-            Example(name: "Playground", viewController: "FirstPlaygroundViewController"),
             Example(name: "Space", viewController: "SpaceViewController", isModal: false),
             Example(name: "Movie", viewController: "MovieViewController"),
         ]),
