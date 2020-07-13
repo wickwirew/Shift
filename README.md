@@ -147,22 +147,21 @@ star.shift.superview = .container
 ![Container](https://github.com/wickwirew/Shift/blob/master/Resources/Container.gif)
 
 ## Custom Transitions
-If you need to supply your own `UIViewControllerAnimatedTransitioning` or `UIPresentationController`, it is very simply to incorporate shift into the transition.
+If you need to supply your own `UIViewControllerAnimatedTransitioning` or `UIPresentationController`, it is very simply to incorporate **Shift** into the transition.
 At the heart of every transition is the `Animator`. It is responsible for performing the animations.
-In your `UIViewControllerAnimatedTransitioning` subclass declare a new animator:
+In your `UIViewControllerAnimatedTransitioning` subclass, in the `animateTransition(using transitionContext:)` function declare a new animator, and call animate.
 ```swift
-let animator = Animator()
-```
-Then in `animateTransition(using transitionContext:)` call the animator's `animate` method:
-```swift
-self.animator.animate(
-    fromView: fromViewController.view,
-    toView: toViewController.view,
+let animator = Animator(
+    fromView: fromViewController,
+    toView: toViewController,
     container: transitionContext.containerView,
-    completion: { complete in
-        transitionContext.completeTransition(complete)
-    }
+    isPresenting: true
 )
+
+animator.animate { complete in
+    toViewController.view.alpha = 1
+    transitionContext.completeTransition(complete)
+}
 ```
 See the default [modal transition animator](https://github.com/wickwirew/Shift/blob/master/Shift/Transitions/Modal/ModalTransitionDismissing.swift) supplied for the full example.
 
