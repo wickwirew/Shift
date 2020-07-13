@@ -69,6 +69,16 @@ public final class Animator {
         )
     }
     
+    /// The view being presented or dismissed.
+    private var sourceView: UIView {
+        return isPresenting ? toView : fromView
+    }
+    
+    /// The other view than the `sourceView`
+    private var nonSourceView: UIView {
+        return isPresenting ? fromView : toView
+    }
+    
     /// Perform the transition animation.
     /// - Parameter completion: A closure to be called on completion.
     public func animate(completion: @escaping (Bool) -> Void) {
@@ -116,77 +126,87 @@ public final class Animator {
     /// Builds the list of `views` used for the transition,
     /// and also assigns any matches that may exist.
     private func buildViews() -> ShiftViews {
-        let fromViews = deconstruct(
-            view: fromView,
-            reverseAnimations: true
+        // Bit of a logic shift here. Normally we can think about things
+        // in the context of "to" and "from" views. However we need to make the matches
+        // in the "source" view. e.g. the view being presented or dismissed.
+        
+        let potential = potentialMatches(of: nonSourceView)
+        
+        let (sourceViews, matches) = animatedViews(
+            of: sourceView,
+            reverseAnimations: !isPresenting,
+            potentialMatches: potential,
+            ignoreViews: []
         )
         
-        let toViews = deconstruct(
-            view: toView,
-            reverseAnimations: false
+        let (nonSourceViews, _) = animatedViews(
+            of: nonSourceView,
+            reverseAnimations: isPresenting,
+            potentialMatches: [:],
+            ignoreViews: matches
         )
-        
-        findMatches(toViews: toViews, fromViews: fromViews)
         
         return ShiftViews(
-            fromViews: fromViews,
-            toViews: toViews,
+            fromViews: isPresenting ? nonSourceViews : sourceViews,
+            toViews: isPresenting ? sourceViews : nonSourceViews,
             order: viewOrder,
             isPresenting: isPresenting
         )
     }
-
-    func findMatches(toViews: [ViewContext], fromViews: [ViewContext]) {
-        /// The views that the matches will be assigned too.
-        let sourceViews: [ViewContext]
-        /// The views that are potential matches for the source views.
-        /// Any view that is matched will be hidden in these views
-        /// since they are matched in the source view.
-        let otherViews: [ViewContext]
+    
+    /// Builds up a list of views that need to be animated in the transition.
+    private func animatedViews(of view: UIView,
+                               reverseAnimations: Bool,
+                               potentialMatches: [String: UIView],
+                               ignoreViews: Set<String>,
+                               parent: ViewContext? = nil) -> ([ViewContext], Set<String>) {
+        var views = [ViewContext]()
+        var matches = Set<String>()
         
-        // We want to always match against the view being transitioned too,
-        // or the view being dismissed.
-        if isPresenting {
-            sourceViews = toViews
-            otherViews = fromViews
-        } else {
-            sourceViews = fromViews
-            otherViews = toViews
-        }
-        
-        findMatches(
-            for: sourceViews,
-            in: otherViews
+        animatedViews(
+            of: view,
+            reverseAnimations: reverseAnimations,
+            potentialMatches: potentialMatches,
+            ignoreViews: ignoreViews,
+            parent: parent,
+            views: &views,
+            matches: &matches
         )
+        
+        return (views, matches)
     }
     
-    func findMatches(for sourceViews: [ViewContext],
-                     in otherViews: [ViewContext]) {
-        // Get a lookup of views by their `shift.id`
-        let otherViewsByIds = otherViews
-            .filter{ $0.id != nil }
-            .reduce(into: [String: ViewContext](), { $0[$1.id!] = $1 })
-
-        // Loop through views, and looking for matches.
-        for view in sourceViews {
-            guard let id = view.id,
-                let match = otherViewsByIds[id] else { continue }
-            
-            match.isHidden = true
-            
-            view.setMatch(to: match, container: container)
-        }
-    }
-
-    private func deconstruct(view: UIView,
-                             reverseAnimations: Bool,
-                             parent: ViewContext? = nil) -> [ViewContext] {
-        guard !view.isHidden else { return [] }
-        
-        var views = [ViewContext]()
+    /// Builds up a list of views that need to be animated in the transition.
+    private func animatedViews(of view: UIView,
+                               reverseAnimations: Bool,
+                               potentialMatches: [String: UIView],
+                               ignoreViews: Set<String>,
+                               parent: ViewContext?,
+                               views: inout [ViewContext],
+                               matches: inout Set<String>) {
+        guard !view.isHidden else { return}
         var parent = parent
         
-        if view.shift.requiresAnimation || parent == nil {
+        if let id = view.shift.id, ignoreViews.contains(id) {
+            // View is listed in the ignore views so ignore.
+            // It was already matched so it exists in the other view.
+            return
+        }
+        
+        if let id = view.shift.id, let match = potentialMatches[id] {
+            let context = ViewContext(
+                view: view,
+                match: match,
+                superview: .global(container),
+                reverseAnimations: reverseAnimations,
+                baselineDuration: baselineDuration,
+                isRootView: parent == nil
+            )
+            
+            matches.insert(id)
+            views.append(context)
+            parent = context
+        } else if view.shift.requiresAnimation || parent == nil {
             let superView: Superview
             if let parent = parent, view.shift.superview != .container {
                 superView = .parent(parent)
@@ -195,7 +215,8 @@ public final class Animator {
             }
             
             let context = ViewContext(
-                toView: view,
+                view: view,
+                match: nil,
                 superview: superView,
                 reverseAnimations: reverseAnimations,
                 baselineDuration: baselineDuration,
@@ -207,16 +228,16 @@ public final class Animator {
         }
         
         for subview in view.subviews {
-            let subviews = deconstruct(
-                view: subview,
+            animatedViews(
+                of: subview,
                 reverseAnimations: reverseAnimations,
-                parent: parent
+                potentialMatches: potentialMatches,
+                ignoreViews: ignoreViews,
+                parent: parent,
+                views: &views,
+                matches: &matches
             )
-            
-            views.append(contentsOf: subviews)
         }
-        
-        return views
     }
 
     private func delay(_ duration: TimeInterval, action: @escaping () -> Void) {
@@ -243,6 +264,24 @@ public final class Animator {
         container.addSubview(fromViewShapshot)
         fromViewShapshot.frame = fromView.frame
         return fromViewShapshot
+    }
+    
+    /// Builds up a dictionary of views that have an `id` set.
+    func potentialMatches(of view: UIView) -> [String: UIView] {
+        var result = [String: UIView]()
+        potentialMatches(of: view, result: &result)
+        return result
+    }
+    
+    /// Builds up a dictionary of views that have an `id` set.
+    private func potentialMatches(of view: UIView, result: inout [String: UIView]) {
+        if let id = view.shift.id {
+            result[id] = view
+        }
+        
+        for subview in view.subviews {
+            potentialMatches(of: subview, result: &result)
+        }
     }
 }
 

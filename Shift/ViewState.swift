@@ -9,7 +9,6 @@
 import UIKit
 
 public struct ViewState {
-    
     var position: CGPoint
     var bounds: CGRect
     var alpha: CGFloat

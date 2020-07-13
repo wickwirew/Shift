@@ -19,67 +19,74 @@ public final class ViewContext {
     /// If view controllers are being transitioned this would be the
     /// view controller's `view` property.
     public let isRootView: Bool
-    
     /// The view being animated.
     let view: UIView
     /// The match for the view if any.
-    var match: UIView?
+    private var match: UIView?
     /// The snapshot of view view that the animations will be applied to.
-    var snapshot: Snapshot?
+    private var snapshot: Snapshot?
     /// The starting view state for the `snapshot`
-    var initialState: ViewState
+    private var initialState: ViewState
     /// The final view state for the `snapshot`
-    var finalState: ViewState
+    private var finalState: ViewState
     /// The superview for the `snapshot`
-    var superview: Superview
+    private var superview: Superview
     /// The `match`'s original alpha.
-    var matchOriginalAlpha: CGFloat = 0
+    private var matchOriginalAlpha: CGFloat = 0
     /// The `view`'s original alpha.
-    let viewOriginalAlpha: CGFloat
+    private let viewOriginalAlpha: CGFloat
     /// Whether or not to reverse the animations.
-    var reverseAnimations: Bool
+    private var reverseAnimations: Bool
     /// The minimum time for the duration calculation.
-    let baselineDuration: TimeInterval
-    
+    private let baselineDuration: TimeInterval
     /// Any options for the view.
     /// These are a mutable copy of the the view's original options.
     private var options: ShiftViewOptions
-    
+    /// The animation duration.
     lazy var duration = calculateDuration()
     
-    init(toView: UIView,
+    init(view: UIView,
+         match: UIView?,
          superview: Superview,
          reverseAnimations: Bool,
          baselineDuration: TimeInterval,
          isRootView: Bool) {
-        self.view = toView
-        self.options = toView.shift.copy()
-        self.viewOriginalAlpha = toView.alpha
-        let finalState = ViewState(view: toView, superview: superview)
-        self.initialState = finalState
-        self.finalState = finalState
+        self.view = view
+        self.match = match
+        self.options = view.shift.copy()
+        self.viewOriginalAlpha = view.alpha
+        self.matchOriginalAlpha = match?.alpha ?? 0
         self.superview = superview
         self.reverseAnimations = reverseAnimations
         self.baselineDuration = baselineDuration
         self.isRootView = isRootView
+        
+        if let match = match {
+            if reverseAnimations {
+                self.finalState = ViewState(view: match, superview: superview)
+                self.initialState = ViewState(view: view, superview: superview)
+            } else {
+                self.initialState = ViewState(view: match, superview: superview)
+                self.finalState = ViewState(view: view, superview: superview)
+            }
+        } else {
+            let finalState = ViewState(view: view, superview: superview)
+            self.initialState = finalState
+            self.finalState = finalState
+        }
     }
     
+    /// The identifier for the view.
     public var id: String? {
         return options.id
     }
     
+    /// Any animations to apply to the view.
     public var animations: Animations {
         return options.animations
     }
     
-    public var isHidden: Bool {
-        get {
-            return options.isHidden
-        } set {
-            options.isHidden = newValue
-        }
-    }
-    
+    /// Takes the snapshot of the `view` and `match`.
     func takeSnapshot() {
         guard !options.isHidden else { return }
         
@@ -112,21 +119,8 @@ public final class ViewContext {
         match?.alpha = 0
         view.alpha = 0
     }
-    
-    func setMatch(to match: ViewContext, container: UIView) {
-        self.match = match.view
-        self.matchOriginalAlpha = match.view.alpha
-        self.superview = .global(container)
-        
-        if reverseAnimations {
-            self.finalState = ViewState(view: match.view, superview: superview)
-            self.initialState = ViewState(view: view, superview: superview)
-        } else {
-            self.initialState = ViewState(view: match.view, superview: superview)
-            self.finalState = ViewState(view: view, superview: superview)
-        }
-    }
-    
+
+    /// Adds the `snapshot` to the defined `superview`
     func addSnapshot() {
         // if view is hidden then it will not have a value.
         guard let snapshot = snapshot else { return }
@@ -139,6 +133,10 @@ public final class ViewContext {
         }
     }
     
+    /// Adjusts the `snapshot`s position in the view container.
+    /// This cannot be done in `addSnapshot`, since not all views
+    /// have been added yet. There is still a chance a view can
+    /// be added on top.
     func adjustPosition() {
         guard let snapshot = snapshot else { return }
         
@@ -152,7 +150,9 @@ public final class ViewContext {
         }
     }
     
+    /// Applies any animations to the view.
     func applyModifers(filter: Animations.Filter) {
+        // Only unmatched view can have animations applied.
         guard match == nil else { return }
         
         if reverseAnimations {
@@ -272,7 +272,6 @@ extension Array where Element == ViewContext {
 }
 
 enum Superview {
-    
     case global(UIView)
     case parent(ViewContext)
     
