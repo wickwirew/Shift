@@ -64,22 +64,22 @@ extension UIViewController {
                 let coordinate = NavControllerTransitionCoordinator()
                 nav.delegate = coordinate
                 setAssociatedObject(key: &Keys.transitionCoordinator, to: coordinate)
-            } else {
-                let existing = getAssociatedObject(
-                    key: &Keys.transitionDelegate,
-                    as: ModalTransitioningDelegate.self
-                )
-                
-                guard existing == nil else { return }
-                
-                let delegate = ModalTransitioningDelegate()
-                
-                modalPresentationStyle = .custom
-                transitioningDelegate = delegate
-                modalTransitionStyle = .crossDissolve
-                
-                setAssociatedObject(key: &Keys.transitionDelegate, to: delegate)
             }
+            
+            let existing = getAssociatedObject(
+                key: &Keys.transitionDelegate,
+                as: ModalTransitioningDelegate.self
+            )
+            
+            guard existing == nil else { return }
+            
+            let delegate = ModalTransitioningDelegate()
+            
+            modalPresentationStyle = .custom
+            transitioningDelegate = delegate
+            modalTransitionStyle = .crossDissolve
+            
+            setAssociatedObject(key: &Keys.transitionDelegate, to: delegate)
         }
     }
 }

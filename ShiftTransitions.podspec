@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name         = "ShiftTransitions"
-    s.version      = "0.1.1"
+    s.version      = "0.1.2"
 	s.swift_version = '5.1'
     s.summary      = "Shift is a simple, delarative animation library for building complex view controller and view transitions in UIKit."
     s.description  = <<-DESC
