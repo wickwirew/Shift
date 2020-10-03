@@ -16,5 +16,9 @@ final class ModalTransitionPresentationController: UIPresentationController {
             presentedViewController: presentedViewController,
             presenting: presentingViewController
         )
+        
+        if #available(iOS 13.0, *) {
+            overrideTraitCollection = UITraitCollection(userInterfaceLevel: .base)
+        }
     }
 }
