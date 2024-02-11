@@ -25,10 +25,14 @@ public class ModalTransitionDismissing: NSObject, UIViewControllerAnimatedTransi
             container: transitionContext.containerView,
             isPresenting: false
         )
+            
+        let delegate = toViewController as? ShiftViewControllerTransitionDelegate
+        delegate?.shiftAnimationWillBegin()
         
         animator.animate { complete in
             fromViewController.view.removeFromSuperview()
             transitionContext.completeTransition(complete)
+            delegate?.shiftAnimationDidFinish()
         }
     }
 }

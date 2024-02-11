@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE14284E2B7974A100B8ECE2 /* ShiftViewControllerTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE14284D2B7974A100B8ECE2 /* ShiftViewControllerTransitionDelegate.swift */; };
 		DE2572F3233ACDF200B19BE0 /* UIView+Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572EF233ACDF200B19BE0 /* UIView+Shift.swift */; };
 		DE2572F4233ACDF200B19BE0 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F0233ACDF200B19BE0 /* Animator.swift */; };
 		DE2572F5233ACDF200B19BE0 /* CALayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE2572F1233ACDF200B19BE0 /* CALayer+Extensions.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DE14284D2B7974A100B8ECE2 /* ShiftViewControllerTransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShiftViewControllerTransitionDelegate.swift; sourceTree = "<group>"; };
 		DE2572EF233ACDF200B19BE0 /* UIView+Shift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Shift.swift"; sourceTree = "<group>"; };
 		DE2572F0233ACDF200B19BE0 /* Animator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		DE2572F1233ACDF200B19BE0 /* CALayer+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CALayer+Extensions.swift"; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			children = (
 				DE839F62236A3A090080C4AA /* NavigationController */,
 				DE839F61236A3A010080C4AA /* Modal */,
+				DE14284D2B7974A100B8ECE2 /* ShiftViewControllerTransitionDelegate.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				DE25732F233AD66300B19BE0 /* ModalTransitionDismissing.swift in Sources */,
 				DE2572F5233ACDF200B19BE0 /* CALayer+Extensions.swift in Sources */,
 				DE25732D233AD5DF00B19BE0 /* ModalTransitionPresenting.swift in Sources */,
+				DE14284E2B7974A100B8ECE2 /* ShiftViewControllerTransitionDelegate.swift in Sources */,
 				DE2572FA233ACE3400B19BE0 /* ViewState.swift in Sources */,
 				DE6236C2234C238100F3B010 /* UIViewController+Shift.swift in Sources */,
 				DE25732B233AD57900B19BE0 /* ModalTransitionPresentationController.swift in Sources */,

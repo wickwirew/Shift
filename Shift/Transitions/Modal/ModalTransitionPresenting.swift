@@ -32,9 +32,13 @@ public class ModalTransitionPresenting: NSObject, UIViewControllerAnimatedTransi
             isPresenting: true
         )
         
+        let delegate = toViewController as? ShiftViewControllerTransitionDelegate
+        delegate?.shiftAnimationWillBegin()
+        
         animator.animate { complete in
             toViewController.view.alpha = 1
             transitionContext.completeTransition(complete)
+            delegate?.shiftAnimationDidFinish()
         }
     }
 }
