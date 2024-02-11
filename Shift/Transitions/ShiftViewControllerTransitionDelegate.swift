@@ -16,7 +16,7 @@ public protocol ShiftViewControllerTransitionDelegate {
     func shiftAnimationDidFinish()
 }
 
-extension ShiftViewControllerTransitionDelegate {
+public extension ShiftViewControllerTransitionDelegate {
     func shiftAnimationWillBegin() {}
     func shiftAnimationDidFinish() {}
 }
